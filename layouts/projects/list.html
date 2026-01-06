@@ -1,0 +1,282 @@
+{{ define "main" }}
+
+{{/* Collect unique tags */}}
+{{ $allTags := slice }}
+{{ range .RegularPages }}
+  {{ range .Params.tags }}
+    {{ $allTags = $allTags | append . }}
+  {{ end }}
+{{ end }}
+{{ $allTags = $allTags | uniq | sort }}
+
+<h1 style="text-align:center; font-size:2rem; font-weight:bold; margin-bottom:1.5rem;">
+  {{ .Title }}
+</h1>
+
+<!-- Filter buttons -->
+<div class="project-filters" style="text-align:center; margin-bottom:2.5rem;">
+  <button class="filter-btn active" data-tag="All">All</button>
+  {{ range $allTags }}
+    <button class="filter-btn" data-tag="{{ . }}">{{ . }}</button>
+  {{ end }}
+</div>
+
+<!-- 4-column responsive grid -->
+<div style="
+  display:grid; 
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap:1.5rem;
+  max-width: calc(4 * 250px + 3 * 1.5rem); 
+  margin: 0 auto;">
+
+  {{ range .RegularPages.ByDate.Reverse }}
+  <a href="{{ .RelPermalink }}" 
+    class="project-card"
+    data-tags="{{ delimit .Params.tags " " }}"
+    style="display:flex; flex-direction:column; text-align:center; height:100%;"
+  >
+
+    <!-- Square thumbnail -->
+    {{ with .Resources.GetMatch .Params.image }}
+      {{ $thumb := .Fill "400x400 Center" }}
+      <img
+        src="{{ $thumb.RelPermalink }}"
+        width="{{ $thumb.Width }}"
+        height="{{ $thumb.Height }}"
+        loading="lazy"
+        class="project-img"
+      />
+    {{ end }}
+
+    <!-- Project text -->
+    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
+      <h3 style="font-weight:600; font-size:0.9rem;">{{ .Title }}</h3>
+
+      {{ with .Params.company }}
+        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: {{ . }}</p>
+      {{ end }}
+
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
+        {{ .Params.summary }}
+      </p>
+
+      <!-- Tags -->
+      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
+        {{ range .Params.tags }}
+          <button class="tag-btn" data-tag="{{ . }}" type="button">{{ . }}</button>
+        {{ end }}
+      </div>
+    </div>
+
+  </a>
+  {{ end }}
+</div>
+
+<!-- Modern styling -->
+<style>
+/* -------------------------- */
+/* CSS Variables              */
+/* -------------------------- */
+:root {
+  --project-max-width: 400px;       /* max width for cards & images */
+}
+
+/* -------------------------- */
+/* Page Header                */
+/* -------------------------- */
+h1 {
+  color: {{ .Site.Params.color.headingsTextColor }};
+}
+html.dark h1 {
+  color: {{ .Site.Params.color.darkmode.headingsTextColor }};
+}
+
+/* -------------------------- */
+/* Filter Buttons             */
+/* -------------------------- */
+.project-filters .filter-btn {
+  display: inline-block;
+  margin: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background-color: {{ .Site.Params.color.tagFilterBackground }};
+  color: {{ .Site.Params.color.tagFilterText }};
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.project-filters .filter-btn:hover {
+  background-color: {{ .Site.Params.color.tagFilterBackgroundHover }};
+}
+.project-filters .filter-btn.active {
+  background-color: {{ .Site.Params.color.tagFilterBackgroundActive }};
+  color: white;
+  border-color: {{ .Site.Params.color.tagFilterBackgroundActive }};
+}
+html.dark .project-filters .filter-btn {
+  background-color: {{ .Site.Params.color.darkmode.tagFilterBackground }};
+  color: {{ .Site.Params.color.tagFilterText }};
+}
+html.dark .project-filters .filter-btn:hover {
+  background-color: {{ .Site.Params.color.darkmode.tagFilterBackgroundHover }};
+}
+html.dark .project-filters .filter-btn.active {
+  background-color: {{ .Site.Params.color.darkmode.tagFilterBackgroundActive }};
+  color: white;
+  border-color: {{ .Site.Params.color.darkmode.tagFilterBackgroundActive }};
+}
+
+/* -------------------------- */
+/* Project Card               */
+/* -------------------------- */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: {{ .Site.Params.color.projectCardBackground }};
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+  color: {{ .Site.Params.color.headingsTextColor }};
+  cursor: pointer;
+  max-width: var(--project-max-width);
+  margin: 0 auto;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  color: {{ .Site.Params.color.headingsTextColor }};
+}
+.project-card h3,
+.project-card p,
+.project-card span,
+.project-card button {
+  color: inherit;
+}
+.project-card:hover h3,
+.project-card:hover p,
+.project-card:hover span,
+.project-card:hover button {
+  color: inherit;
+}
+
+html.dark .project-card {
+  background-color: {{ .Site.Params.color.darkmode.projectCardBackground }};
+  color: {{ .Site.Params.color.darkmode.headingsTextColor }};
+}
+html.dark .project-card:hover {
+  box-shadow: 0 8px 15px rgba(255,255,255,0.05);
+  color: {{ .Site.Params.color.darkmode.headingsTextColor }};
+}
+html.dark .project-card h3,
+html.dark .project-card p,
+html.dark .project-card span,
+html.dark .project-card button {
+  color: inherit;
+}
+html.dark .project-card:hover h3,
+html.dark .project-card:hover p,
+html.dark .project-card:hover span,
+html.dark .project-card:hover button {
+  color: inherit;
+}
+
+/* -------------------------- */
+/* Project Image              */
+/* -------------------------- */
+.project-img {
+  width: 100%;
+  max-width: var(--project-max-width);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin: 0 auto;
+}
+
+/* -------------------------- */
+/* Project Tags               */
+/* -------------------------- */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: auto; /* push tags to bottom of flex column */
+}
+.project-tags .tag-btn {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  background-color: {{ .Site.Params.color.tagBackground }};
+  color: {{ .Site.Params.color.tagText }};
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.project-tags .tag-btn:hover {
+  background-color: {{ .Site.Params.color.tagBackgroundHover }};
+}
+html.dark .project-tags .tag-btn {
+  background-color: {{ .Site.Params.color.darkmode.tagBackground }};
+  color: {{ .Site.Params.color.darkmode.tagText }};
+}
+html.dark .project-tags .tag-btn:hover {
+  background-color: {{ .Site.Params.color.darkmode.tagBackgroundHover }};
+}
+</style>
+
+<!-- Filtering logic -->
+<script>
+  const buttons = document.querySelectorAll('.filter-btn')
+  const cards = document.querySelectorAll('.project-card')
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+
+      const tag = btn.dataset.tag
+      cards.forEach(card => {
+        const tags = card.dataset.tags.split(' ')
+        card.style.display =
+          tag === 'All' || tags.includes(tag) ? 'flex' : 'none'
+      })
+    })
+  })
+
+  // Make project tags clickable to filter projects
+  const tagButtons = document.querySelectorAll('.tag-btn');
+
+  tagButtons.forEach(tagBtn => {
+    tagBtn.addEventListener('click', (event) => {
+      event.preventDefault();   // Prevent default button action
+      event.stopPropagation();  // Stop the click from reaching the <a> parent
+
+      const tag = tagBtn.dataset.tag;
+
+      // Trigger the filter button
+      const filterBtn = Array.from(buttons).find(b => b.dataset.tag === tag);
+      if (filterBtn) {
+        filterBtn.click();
+
+        // Optional: scroll to top of grid after filtering
+        document.querySelector('div[style*="grid-template-columns"]').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Check URL for tag query param
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialTag = urlParams.get("tag");
+  if (initialTag) {
+    const filterBtn = Array.from(buttons).find(b => b.dataset.tag === initialTag);
+    if (filterBtn) filterBtn.click();
+  }
+</script>
+
+{{ end }}
