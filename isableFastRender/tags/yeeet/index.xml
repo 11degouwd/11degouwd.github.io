@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>YEEET on Hugo Profile</title>
+    <link>http://localhost:1313/tags/yeeet/</link>
+    <description>Recent content in YEEET on Hugo Profile</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/yeeet/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Yeeted HVAC Controller</title>
+      <link>http://localhost:1313/projects/project2/</link>
+      <pubDate>Sun, 30 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project2/</guid>
+      <description>Embedded firmware and cloud integration. rojnerponcojkencj knjefn cje 2oj r jrjf vjrf3jr fjv er jpev jef vje vje vje rfv eiojpfd bvr wfjbv nf;wedl v;jke wkljfe; v.</description>
+    </item>
+    <item>
+      <title>blah HVAC Controller</title>
+      <link>http://localhost:1313/projects/project3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project3/</guid>
+      <description>Embedded firmware and cloud integration.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Embedded on Hugo Profile</title>
+    <link>http://localhost:1313/tags/embedded/</link>
+    <description>Recent content in Embedded on Hugo Profile</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/embedded/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Yeeted HVAC Controller</title>
+      <link>http://localhost:1313/projects/project2/</link>
+      <pubDate>Sun, 30 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project2/</guid>
+      <description>Embedded firmware and cloud integration. rojnerponcojkencj knjefn cje 2oj r jrjf vjrf3jr fjv er jpev jef vje vje vje rfv eiojpfd bvr wfjbv nf;wedl v;jke wkljfe; v.</description>
+    </item>
+    <item>
+      <title>blah HVAC Controller</title>
+      <link>http://localhost:1313/projects/project3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project3/</guid>
+      <description>Embedded firmware and cloud integration.</description>
+    </item>
+    <item>
+      <title>dfcd HVAC Controller</title>
+      <link>http://localhost:1313/projects/project5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project5/</guid>
+      <description>Embedded firmware and cloud integration.</description>
+    </item>
+    <item>
+      <title>duh HVAC Controller</title>
+      <link>http://localhost:1313/projects/project4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project4/</guid>
+      <description>Embedded firmware and cloud integration.</description>
+    </item>
+    <item>
+      <title>duvfgvfgh HVAC Controller</title>
+      <link>http://localhost:1313/projects/project6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project6/</guid>
+      <description>Embedded firmware and cloud integration.</description>
+    </item>
+    <item>
+      <title>Senior Embedded Engineer</title>
+      <link>http://localhost:1313/work/job1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/work/job1/</guid>
+      <description>Worked on low-level firmware and IoT device integration.</description>
+    </item>
+    <item>
+      <title>Smart HVAC Controller</title>
+      <link>http://localhost:1313/projects/project1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/project1/</guid>
+      <description>Embedded firmware and cloud integration.</description>
+    </item>
+  </channel>
+</rss>
