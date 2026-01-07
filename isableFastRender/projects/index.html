@@ -29,7 +29,7 @@
 
 
 <meta property="og:url" content="http://localhost:1313/projects/">
-  <meta property="og:site_name" content="Hugo Profile">
+  <meta property="og:site_name" content="Daniel de Gouw">
   <meta property="og:title" content="Projects">
   <meta property="og:description" content="Text about my cool site">
   <meta property="og:locale" content="en_us">
@@ -102,11 +102,19 @@
 
 
 
+<meta name="description" content="Projects of Daniel de Gouw">
+<link rel="stylesheet" href="/css/projects.css" media="all">
+
+
+<script defer src="/fontawesome-6/all-6.4.2.js"></script>
+
 
   
   
 
   <title>
+Projects | Daniel de Gouw
+
   </title>
 </head>
 
@@ -171,13 +179,13 @@
                 
                 <img src="/fav.png" width="30" height="30"
                     class="d-inline-block align-top">
-                Hugo Profile
+                Daniel de Gouw
                 
             </a>
 
             
                 <div>
-                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Search...'
                         aria-label="Search" oninput="searchOnChange(event)">
                 </div>
             
@@ -196,7 +204,7 @@
                     
                         <li class="nav-item navbar-text d-block d-md-none">
                             <div class="nav-link">
-                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Search...' aria-label="Search" oninput="searchOnChange(event)">
                             </div>
                         </li>
                     
@@ -210,12 +218,27 @@
                     
 
                     
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/#experience"
-                            aria-label="experience">
-                            Experience
+                    
+
+                      
+
+                      <li class="nav-item dropdown navbar-text">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="/#experience"
+                          id="experienceDropdown"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Experience
                         </a>
-                    </li>
+                        <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
+                          
+                          <li><a class="dropdown-item" href="/work/company-1/">Company One</a></li>
+                          
+                        </ul>
+                      </li>
                     
 
                     
@@ -239,47 +262,27 @@
                     
 
                     
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/portfolio/" title="">
+                            
+                            Portfolio
+                        </a>
+                    </li>
+                    
+                    
+
+                    
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="/#contact"
                             aria-label="contact">
                             Contact
                         </a>
                     </li>
-                    
-
-                    
-
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/" title="">
-                            
-                            Home
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/projects/" title="">
-                            
-                            Projects
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/work/" title="">
-                            
-                            Work
-                        </a>
-                    </li>
-                    
                     
 
                     
@@ -312,537 +315,131 @@
         </div>
     </nav>
 </header>
-<div id="content">
-
-
-
-
-  
-    
-  
-    
-  
-
-  
-    
-  
-    
-  
-
-  
-    
-  
-    
-  
-
-  
-    
-  
-    
-  
-
-  
-    
-  
-    
-  
-
-  
-    
-  
-    
-  
-
-
-
-<h1 style="text-align:center; font-size:2rem; font-weight:bold; margin-bottom:1.5rem;">
-  Projects
-</h1>
-
-
-<div class="project-filters" style="text-align:center; margin-bottom:2.5rem;">
-  <button class="filter-btn active" data-tag="All">All</button>
-  
-    <button class="filter-btn" data-tag="Embedded">Embedded</button>
-  
-    <button class="filter-btn" data-tag="IoT">IoT</button>
-  
-    <button class="filter-btn" data-tag="OMG">OMG</button>
-  
-    <button class="filter-btn" data-tag="YEEET">YEEET</button>
-  
-</div>
-
-
-<div style="
-  display:grid; 
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  gap:1.5rem;
-  max-width: calc(4 * 250px + 3 * 1.5rem); 
-  margin: 0 auto;">
-
-  
-  <a href="/projects/project2/" 
-    class="project-card"
-    data-tags="Embedded YEEET"
-    style="display:flex; flex-direction:column; text-align:center; height:100%;"
-  >
-
-    
-    
-      
-      <img
-        src="/projects/project2/image_hu_dfe3714fde1eecc1.jpg"
-        width="400"
-        height="400"
-        loading="lazy"
-        class="project-img"
-      />
-    
-
-    
-    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-      <h3 style="font-weight:600; font-size:0.9rem;">Yeeted HVAC Controller</h3>
-
-      
-        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: yeowza X</p>
-      
-
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
-        Embedded firmware and cloud integration. rojnerponcojkencj knjefn cje 2oj r jrjf vjrf3jr fjv er jpev jef vje vje vje rfv eiojpfd bvr wfjbv nf;wedl v;jke wkljfe; v.
-      </p>
-
-      
-      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-        
-          <button class="tag-btn" data-tag="Embedded" type="button">Embedded</button>
-        
-          <button class="tag-btn" data-tag="YEEET" type="button">YEEET</button>
-        
-      </div>
-    </div>
-
-  </a>
-  
-  <a href="/projects/project1/" 
-    class="project-card"
-    data-tags="Embedded IoT"
-    style="display:flex; flex-direction:column; text-align:center; height:100%;"
-  >
-
-    
-    
-      
-      <img
-        src="/projects/project1/image_hu_dfe3714fde1eecc1.jpg"
-        width="400"
-        height="400"
-        loading="lazy"
-        class="project-img"
-      />
-    
-
-    
-    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-      <h3 style="font-weight:600; font-size:0.9rem;">Smart HVAC Controller</h3>
-
-      
-        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: Startup X</p>
-      
-
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
-        Embedded firmware and cloud integration.
-      </p>
-
-      
-      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-        
-          <button class="tag-btn" data-tag="Embedded" type="button">Embedded</button>
-        
-          <button class="tag-btn" data-tag="IoT" type="button">IoT</button>
-        
-      </div>
-    </div>
-
-  </a>
-  
-  <a href="/projects/project6/" 
-    class="project-card"
-    data-tags="Embedded OMG"
-    style="display:flex; flex-direction:column; text-align:center; height:100%;"
-  >
-
-    
-    
-      
-      <img
-        src="/projects/project6/image_hu_dfe3714fde1eecc1.jpg"
-        width="400"
-        height="400"
-        loading="lazy"
-        class="project-img"
-      />
-    
-
-    
-    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-      <h3 style="font-weight:600; font-size:0.9rem;">duvfgvfgh HVAC Controller</h3>
-
-      
-        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: yeowza X</p>
-      
-
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
-        Embedded firmware and cloud integration.
-      </p>
-
-      
-      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-        
-          <button class="tag-btn" data-tag="Embedded" type="button">Embedded</button>
-        
-          <button class="tag-btn" data-tag="OMG" type="button">OMG</button>
-        
-      </div>
-    </div>
-
-  </a>
-  
-  <a href="/projects/project4/" 
-    class="project-card"
-    data-tags="Embedded OMG"
-    style="display:flex; flex-direction:column; text-align:center; height:100%;"
-  >
-
-    
-    
-      
-      <img
-        src="/projects/project4/image_hu_dfe3714fde1eecc1.jpg"
-        width="400"
-        height="400"
-        loading="lazy"
-        class="project-img"
-      />
-    
-
-    
-    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-      <h3 style="font-weight:600; font-size:0.9rem;">duh HVAC Controller</h3>
-
-      
-        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: yeowza X</p>
-      
-
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
-        Embedded firmware and cloud integration.
-      </p>
-
-      
-      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-        
-          <button class="tag-btn" data-tag="Embedded" type="button">Embedded</button>
-        
-          <button class="tag-btn" data-tag="OMG" type="button">OMG</button>
-        
-      </div>
-    </div>
-
-  </a>
-  
-  <a href="/projects/project5/" 
-    class="project-card"
-    data-tags="Embedded OMG"
-    style="display:flex; flex-direction:column; text-align:center; height:100%;"
-  >
-
-    
-    
-      
-      <img
-        src="/projects/project5/image_hu_dfe3714fde1eecc1.jpg"
-        width="400"
-        height="400"
-        loading="lazy"
-        class="project-img"
-      />
-    
-
-    
-    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-      <h3 style="font-weight:600; font-size:0.9rem;">dfcd HVAC Controller</h3>
-
-      
-        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: yeowza X</p>
-      
-
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
-        Embedded firmware and cloud integration.
-      </p>
-
-      
-      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-        
-          <button class="tag-btn" data-tag="Embedded" type="button">Embedded</button>
-        
-          <button class="tag-btn" data-tag="OMG" type="button">OMG</button>
-        
-      </div>
-    </div>
-
-  </a>
-  
-  <a href="/projects/project3/" 
-    class="project-card"
-    data-tags="Embedded YEEET"
-    style="display:flex; flex-direction:column; text-align:center; height:100%;"
-  >
-
-    
-    
-      
-      <img
-        src="/projects/project3/image_hu_dfe3714fde1eecc1.jpg"
-        width="400"
-        height="400"
-        loading="lazy"
-        class="project-img"
-      />
-    
-
-    
-    <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-      <h3 style="font-weight:600; font-size:0.9rem;">blah HVAC Controller</h3>
-
-      
-        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: yeowza X</p>
-      
-
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">
-        Embedded firmware and cloud integration.
-      </p>
-
-      
-      <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-        
-          <button class="tag-btn" data-tag="Embedded" type="button">Embedded</button>
-        
-          <button class="tag-btn" data-tag="YEEET" type="button">YEEET</button>
-        
-      </div>
-    </div>
-
-  </a>
-  
-</div>
-
 
 <style>
- 
- 
- 
-:root {
-  --project-max-width: 400px;        
-}
-
- 
- 
- 
-h1 {
-  color: #343a40;
-}
-html.dark h1 {
-  color: #b0b3b8;
-}
-
- 
- 
- 
-.project-filters .filter-btn {
-  display: inline-block;
-  margin: 0.25rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
-  border: 1px solid transparent;
-  background-color: #eef2ff;
-  color: #4338ca;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.project-filters .filter-btn:hover {
-  background-color: #dbeafe;
-}
-.project-filters .filter-btn.active {
-  background-color: #4f46e5;
-  color: white;
-  border-color: #4f46e5;
-}
-html.dark .project-filters .filter-btn {
-  background-color: #1f2937;
-  color: #4338ca;
-}
-html.dark .project-filters .filter-btn:hover {
-  background-color: #374151;
-}
-html.dark .project-filters .filter-btn.active {
-  background-color: #6366f1;
-  color: white;
-  border-color: #6366f1;
-}
-
- 
- 
- 
-.project-card {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  text-decoration: none;
-  color: #343a40;
-  cursor: pointer;
-  max-width: var(--project-max-width);
-  margin: 0 auto;
-}
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-  color: #343a40;
-}
-.project-card h3,
-.project-card p,
-.project-card span,
-.project-card button {
-  color: inherit;
-}
-.project-card:hover h3,
-.project-card:hover p,
-.project-card:hover span,
-.project-card:hover button {
-  color: inherit;
-}
-
-html.dark .project-card {
-  background-color: #1f2937;
-  color: #b0b3b8;
-}
-html.dark .project-card:hover {
-  box-shadow: 0 8px 15px rgba(255,255,255,0.05);
-  color: #b0b3b8;
-}
-html.dark .project-card h3,
-html.dark .project-card p,
-html.dark .project-card span,
-html.dark .project-card button {
-  color: inherit;
-}
-html.dark .project-card:hover h3,
-html.dark .project-card:hover p,
-html.dark .project-card:hover span,
-html.dark .project-card:hover button {
-  color: inherit;
-}
-
- 
- 
- 
-.project-img {
-  width: 100%;
-  max-width: var(--project-max-width);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  margin: 0 auto;
-}
-
- 
- 
- 
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.25rem;
-  margin-top: auto;  
-}
-.project-tags .tag-btn {
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
-  background-color: #e0e7ff;
-  color: #4338ca;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-.project-tags .tag-btn:hover {
-  background-color: #c7d2fe;
-}
-html.dark .project-tags .tag-btn {
-  background-color: #374151;
-  color: #e0e7ff;
-}
-html.dark .project-tags .tag-btn:hover {
-  background-color: ;
-}
+   
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
 </style>
 
-
 <script>
-  const buttons = document.querySelectorAll('.filter-btn')
-  const cards = document.querySelectorAll('.project-card')
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'))
-      btn.classList.add('active')
-
-      const tag = btn.dataset.tag
-      cards.forEach(card => {
-        const tags = card.dataset.tags.split(' ')
-        card.style.display =
-          tag === 'All' || tags.includes(tag) ? 'flex' : 'none'
-      })
-    })
-  })
-
   
-  const tagButtons = document.querySelectorAll('.tag-btn');
-
-  tagButtons.forEach(tagBtn => {
-    tagBtn.addEventListener('click', (event) => {
-      event.preventDefault();   
-      event.stopPropagation();  
-
-      const tag = tagBtn.dataset.tag;
-
+  document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(el => {
+    el.addEventListener('click', function(e) {
       
-      const filterBtn = Array.from(buttons).find(b => b.dataset.tag === tag);
-      if (filterBtn) {
-        filterBtn.click();
-
-        
-        document.querySelector('div[style*="grid-template-columns"]').scrollIntoView({ behavior: 'smooth' });
+      if (this.nextElementSibling.classList.contains('show')) {
+        window.location.href = this.href;
       }
     });
   });
-
-  
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialTag = urlParams.get("tag");
-  if (initialTag) {
-    const filterBtn = Array.from(buttons).find(b => b.dataset.tag === initialTag);
-    if (filterBtn) filterBtn.click();
-  }
-</script>
-
+</script><div id="content">
+<div class="container pt-5" id="projects">
+    <h2 class="text-center pb-2">Projects</h2>
+    <div class="row">
+        
+        <div class="col-lg-4 col-md-6 my-3">
+            <div class="card my-3 h-100" title="Yeeted HVAC Controller">
+                <div class="card-head">
+                    <img class="card-img-top" src="image.jpg" alt="Yeeted HVAC Controller">
+                </div>
+                <div class="card-body bg-transparent p-3">
+                    <div class="pb-2 bg-transparent">
+                        
+                    </div>
+                    <h5 class="card-title bg-transparent">Yeeted HVAC Controller</h5>
+                    <div class="card-text bg-transparent secondary-font">
+                        Embedded firmware and cloud integration. rojnerponcojkencj knjefn cje 2oj r jrjf vjrf3jr fjv er jpev …
+                    </div>
+                </div>
+                <div class="card-footer py-3">
+                    
+                    <span class="float-end">
+                        <a class="btn btn-sm" href="/projects/project2/">
+                            Know more
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 my-3">
+            <div class="card my-3 h-100" title="blah HVAC Controller">
+                <div class="card-head">
+                    <img class="card-img-top" src="image.jpg" alt="blah HVAC Controller">
+                </div>
+                <div class="card-body bg-transparent p-3">
+                    <div class="pb-2 bg-transparent">
+                        
+                    </div>
+                    <h5 class="card-title bg-transparent">blah HVAC Controller</h5>
+                    <div class="card-text bg-transparent secondary-font">
+                        Embedded firmware and cloud integration.
+                    </div>
+                </div>
+                <div class="card-footer py-3">
+                    
+                    <span class="float-end">
+                        <a class="btn btn-sm" href="/projects/project3/">
+                            Know more
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 my-3">
+            <div class="card my-3 h-100" title="dfcd HVAC Controller">
+                <div class="card-head">
+                    <img class="card-img-top" src="image.jpg" alt="dfcd HVAC Controller">
+                </div>
+                <div class="card-body bg-transparent p-3">
+                    <div class="pb-2 bg-transparent">
+                        
+                    </div>
+                    <h5 class="card-title bg-transparent">dfcd HVAC Controller</h5>
+                    <div class="card-text bg-transparent secondary-font">
+                        Embedded firmware and cloud integration.
+                    </div>
+                </div>
+                <div class="card-footer py-3">
+                    
+                    <span class="float-end">
+                        <a class="btn btn-sm" href="/projects/project5/">
+                            Know more
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-auto m-3">
+                
+    <ul class="pagination pagination-default">
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/projects/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/projects/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/projects/page/2/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
   </div><footer>
     
@@ -947,7 +544,7 @@ html.dark .project-tags .tag-btn:hover {
         <div class="col-md-4 text-center">
             
                 <div class="pb-2">
-                    <a href="http://localhost:1313/" title="Hugo Profile">
+                    <a href="http://localhost:1313/" title="Daniel de Gouw">
                         <img alt="Footer logo" src="/fav.png"
                             height="40px" width="40px">
                     </a>

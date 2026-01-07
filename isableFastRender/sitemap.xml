@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/tags/embedded/</loc>
-    <lastmod>2024-06-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2024-06-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/</loc>
+    <loc>http://localhost:1313/tags/embedded/</loc>
+    <lastmod>2024-06-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/portfolio/</loc>
     <lastmod>2024-06-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
@@ -17,31 +17,35 @@
     <loc>http://localhost:1313/tags/yeeet/</loc>
     <lastmod>2024-06-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/project2/</loc>
+    <loc>http://localhost:1313/portfolio/project2/</loc>
     <lastmod>2024-06-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/gallery/</loc>
     <lastmod>2022-06-25T18:35:46+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/project3/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/c&#43;&#43;/</loc>
+    <loc>http://localhost:1313/portfolio/project3/</loc>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/projects/project5/</loc>
+    <loc>http://localhost:1313/work/company-1/</loc>
   </url><url>
-    <loc>http://localhost:1313/projects/project4/</loc>
+    <loc>http://localhost:1313/portfolio/project5/</loc>
   </url><url>
-    <loc>http://localhost:1313/projects/project6/</loc>
+    <loc>http://localhost:1313/portfolio/project4/</loc>
+  </url><url>
+    <loc>http://localhost:1313/portfolio/project6/</loc>
+  </url><url>
+    <loc>http://localhost:1313/experience/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/iot/</loc>
   </url><url>
+    <loc>http://localhost:1313/tags/manufacturing/</loc>
+  </url><url>
     <loc>http://localhost:1313/tags/omg/</loc>
   </url><url>
-    <loc>http://localhost:1313/work/job1/</loc>
+    <loc>http://localhost:1313/tags/rf/</loc>
   </url><url>
-    <loc>http://localhost:1313/projects/project1/</loc>
+    <loc>http://localhost:1313/portfolio/project1/</loc>
   </url><url>
     <loc>http://localhost:1313/work/</loc>
   </url>

@@ -29,7 +29,7 @@
 
 
 <meta property="og:url" content="http://localhost:1313/work/">
-  <meta property="og:site_name" content="Hugo Profile">
+  <meta property="og:site_name" content="Daniel de Gouw">
   <meta property="og:title" content="Work Experience">
   <meta property="og:description" content="Text about my cool site">
   <meta property="og:locale" content="en_us">
@@ -102,11 +102,16 @@
 
 
 
+<meta name="description" content="Work Experience of Daniel de Gouw">
+<link rel="stylesheet" href="/css/list.css" media="all">
+
 
   
   
 
   <title>
+Work Experience | Daniel de Gouw
+
   </title>
 </head>
 
@@ -171,13 +176,13 @@
                 
                 <img src="/fav.png" width="30" height="30"
                     class="d-inline-block align-top">
-                Hugo Profile
+                Daniel de Gouw
                 
             </a>
 
             
                 <div>
-                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Search...'
                         aria-label="Search" oninput="searchOnChange(event)">
                 </div>
             
@@ -196,7 +201,7 @@
                     
                         <li class="nav-item navbar-text d-block d-md-none">
                             <div class="nav-link">
-                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Search...' aria-label="Search" oninput="searchOnChange(event)">
                             </div>
                         </li>
                     
@@ -210,12 +215,29 @@
                     
 
                     
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/#experience"
-                            aria-label="experience">
-                            Experience
+                    
+
+                      
+
+                      <li class="nav-item dropdown navbar-text">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="/#experience"
+                          id="experienceDropdown"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Experience
                         </a>
-                    </li>
+                        <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
+                          
+                          <li><a class="dropdown-item" href="/work/company-1/">Company One</a></li>
+                          
+                          <li><a class="dropdown-item" href="/work/yeet/">Company One</a></li>
+                          
+                        </ul>
+                      </li>
                     
 
                     
@@ -239,47 +261,27 @@
                     
 
                     
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/portfolio/" title="">
+                            
+                            Portfolio
+                        </a>
+                    </li>
+                    
+                    
+
+                    
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="/#contact"
                             aria-label="contact">
                             Contact
                         </a>
                     </li>
-                    
-
-                    
-
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/" title="">
-                            
-                            Home
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/projects/" title="">
-                            
-                            Projects
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/work/" title="">
-                            
-                            Work
-                        </a>
-                    </li>
-                    
                     
 
                     
@@ -312,45 +314,80 @@
         </div>
     </nav>
 </header>
-<div id="content">
 
-<h1 class="text-3xl font-bold mb-6">Work Experience</h1>
+<style>
+   
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+</style>
 
-<div class="border-l-2 border-gray-300 ml-4 pl-6">
+<script>
   
-  <div class="mb-8 relative">
-    <span class="absolute -left-4 top-1 w-3 h-3 bg-indigo-600 rounded-full"></span>
-
-    <div class="text-sm text-gray-500">
-      2020-06 – 2023-12
+  document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(el => {
+    el.addEventListener('click', function(e) {
+      
+      if (this.nextElementSibling.classList.contains('show')) {
+        window.location.href = this.href;
+      }
+    });
+  });
+</script><div id="content">
+<div class="container pt-5" id="list-page">
+    <h2 class="text-center pb-2">Work Experience</h2>
+    <div class="row">
+        
+        <div class="col-lg-4 col-md-6 my-3">
+            <div class="card-columns">
+                <div class="card h-100">
+                    
+                    <div class="card-body bg-transparent p-4 shadow-sm">
+                        <a href="/work/company-1/" class="primary-font card-title">
+                            <h5 class="card-title bg-transparent" title="Company One">Company One</h5>
+                        </a>
+                        <div class="card-text secondary-font">
+                            <p><h2 id="about-company-one">About Company One</h2>
+<p>Company One specialises in …</p>
+<p><img src="images/post.jpg" alt="YEET"></p></p>
+                        </div>
+                    </div>
+                    <div class="mt-auto post-footer bg-transparent py-3">
+                        <span class="float-start bg-transparent">Jan 1, 0001</span>
+                        <a href="/work/company-1/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 my-3">
+            <div class="card-columns">
+                <div class="card h-100">
+                    
+                    <div class="card-body bg-transparent p-4 shadow-sm">
+                        <a href="/work/yeet/" class="primary-font card-title">
+                            <h5 class="card-title bg-transparent" title="Company One">Company One</h5>
+                        </a>
+                        <div class="card-text secondary-font">
+                            <p><h2 id="about-company-one">About Company One</h2>
+<p>Company One specialises in …</p>
+<p><img src="images/post.jpg" alt="YEET"></p></p>
+                        </div>
+                    </div>
+                    <div class="mt-auto post-footer bg-transparent py-3">
+                        <span class="float-start bg-transparent">Jan 1, 0001</span>
+                        <a href="/work/yeet/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-auto m-3">
+                
+            </div>
+        </div>
     </div>
-
-    <h3 class="text-xl font-semibold">
-      Senior Embedded Engineer @ TechCorp
-    </h3>
-
-    <p class="text-gray-600">Auckland, NZ</p>
-    <p class="mt-2">Worked on low-level firmware and IoT device integration.</p>
-
-    <div class="mt-2">
-      
-        <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-xs mr-1">
-          Embedded
-        </span>
-      
-        <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-xs mr-1">
-          C&#43;&#43;
-        </span>
-      
-        <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-xs mr-1">
-          IoT
-        </span>
-      
-    </div>
-  </div>
-  
 </div>
-
 
   </div><footer>
     
@@ -455,7 +492,7 @@
         <div class="col-md-4 text-center">
             
                 <div class="pb-2">
-                    <a href="http://localhost:1313/" title="Hugo Profile">
+                    <a href="http://localhost:1313/" title="Daniel de Gouw">
                         <img alt="Footer logo" src="/fav.png"
                             height="40px" width="40px">
                     </a>
