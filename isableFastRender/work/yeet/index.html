@@ -225,6 +225,8 @@ YEET | Daniel de Gouw
                     
 
                       
+                      
+                      
 
                       <li class="nav-item dropdown navbar-text">
                         <a
@@ -238,10 +240,6 @@ YEET | Daniel de Gouw
                           Experience
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
-                          
-                          <li><a class="dropdown-item" href="/work/company-1/">Company One</a></li>
-                          
-                          <li><a class="dropdown-item" href="/work/yeet/">YEET</a></li>
                           
                         </ul>
                       </li>
@@ -343,75 +341,122 @@ YEET | Daniel de Gouw
 <section id="single">
   <div class="container">
     <div class="row justify-content-center">
-
-      
       <div class="col-sm-12 col-md-12 col-lg-9">
         <div class="pr-lg-4">
-
-          
-          <div class="title mb-5 text-center">
-            <h1 class="mb-1">YEET</h1>
-
-            
-
-            <div class="subtitle" style="margin-top:0.25rem; font-size:1rem; color:#6b7280;">
-              2021
-               - 2024
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">YEET</h1>
+            <div class="text-center">
+              
+              Jan 1, 0001
 
               
+              <span id="readingTime">
+                min read
+              </span>
               
             </div>
           </div>
-
           
-          
-
-          
-          <article class="page-content p-2">
-            <h2 id="about-company-one">About Company One</h2>
+          <article class="page-content  p-2">
+          <h2 id="about-company-one">About Company One</h2>
 <p>Company One specialises in …</p>
 <p><img src="images/post.jpg" alt="YEET"></p>
 
           </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div id="stickySideBar" class="sticky-sidebar">
           
-          
-          
-          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#about-company-one">About Company One</a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
           
 
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="http://localhost:1313/tags/embedded"
+                
+              >embedded</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:1313/tags/rf"
+                
+              >rf</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:1313/tags/manufacturing"
+                
+              >manufacturing</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://www.linkedin.com/feed/?shareActive=true&text= http%3a%2f%2flocalhost%3a1313%2fwork%2fyeet%2f">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='https://twitter.com/share?text=YEET&url=http%3a%2f%2flocalhost%3a1313%2fwork%2fyeet%2f&hashtags=embedded%2crf%2cmanufacturing'>
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=YEET: http%3a%2f%2flocalhost%3a1313%2fwork%2fyeet%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='mailto:?subject=YEET&amp;body=Check%20out%20this%20site http%3a%2f%2flocalhost%3a1313%2fwork%2fyeet%2f'>
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
           
         </div>
       </div>
     </div>
-
-    
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-9 p-4">
         
       </div>
     </div>
-
   </div>
-
-  
-  <button class="p-2 px-3" onclick="topFunction()" id="topScroll"><i class="fas fa-angle-up"></i></button>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
 </section>
-
 
 
 <div class="progress">
   <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<script src="/js/scrollProgressBar.js"></script>
-
-
-
+<Script src="/js/scrollProgressBar.js"></script>
 
 
 <script>
-  
   var topScroll = document.getElementById("topScroll");
   window.onscroll = function() {scrollFunction()};
+
   function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       topScroll.style.display = "block";
@@ -419,164 +464,27 @@ YEET | Daniel de Gouw
       topScroll.style.display = "none";
     }
   }
+
   function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
+
+  
+  let stickySideBarElem = document.getElementById("stickySideBar");
+  let stickyNavBar =  true ;
+  if(stickyNavBar) {
+    let headerElem = document.getElementById("profileHeader");
+    let headerHeight = headerElem.offsetHeight + 15;
+    stickySideBarElem.style.top = headerHeight + "px";
+  } else {
+    stickySideBarElem.style.top = "50px";
+  }
 </script>
 
-<style>
- 
- 
- 
-:root {
-  --project-max-width: 400px;        
-}
 
- 
- 
- 
-h1 {
-  color: #343a40;
-}
-html.dark h1 {
-  color: #b0b3b8;
-}
+<script src="/js/readingTime.js"></script>
 
- 
- 
- 
-.project-card {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  text-decoration: none;
-  color: #343a40;
-  cursor: pointer;
-  max-width: var(--project-max-width);
-  margin: 0 auto;
-}
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-  color: #343a40;
-}
-.project-card h3,
-.project-card p,
-.project-card span,
-.project-card button {
-  color: inherit;
-}
-.project-card:hover h3,
-.project-card:hover p,
-.project-card:hover span,
-.project-card:hover button {
-  color: inherit;
-}
-
-html.dark .project-card {
-  background-color: #1f2937;
-  color: #b0b3b8;
-}
-html.dark .project-card:hover {
-  box-shadow: 0 8px 15px rgba(255,255,255,0.05);
-  color: #b0b3b8;
-}
-html.dark .project-card h3,
-html.dark .project-card p,
-html.dark .project-card span,
-html.dark .project-card button {
-  color: inherit;
-}
-html.dark .project-card:hover h3,
-html.dark .project-card:hover p,
-html.dark .project-card:hover span,
-html.dark .project-card:hover button {
-  color: inherit;
-}
-
- 
- 
- 
-.project-img {
-  width: 100%;
-  max-width: var(--project-max-width);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  margin: 0 auto;
-}
-
- 
- 
- 
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.25rem;
-  margin-top: auto;  
-}
-.project-tags .tag-btn {
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
-  background-color: #e0e7ff;
-  color: #4338ca;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-.project-tags .tag-btn:hover {
-  background-color: #c7d2fe;
-}
-html.dark .project-tags .tag-btn {
-  background-color: #374151;
-  color: #e0e7ff;
-}
-html.dark .project-tags .tag-btn:hover {
-  background-color: ;
-}
-
- 
- 
- 
-#single .title h1,
-#single h2,
-#single .page-content h1,
-#single .page-content h2,
-#single .page-content h3,
-#single .page-content h4,
-#single .page-content h5,
-#single .page-content h6 {
-  color: #343a40 !important;
-}
-#single .subtitle {  
-  color: #6b7280 !important;
-}
-#single .page-content p {
-  color: #6c757d !important;
-}
-html.dark #single .title h1,
-html.dark #single h2,
-html.dark #single .page-content h1,
-html.dark #single .page-content h2,
-html.dark #single .page-content h3,
-html.dark #single .page-content h4,
-html.dark #single .page-content h5,
-html.dark #single .page-content h6 {
-  color: #b0b3b8 !important;
-}
-html.dark #single .subtitle {  
-  color: #b0b3b8 !important;
-}
-</style>
 
 
   </div><footer>

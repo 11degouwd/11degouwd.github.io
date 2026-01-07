@@ -108,7 +108,7 @@
                     {{ end }} -->
                     {{ if and (.Site.Params.experience.enable | default false) (not (.Site.Params.navbar.menus.disableExperience | default false)) }}
 
-                      {{ $companies := site.GetPage "work" }}
+                      {{ $companies := site.GetPage "companies" }}
 
                       <li class="nav-item dropdown navbar-text">
                         <a
