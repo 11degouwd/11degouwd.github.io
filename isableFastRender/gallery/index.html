@@ -29,7 +29,7 @@
 
 
 <meta property="og:url" content="http://localhost:1313/gallery/">
-  <meta property="og:site_name" content="Hugo Profile">
+  <meta property="og:site_name" content="Daniel de Gouw">
   <meta property="og:title" content="Image Gallery">
   <meta property="og:description" content="My gallery :earth_asia:">
   <meta property="og:locale" content="en_us">
@@ -104,7 +104,7 @@
 
 
 
-<meta name="description" content="Image Gallery of Hugo Profile">
+<meta name="description" content="Image Gallery of Daniel de Gouw">
 
 
 <link rel="stylesheet" href="/css/gallery.css">
@@ -118,7 +118,7 @@
   
 
   <title>
-Image Gallery | Hugo Profile
+Image Gallery | Daniel de Gouw
 
   </title>
 </head>
@@ -184,13 +184,13 @@ Image Gallery | Hugo Profile
                 
                 <img src="/fav.png" width="30" height="30"
                     class="d-inline-block align-top">
-                Hugo Profile
+                Daniel de Gouw
                 
             </a>
 
             
                 <div>
-                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Search...'
                         aria-label="Search" oninput="searchOnChange(event)">
                 </div>
             
@@ -209,7 +209,7 @@ Image Gallery | Hugo Profile
                     
                         <li class="nav-item navbar-text d-block d-md-none">
                             <div class="nav-link">
-                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Search...' aria-label="Search" oninput="searchOnChange(event)">
                             </div>
                         </li>
                     
@@ -223,12 +223,27 @@ Image Gallery | Hugo Profile
                     
 
                     
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/#experience"
-                            aria-label="experience">
-                            Experience
+                    
+
+                      
+
+                      <li class="nav-item dropdown navbar-text">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="/#experience"
+                          id="experienceDropdown"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Experience
                         </a>
-                    </li>
+                        <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
+                          
+                          <li><a class="dropdown-item" href="/work/company-1/">Company One</a></li>
+                          
+                        </ul>
+                      </li>
                     
 
                     
@@ -252,47 +267,27 @@ Image Gallery | Hugo Profile
                     
 
                     
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/portfolio/" title="">
+                            
+                            Portfolio
+                        </a>
+                    </li>
+                    
+                    
+
+                    
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="/#contact"
                             aria-label="contact">
                             Contact
                         </a>
                     </li>
-                    
-
-                    
-
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/" title="">
-                            
-                            Home
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/projects/" title="">
-                            
-                            Projects
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/work/" title="">
-                            
-                            Work
-                        </a>
-                    </li>
-                    
                     
 
                     
@@ -325,7 +320,25 @@ Image Gallery | Hugo Profile
         </div>
     </nav>
 </header>
-<div id="content">
+
+<style>
+   
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+</style>
+
+<script>
+  
+  document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(el => {
+    el.addEventListener('click', function(e) {
+      
+      if (this.nextElementSibling.classList.contains('show')) {
+        window.location.href = this.href;
+      }
+    });
+  });
+</script><div id="content">
 <div class="container pt-5" id="list-page">
     <h2 class="text-center pb-2">Image Gallery</h2>
     <h6 class="text-center">My gallery 🌏</h6>
@@ -489,7 +502,7 @@ Image Gallery | Hugo Profile
         <div class="col-md-4 text-center">
             
                 <div class="pb-2">
-                    <a href="http://localhost:1313/" title="Hugo Profile">
+                    <a href="http://localhost:1313/" title="Daniel de Gouw">
                         <img alt="Footer logo" src="/fav.png"
                             height="40px" width="40px">
                     </a>

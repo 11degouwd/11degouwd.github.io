@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>OMG on Hugo Profile</title>
+    <title>OMG on Daniel de Gouw</title>
     <link>http://localhost:1313/tags/omg/</link>
-    <description>Recent content in OMG on Hugo Profile</description>
+    <description>Recent content in OMG on Daniel de Gouw</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <atom:link href="http://localhost:1313/tags/omg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>dfcd HVAC Controller</title>
-      <link>http://localhost:1313/projects/project5/</link>
+      <link>http://localhost:1313/portfolio/project5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/project5/</guid>
+      <guid>http://localhost:1313/portfolio/project5/</guid>
       <description>Embedded firmware and cloud integration.</description>
     </item>
     <item>
       <title>duh HVAC Controller</title>
-      <link>http://localhost:1313/projects/project4/</link>
+      <link>http://localhost:1313/portfolio/project4/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/project4/</guid>
+      <guid>http://localhost:1313/portfolio/project4/</guid>
       <description>Embedded firmware and cloud integration.</description>
     </item>
     <item>
       <title>duvfgvfgh HVAC Controller</title>
-      <link>http://localhost:1313/projects/project6/</link>
+      <link>http://localhost:1313/portfolio/project6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/project6/</guid>
+      <guid>http://localhost:1313/portfolio/project6/</guid>
       <description>Embedded firmware and cloud integration.</description>
     </item>
   </channel>

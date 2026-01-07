@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Work Experience on Hugo Profile</title>
+    <title>Work Experience on Daniel de Gouw</title>
     <link>http://localhost:1313/work/</link>
-    <description>Recent content in Work Experience on Hugo Profile</description>
+    <description>Recent content in Work Experience on Daniel de Gouw</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <atom:link href="http://localhost:1313/work/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Senior Embedded Engineer</title>
-      <link>http://localhost:1313/work/job1/</link>
+      <title>Company One</title>
+      <link>http://localhost:1313/work/company-1/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/work/job1/</guid>
-      <description>Worked on low-level firmware and IoT device integration.</description>
+      <guid>http://localhost:1313/work/company-1/</guid>
+      <description>&lt;h2 id=&#34;about-company-one&#34;&gt;About Company One&lt;/h2&gt;&#xA;&lt;p&gt;Company One specialises in …&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/post.jpg&#34; alt=&#34;YEET&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Company One</title>
+      <link>http://localhost:1313/work/yeet/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/work/yeet/</guid>
+      <description>&lt;h2 id=&#34;about-company-one&#34;&gt;About Company One&lt;/h2&gt;&#xA;&lt;p&gt;Company One specialises in …&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/post.jpg&#34; alt=&#34;YEET&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

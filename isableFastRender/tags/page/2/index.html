@@ -29,7 +29,7 @@
 
 
 <meta property="og:url" content="http://localhost:1313/tags/">
-  <meta property="og:site_name" content="Hugo Profile">
+  <meta property="og:site_name" content="Daniel de Gouw">
   <meta property="og:title" content="Tags">
   <meta property="og:description" content="Text about my cool site">
   <meta property="og:locale" content="en_us">
@@ -102,7 +102,7 @@
 
 
 
-<meta name="description" content="Tags of Hugo Profile">
+<meta name="description" content="Tags of Daniel de Gouw">
 <link rel="stylesheet" href="/css/list.css" media="all">
 
 
@@ -110,7 +110,7 @@
   
 
   <title>
-Tags | Hugo Profile
+Tags | Daniel de Gouw
 
   </title>
 </head>
@@ -176,13 +176,13 @@ Tags | Hugo Profile
                 
                 <img src="/fav.png" width="30" height="30"
                     class="d-inline-block align-top">
-                Hugo Profile
+                Daniel de Gouw
                 
             </a>
 
             
                 <div>
-                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Search...'
                         aria-label="Search" oninput="searchOnChange(event)">
                 </div>
             
@@ -201,7 +201,7 @@ Tags | Hugo Profile
                     
                         <li class="nav-item navbar-text d-block d-md-none">
                             <div class="nav-link">
-                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Search...' aria-label="Search" oninput="searchOnChange(event)">
                             </div>
                         </li>
                     
@@ -215,12 +215,27 @@ Tags | Hugo Profile
                     
 
                     
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/#experience"
-                            aria-label="experience">
-                            Experience
+                    
+
+                      
+
+                      <li class="nav-item dropdown navbar-text">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="/#experience"
+                          id="experienceDropdown"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Experience
                         </a>
-                    </li>
+                        <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
+                          
+                          <li><a class="dropdown-item" href="/work/company-1/">Company One</a></li>
+                          
+                        </ul>
+                      </li>
                     
 
                     
@@ -244,47 +259,27 @@ Tags | Hugo Profile
                     
 
                     
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/portfolio/" title="">
+                            
+                            Portfolio
+                        </a>
+                    </li>
+                    
+                    
+
+                    
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="/#contact"
                             aria-label="contact">
                             Contact
                         </a>
                     </li>
-                    
-
-                    
-
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/" title="">
-                            
-                            Home
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/projects/" title="">
-                            
-                            Projects
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="/work/" title="">
-                            
-                            Work
-                        </a>
-                    </li>
-                    
                     
 
                     
@@ -317,7 +312,25 @@ Tags | Hugo Profile
         </div>
     </nav>
 </header>
-<div id="content">
+
+<style>
+   
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+</style>
+
+<script>
+  
+  document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(el => {
+    el.addEventListener('click', function(e) {
+      
+      if (this.nextElementSibling.classList.contains('show')) {
+        window.location.href = this.href;
+      }
+    });
+  });
+</script><div id="content">
 <div class="container pt-5" id="list-page">
     <h2 class="text-center pb-2">Tags</h2>
     <div class="row">
@@ -327,8 +340,8 @@ Tags | Hugo Profile
                 <div class="card h-100">
                     
                     <div class="card-body bg-transparent p-4 shadow-sm">
-                        <a href="/tags/iot/" class="primary-font card-title">
-                            <h5 class="card-title bg-transparent" title="IoT">IoT</h5>
+                        <a href="/tags/manufacturing/" class="primary-font card-title">
+                            <h5 class="card-title bg-transparent" title="Manufacturing">Manufacturing</h5>
                         </a>
                         <div class="card-text secondary-font">
                             <p></p>
@@ -336,7 +349,7 @@ Tags | Hugo Profile
                     </div>
                     <div class="mt-auto post-footer bg-transparent py-3">
                         <span class="float-start bg-transparent">Jan 1, 0001</span>
-                        <a href="/tags/iot/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                        <a href="/tags/manufacturing/" class="float-end btn btn-outline-info btn-sm">Read</a>
                     </div>
                 </div>
             </div>
@@ -357,6 +370,26 @@ Tags | Hugo Profile
                     <div class="mt-auto post-footer bg-transparent py-3">
                         <span class="float-start bg-transparent">Jan 1, 0001</span>
                         <a href="/tags/omg/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 my-3">
+            <div class="card-columns">
+                <div class="card h-100">
+                    
+                    <div class="card-body bg-transparent p-4 shadow-sm">
+                        <a href="/tags/rf/" class="primary-font card-title">
+                            <h5 class="card-title bg-transparent" title="Rf">Rf</h5>
+                        </a>
+                        <div class="card-text secondary-font">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="mt-auto post-footer bg-transparent py-3">
+                        <span class="float-start bg-transparent">Jan 1, 0001</span>
+                        <a href="/tags/rf/" class="float-end btn btn-outline-info btn-sm">Read</a>
                     </div>
                 </div>
             </div>
@@ -493,7 +526,7 @@ Tags | Hugo Profile
         <div class="col-md-4 text-center">
             
                 <div class="pb-2">
-                    <a href="http://localhost:1313/" title="Hugo Profile">
+                    <a href="http://localhost:1313/" title="Daniel de Gouw">
                         <img alt="Footer logo" src="/fav.png"
                             height="40px" width="40px">
                     </a>
