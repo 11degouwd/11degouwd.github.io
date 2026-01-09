@@ -1,3 +1,6 @@
 ---
-title: "Work Experience"
+title: "Companies"
+
+_build:
+  list: false
 ---

@@ -118,7 +118,7 @@ params:
       secondaryColor: "#212529"
       tagBackground: "#374151"
       tagText: "#e0e7ff"
-      tagBackgroundHoverk: "#4b5565"
+      tagBackgroundHover: "#4b5565"
       projectCardBackground: "#1f2937"
       tagFilterBackground: "#1f2937"
       tagFilterBackgroundHover: "#374151"

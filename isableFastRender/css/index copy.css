@@ -256,131 +256,127 @@ header .navbar.animate {
 }
 
 /* experience */
+/* ========================= */
+/* Academic Experience Style */
+/* ========================= */
 
-#experience h3 {
-    color: var(--text-secondary-color) !important;
+.experience-academic {
+  margin-top: 3rem;
 }
 
-#experience * {
-    background-color: transparent;
+.experience-company {
+  margin-bottom: 3.5rem;
 }
 
-#experience .tab-pane > * {
-    opacity: 0.9;
+/* Company header */
+.company-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-#experience .tab-pane small {
-    opacity: 0.8;
+.company-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
 }
 
-#experience .tab-pane ul {
-    padding-top: 1%;
-    padding-bottom: 1%;
+.company-title {
+  margin: 0;
+  font-weight: 600;
 }
 
-#experience .experience-container .tab-content > .tab-pane p {
-    padding: 1% 0;
-    margin: 0;
+.company-title a {
+  text-decoration: none;
 }
 
-#experience .experience-container {
-    background-color: var(--secondary-color) !important;
-    border-radius: .75rem;
-    box-shadow: 0px 8px 56px rgb(15 80 100 / 16%);
+.company-dates {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-#experience .nav-item .nav-link {
-    color: var(--text-color) !important;
-    border-bottom: 2px solid transparent; 
-    border-radius: 0%;
-    transition: none;
-    cursor: pointer;
+/* Roles */
+.roles-list {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 1rem;
 }
 
-#experience .nav-item .nav-link.active {
-    color: var(--text-color) !important;
-    border-bottom: 2px solid var(--primary-color); 
-    opacity: 0.8;
+.roles-list::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--primary-color);
 }
 
-#experience .nav-item .nav-link.active:hover { 
-    transition: none !important;
+.role-row {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--background-card, #f9f9f9);
+  border-radius: 0.5rem;
 }
 
-#experience .nav-item .nav-link:hover {
-    border-bottom: 2px solid var(--primary-color);
-    opacity: 0.8;
+.role-dot {
+  position: absolute;
+  left: -1rem;
+  top: 0.75rem;
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  border: 2px solid #fff;
 }
 
-#experience a {
-    opacity: 0.9;
-    display: inline-block;
-    text-decoration: none;
-    color: var(--text-link-color) !important;
+.role-dates {
+  width: 90px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: right;
 }
 
-#experience a::after {
-    content: "";
-    display: block;
-    width: 0px;
-    height: 2px;
-    bottom: 0.37em;
-    background-color: var(--primary-color);
-    transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
-    opacity: 0.5;
+.role-body {
+  flex: 1;
 }
 
-#experience a:hover::after, #experience a:focus::after, #experience a:active::after {
-    width: 100%;
+.role-title {
+  font-weight: 600;
 }
 
-#experience .experience-container .tab-content .tab-pane ul {
-    overflow: hidden;
-    list-style: none;
-    margin-bottom: 0;
+.role-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
 }
 
-#experience .experience-container .tab-content .tab-pane ul li {
-    position: relative;
-    margin-bottom: 10px;
-    padding-left: 20px;
+.role-summary {
+  margin: 0;
+  font-size: 0.95rem;
 }
 
-#experience .experience-container .tab-content .tab-pane ul li::before {
-    content: "▹";
-    color: var(--primary-color);
-    position: absolute;
-    left: 0px;
-}
+/* Mobile */
+@media (max-width: 576px) {
+  .role-row {
+    flex-direction: column;
+  }
 
-#experience .experience-container .tab-content .tab-pane .featuredLink img {
-    width: 1.1em;
-}
-
-#experience .experience-container .tab-content .tab-pane .featuredLink a::after {
-    display: block;
+  .role-dates {
     width: auto;
-    height: auto;
-    bottom: 0em;
-    background-color: transparent;
-    transition: none;
-    opacity: 1;
+    text-align: left;
+  }
+
+  .roles-list {
+    padding-left: 1rem;
+  }
 }
 
-#experience .experience-container .tab-content .tab-pane .featuredLink a.btn {
-    border: 1px solid var(--primary-color);
-    border-radius: .75rem;
-    transition: none;
-}
-
-#experience .experience-container .tab-content .tab-pane .featuredLink a.btn:focus {
-    box-shadow: none;
-}
-
-#experience .experience-container .tab-content .tab-pane .featuredLink a.btn:hover {
-    color: var(--text-color) !important;
-    opacity: 0.7;
-}
 
 /* Education */
 

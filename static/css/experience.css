@@ -1,0 +1,172 @@
+/* Copy of index.css with minor modifications!!! */
+
+:root {
+  --company-gap: 9rem;
+}
+
+/* experience */
+/* ========================= */
+/* Academic Experience Style */
+/* ========================= */
+
+.experience-container-loop,
+.experience-container {
+  margin-top: 0rem;
+}
+
+.experience-company {
+  margin-bottom: 3.5rem;
+  position: relative;
+  z-index: 0;
+}
+
+.experience-company:first-child::before {
+  display: none;
+}
+
+.experience-company::before {
+  content: "";
+  position: absolute;
+  left: calc(1.5rem + 2px);
+  top: calc(-1 * var(--company-gap, 8rem));
+  height: calc(var(--company-gap, 8rem) + 6rem);  
+  width: 2px;
+  background-color: var(--primary-color);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+
+/* Company header */
+.company-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-left: 0.4rem;
+  z-index: 2;
+}
+
+.company-logo {
+  background-color: var(--secondary-color);
+  padding: 3px;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  z-index: 3;
+}
+
+.company-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.company-title a {
+  text-decoration: none;
+}
+
+.company-dates {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Roles */
+.roles-list .role-row:last-child::before {
+  display: none;
+}
+
+.roles-list {
+  position: relative;
+  padding-left: 3rem; 
+}
+
+.role-row::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.8rem + 7.5px - 1px); 
+  top: 1.2rem;      
+  bottom: -1.4rem;
+  width: 2px;
+  background-color: var(--primary-color);
+  opacity: 0.6;
+}
+
+html.dark .role-row::before {
+  background-color: #b0b3b8;
+}
+
+.role-row {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-card, #f9f9f9);
+  border-radius: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+html.dark .role-row {
+  background-color: #1f2937 !important;
+  color: #b0b3b8;
+}
+
+.role-dot {
+  position: absolute;
+  left: -1.8rem; 
+  top: 13px;
+  width: 15px;
+  height: 15px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  z-index: 2;
+  border: 2px solid var(--secondary-color);
+} 
+
+html.dark .role-dot {
+  background-color: #b0b3b8;
+  border: 2px solid #18191a;
+}
+
+.role-dates {
+  width: 90px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.role-body {
+  flex: 1;
+}
+
+.role-title {
+  font-weight: 600;
+}
+
+.role-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.role-summary {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .role-row {
+    flex-direction: column;
+  }
+
+  .role-dates {
+    width: auto;
+    text-align: left;
+  }
+
+  .roles-list {
+    padding-left: 1rem;
+  }
+}

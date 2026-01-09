@@ -240,7 +240,9 @@ Yeeted HVAC Controller | Daniel de Gouw
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
                           
-                          <li><a class="dropdown-item" href="/work/company-1/">Company One</a></li>
+                          <li><a class="dropdown-item" href="/companies/company-1/">Company One</a></li>
+                          
+                          <li><a class="dropdown-item" href="/companies/yeet/">YEET</a></li>
                           
                         </ul>
                       </li>
@@ -573,7 +575,7 @@ html.dark #single .subtitle {
       const tag = tagBtn.dataset.tag;
 
       
-      const projectsUrl = "/projects/?tag=" + encodeURIComponent(tag);
+      const projectsUrl = "/portfolio/?tag=" + encodeURIComponent(tag);
       window.location.href = projectsUrl;
     });
   });

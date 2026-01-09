@@ -9,5 +9,4 @@ summary: Led embedded and hardware development for X and Y.
 
 _build:
   render: never
-  list: never
 ---
