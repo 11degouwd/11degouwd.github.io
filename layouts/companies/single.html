@@ -11,6 +11,9 @@
 {{ end }}
 
 {{ define "main" }}
+
+<link rel="stylesheet" href="{{ "css/experience.css" | relURL }}">
+
 <section id="single">
   <div class="container">
     <div class="row justify-content-center">
@@ -42,15 +45,58 @@
 
           <!-- Featured image -->
           {{ if .Params.image }}
-          <div class="featured-image mb-4">
-            <img class="img-fluid mx-auto d-block" src="{{ .Params.image }}" alt="{{ .Title }}">
-          </div>
+            <div class="company-featured-image">
+              <img src="{{ .Params.image }}" alt="{{ .Title }}">
+            </div>
           {{ end }}
 
           <!-- Page content -->
           <article class="page-content p-2">
             {{ .Content | emojify }}
           </article>
+          
+          <!-- Work Experience -->
+          {{ $companySlug := .File.BaseFileName }}
+          {{ $roles := where site.RegularPages "Section" "experience" }}
+          {{ $roles = where $roles ".Params.company_slug" $companySlug }}
+          {{ $roles = sort $roles "Params.start" "desc" }}
+
+          {{ if gt (len $roles) 0 }}
+            <h2 class="mt-5 mb-3">Roles at {{ .Title }}:</h2>
+            <section id="experience" class="py-5">
+              <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-8 col-lg-8 py-5">
+                  <div class="experience-container px-3 pt-2">
+                    <div class="experience-company">
+                      <!-- Roles -->
+                      <div class="roles-list">
+                        {{ range $roles }}
+                          <div class="role-row">
+                            <div class="role-dot"></div>
+
+                            <div class="role-body">
+                              <div class="role-title">{{ .Title }}</div>
+
+                              <div class="role-meta">
+                                {{ .Params.start | time.Format "Jan 2006" }} –
+                                {{ with .Params.end }}{{ . | time.Format "Jan 2006" }}{{ else }}Present{{ end }}
+                                {{ with .Params.location }} · {{ . }}{{ end }}
+                              </div>
+
+                              {{ with .Params.summary }}
+                                <p class="role-summary">{{ . }}</p>
+                              {{ end }}
+                            </div>
+                          </div>
+                        {{ end }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          {{ end }}
           
           <!-- Projects grid -->
           {{ $companyName := .File.BaseFileName }}
@@ -167,6 +213,66 @@ html.dark h1 {
 }
 
 /* -------------------------- */
+/* Company Image              */
+/* -------------------------- */
+.company-featured-image {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+  height: clamp(300px, 50vh, 800px); 
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
+}
+
+.company-featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* -------------------------- */
+/* Page content headings      */
+/* -------------------------- */
+#single .title h1,
+#single h2,
+#single .page-content h1,
+#single .page-content h2,
+#single .page-content h3,
+#single .page-content h4,
+#single .page-content h5,
+#single .page-content h6 {
+  color: {{ .Site.Params.color.headingsTextColor }} !important;
+}
+#single .subtitle { /* company + date / reading time */
+  color: {{ .Site.Params.color.subtitleTextColor }} !important;
+}
+#single .page-content p {
+  color: {{ .Site.Params.color.contentTextColor }} !important;
+}
+html.dark #single .title h1,
+html.dark #single h2,
+html.dark #single .page-content h1,
+html.dark #single .page-content h2,
+html.dark #single .page-content h3,
+html.dark #single .page-content h4,
+html.dark #single .page-content h5,
+html.dark #single .page-content h6 {
+  color: {{ .Site.Params.color.darkmode.headingsTextColor }} !important;
+}
+html.dark #single .subtitle { /* company + date / reading time */
+  color: {{ .Site.Params.color.darkmode.subtitleTextColor }} !important;
+}
+
+/* -------------------------- */
+/* Experience                 */
+/* -------------------------- */
+.experience-container {
+  margin-top: -5rem;
+  margin-bottom: -8rem;
+}
+
+/* -------------------------- */
 /* Project Card               */
 /* -------------------------- */
 .project-card {
@@ -265,39 +371,6 @@ html.dark .project-tags .tag-btn {
 }
 html.dark .project-tags .tag-btn:hover {
   background-color: {{ .Site.Params.color.darkmode.tagBackgroundHover }};
-}
-
-/* -------------------------- */
-/* Page content headings      */
-/* -------------------------- */
-#single .title h1,
-#single h2,
-#single .page-content h1,
-#single .page-content h2,
-#single .page-content h3,
-#single .page-content h4,
-#single .page-content h5,
-#single .page-content h6 {
-  color: {{ .Site.Params.color.headingsTextColor }} !important;
-}
-#single .subtitle { /* company + date / reading time */
-  color: {{ .Site.Params.color.subtitleTextColor }} !important;
-}
-#single .page-content p {
-  color: {{ .Site.Params.color.contentTextColor }} !important;
-}
-html.dark #single .title h1,
-html.dark #single h2,
-html.dark #single .page-content h1,
-html.dark #single .page-content h2,
-html.dark #single .page-content h3,
-html.dark #single .page-content h4,
-html.dark #single .page-content h5,
-html.dark #single .page-content h6 {
-  color: {{ .Site.Params.color.darkmode.headingsTextColor }} !important;
-}
-html.dark #single .subtitle { /* company + date / reading time */
-  color: {{ .Site.Params.color.darkmode.subtitleTextColor }} !important;
 }
 </style>
 

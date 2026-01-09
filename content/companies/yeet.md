@@ -1,6 +1,6 @@
 ---
 title: YEET
-logo: images/company-one.svg
+logo: images/me.png
 start: 2021
 end: 2024
 tags: [embedded, rf, manufacturing]
