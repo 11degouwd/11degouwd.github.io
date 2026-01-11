@@ -1,0 +1,37 @@
+{{ if .Site.Params.about.enable | default false }}
+<section id="about" class="py-0 py-sm-5">
+  {{ $about := site.GetPage "about" }}
+  {{ with $about }}
+    <div class="container bg-transparent">
+      <h3 class="text-center bg-transparent">{{ .Params.title }}</h3>
+      <div class="bg-transparent row justify-content-center px-3 py-5">
+        {{ if .Params.image }}
+        <div class="col-sm-12 col-md-8 col-lg-4 mb-5 mb-sm-0 mb-md-5 mb-lg-0 d-none d-sm-none d-md-block">
+          {{ with .Resources.GetMatch .Params.image }}
+            <div class="image d-flex px-5">
+              <img
+                src="{{ .RelPermalink }}"
+                class="img-thumbnail mx-auto rounded-circle"
+                alt="">
+            </div>
+          {{ end }}
+        </div>
+        {{ end }}
+        <div class="col-sm-12 col-md-12 col-lg-8 content">
+          {{ .Params.content | markdownify }}
+
+          {{ if .Params.skills.enable }}
+            {{ $skillsCount := len .Params.skills.items }}
+            {{ .Params.skills.title }}
+            <ul id="about-skills" class="{{ if gt $skillsCount 6 }}three-columns{{ else }}two-columns{{ end }}">
+              {{ range .Params.skills.items }}
+              <li>{{ . | markdownify }}</li>
+              {{ end }}
+            </ul>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  {{ end }}
+</section>
+{{ end }}

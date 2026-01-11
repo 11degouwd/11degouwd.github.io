@@ -1,0 +1,32 @@
+#footer {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+#footer a.social-icon {
+    display: inline-block;
+    color: var(--primary-color);
+    transition: opacity 0.3s;
+    font-size: 1.6rem;
+}
+
+#footer a.social-icon img {
+    width: 1.6rem;       /* same as your Font Awesome icons */
+    height: 1.6rem;
+    object-fit: contain;  /* keeps proportions */
+    vertical-align: middle;
+    margin-bottom: 0.3rem;
+}
+
+#footer a.social-icon:hover {
+    opacity: 0.7;
+}
+
+#footer .footer-left p {
+    margin: 0;
+}
+
+#footer .footer-right i {
+    font-size: 1.25rem; /* bigger icons without changing text */
+}

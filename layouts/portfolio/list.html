@@ -117,7 +117,7 @@ html.dark h1 {
 }
 html.dark .project-filters .filter-btn {
   background-color: {{ .Site.Params.color.darkmode.tagFilterBackground }};
-  color: {{ .Site.Params.color.tagFilterText }};
+  color: {{ .Site.Params.color.darkmode.tagFilterText }};
 }
 html.dark .project-filters .filter-btn:hover {
   background-color: {{ .Site.Params.color.darkmode.tagFilterBackgroundHover }};
@@ -223,7 +223,7 @@ html.dark .project-card:hover button {
 }
 html.dark .project-tags .tag-btn {
   background-color: {{ .Site.Params.color.darkmode.tagBackground }};
-  color: {{ .Site.Params.color.darkmode.tagText }};
+  {{/*  color: {{ .Site.Params.color.darkmode.tagText }};  */}}
 }
 html.dark .project-tags .tag-btn:hover {
   background-color: {{ .Site.Params.color.darkmode.tagBackgroundHover }};

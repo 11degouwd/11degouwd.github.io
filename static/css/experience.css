@@ -2,6 +2,7 @@
 
 :root {
   --company-gap: 9rem;
+  --timeline-x: 1.8rem;
 }
 
 /* experience */
@@ -28,8 +29,8 @@
   content: "";
   position: absolute;
   left: calc(1.5rem + 2px);
-  top: calc(-1 * var(--company-gap, 8rem));
-  height: calc(var(--company-gap, 8rem) + 6rem);  
+  top: calc(-1 * var(--company-gap));
+  height: calc(var(--company-gap) + 6rem);  
   width: 2px;
   background-color: var(--primary-color);
   opacity: 0.3;
@@ -48,7 +49,7 @@
 }
 
 .company-logo {
-  background-color: var(--secondary-color);
+  background-color: var(--background-color);
   padding: 3px;
   border-radius: 50%;
   width: 42px;
@@ -101,14 +102,10 @@ html.dark .role-row::before {
   display: flex;
   gap: 1rem;
   padding: 0.5rem 1rem;
-  background-color: var(--background-card, #f9f9f9);
+  background-color: var(--secondary-color);
   border-radius: 0.5rem;
   margin-bottom: 0.4rem;
-}
-
-html.dark .role-row {
-  background-color: #1f2937 !important;
-  color: #b0b3b8;
+  color: var(--text-color);
 }
 
 .role-dot {
@@ -166,7 +163,7 @@ html.dark .role-dot {
     text-align: left;
   }
 
-  .roles-list {
-    padding-left: 1rem;
-  }
+  /* .roles-list {
+    padding-left: 3rem;
+  } */
 }

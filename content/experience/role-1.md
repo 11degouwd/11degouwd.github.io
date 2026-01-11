@@ -7,6 +7,6 @@ end: 2024-01-01
 location: Auckland, NZ
 summary: Led embedded and hardware development for X and Y.
 
-_build:
+build:
   render: never
 ---

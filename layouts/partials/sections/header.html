@@ -63,14 +63,15 @@
                 {{ end }}
             </a>
 
-            {{ if not (.Site.Params.navbar.disableSearch | default false) }}
+            <!-- Search -->
+            {{/*  {{ if not (.Site.Params.navbar.disableSearch | default false) }}
                 <div>
                     <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='{{ .Site.Params.navbar.searchPlaceholder | default "Ctrl + k to Search..."}}'
                         aria-label="Search" oninput="searchOnChange(event)">
                 </div>
-            {{ end }}
+            {{ end }}  */}}
 
-            <!-- navbar toggler -->
+            <!-- navbar toggler - For small screens -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
@@ -81,13 +82,13 @@
             <!-- navbar content -->
             <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
                 <ul class="navbar-nav {{ .Site.Params.navbar.align | default "ms-auto"}} text-center">
-                    {{ if not (.Site.Params.navbar.disableSearch | default false) }}
+                    {{/*  {{ if not (.Site.Params.navbar.disableSearch | default false) }}
                         <li class="nav-item navbar-text d-block d-md-none">
                             <div class="nav-link">
                                 <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='{{ .Site.Params.navbar.searchPlaceholder | default "Ctrl + k to Search..."}}' aria-label="Search" oninput="searchOnChange(event)">
                             </div>
                         </li>
-                    {{ end }}
+                    {{ end }}  */}}
 
                     {{ if and (.Site.Params.about.enable | default false) (not (.Site.Params.navbar.menus.disableAbout | default false)) }}
                     <li class="nav-item navbar-text">
@@ -97,8 +98,8 @@
                     </li>
                     {{ end }}
 
-                    <!-- OLD Experience tab
-                    {{ if and (.Site.Params.experience.enable | default false) (not (.Site.Params.navbar.menus.disableExperience | default false)) }}
+                    <!-- OLD Experience tab -->
+                    <!-- {{ if and (.Site.Params.experience.enable | default false) (not (.Site.Params.navbar.menus.disableExperience | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#experience"
                             aria-label="experience">
@@ -107,9 +108,7 @@
                     </li>
                     {{ end }} -->
                     {{ if and (.Site.Params.experience.enable | default false) (not (.Site.Params.navbar.menus.disableExperience | default false)) }}
-
                       {{ $companies := site.GetPage "companies" }}
-
                       <li class="nav-item dropdown navbar-text">
                         <a
                           class="nav-link dropdown-toggle"
@@ -156,6 +155,7 @@
                     </li>
                     {{ end }}
 
+                    <!-- Don't need this feature  -->
                     <!-- {{ if and .Site.Menus.main (.Site.Params.navbar.enableSeparator | default false) }}
                         <li class="nav-item navbar-text d-none d-lg-block d-xl-block"><div class="nav-link nav-link-sep"></div></li>
                         <div class="dropdown-divider"></div>
@@ -199,6 +199,27 @@
                     </li>
                     {{ end }}
 
+                    {{ if not (.Site.Params.navbar.disableSearch | default false) }}
+                    <div class="d-none d-md-block">
+                      <li class="nav-item navbar-search-item position-relative">
+                        <button type="button"
+                                class="btn nav-link search-toggle"
+                                aria-label="Search"
+                                onclick="toggleSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+
+                        <input id="navbar-search"
+                                autocomplete="off"
+                                class="form-control"
+                                data-show-descriptions="{{ .Site.Params.search.showDescriptions | default true }}"
+                                placeholder='{{ .Site.Params.navbar.searchPlaceholder | default "Search..." }}'
+                                aria-label="Search"
+                                oninput="searchOnChange(event)">
+                      </li>
+                    </div>
+                    {{ end }}
+
                     {{ if (not .Site.Params.theme.disableThemeToggle | default false) }}
                     <li class="nav-item navbar-text">
                         <!-- darkmode mode toggle -->
@@ -235,6 +256,19 @@
   .nav-item.dropdown:hover .dropdown-menu {
     display: block;
   }
+
+  #navbar-search {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 240px;
+    z-index: 1055;
+  }
+
+  #navbar-search.active {
+      display: block !important;
+  }
 </style>
 
 <script>
@@ -247,4 +281,52 @@
       }
     });
   });
+</script> 
+
+<script>
+  function toggleSearch() {
+    const input = document.getElementById("navbar-search");
+    input.classList.toggle("active");
+
+    if (input.classList.contains("active")) {
+        input.focus();
+    }
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        const input = document.getElementById("navbar-search");
+        input.classList.add("active");
+        input.focus();
+    }
+  });
+{{/*  
+  document.addEventListener("click", function (e) {
+    const search = document.getElementById("navbar-search");
+    const toggle = document.querySelector(".search-toggle");
+    const searchContent = document.getElementById("search-content");
+
+    if (!search.contains(e.target) && !toggle.contains(e.target) && !searchContent.contains(e.target)) {
+        // Remove active class from input
+        search.classList.remove("active");
+        // Hide the results container
+        if (searchContent) {
+            searchContent.style.display = "none";
+        }
+    }
+  });
+  document.addEventListener("keydown", function (e) {
+    const search = document.getElementById("navbar-search");
+    const searchContent = document.getElementById("search-content");
+
+    if (e.key === "Escape") {
+        if (search.classList.contains("active")) {
+            search.classList.remove("active");
+        }
+        if (searchContent) {
+            searchContent.style.display = "none";
+        }
+    }
+  });  */}}
 </script>
