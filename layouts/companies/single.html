@@ -1,6 +1,7 @@
 {{ define "head" }}
 <meta name="description" content="{{ .Params.description }}">
 <link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/single.css">
+<link rel="stylesheet" href="{{ "css/experience.css" | relURL }}">
 
 <!-- fontawesome -->
 <script defer src="{{ .Site.Params.staticPath }}/fontawesome-6/all-6.4.2.js"></script>
@@ -11,9 +12,6 @@
 {{ end }}
 
 {{ define "main" }}
-
-<link rel="stylesheet" href="{{ "css/experience.css" | relURL }}">
-
 <section id="single">
   <div class="container">
     <div class="row justify-content-center">
@@ -199,7 +197,17 @@
 /* CSS Variables              */
 /* -------------------------- */
 :root {
-  --project-max-width: 400px;       /* max width for cards & images */
+  /* Light mode */
+  --project-max-width: 400px;   /* max width for cards & images */
+  --background-card: #f9f9f9;
+  --text-color: {{ .Site.Params.color.textColor }};
+  --secondary-text-color: {{ .Site.Params.color.secondaryTextColor }};
+}
+
+html.dark {
+  /* Dark mode overrides */
+  --primary-text-color: {{ .Site.Params.color.darkmode.textColor }};
+  --secondary-text-color: {{ .Site.Params.color.darkmode.secondaryTextColor }};
 }
 
 /* -------------------------- */
@@ -367,7 +375,7 @@ html.dark .project-card:hover button {
 }
 html.dark .project-tags .tag-btn {
   background-color: {{ .Site.Params.color.darkmode.tagBackground }};
-  color: {{ .Site.Params.color.darkmode.tagText }};
+  {{/*  color: {{ .Site.Params.color.darkmode.tagText }};  */}}
 }
 html.dark .project-tags .tag-btn:hover {
   background-color: {{ .Site.Params.color.darkmode.tagBackgroundHover }};

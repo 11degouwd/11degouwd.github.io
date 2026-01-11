@@ -7,6 +7,6 @@ end: 2024-01-01
 location: Auckland, NZ
 summary: things.
 
-_build:
+build:
   render: never
 ---

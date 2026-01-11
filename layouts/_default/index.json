@@ -1,0 +1,19 @@
+{{- $.Scratch.Add "index" slice -}}
+{{- range .Site.RegularPages -}}
+    {{- $desc := "" -}}
+
+    {{- if .Params.searchDescription -}}
+        {{- $desc = .Params.searchDescription -}}
+    {{- else -}}
+        {{- $desc = .Summary | plainify -}}
+    {{- end -}}
+
+    {{- $.Scratch.Add "index" (dict 
+        "title" .Title 
+        "description" $desc 
+        "content" .Plain 
+        "image" (or .Params.image nil) 
+        "permalink" .Permalink
+    ) -}}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

@@ -1,0 +1,25 @@
+<span>
+    {{ range .Params.socialLinks.fontAwesomeIcons }}
+      {{ $social := index $.Site.Params.socialLinks.fontAwesomeIcons . }}
+      <span class="px-1">
+          <a href="{{ $social.url }}"
+              {{ if not (hasPrefix $social.url "#") }} target="_blank" {{ end }}
+              class="btn social-icon"
+          >
+              <i class="{{ $social.icon }}"></i>
+          </a>
+      </span>
+    {{ end }}
+
+    {{ range .Params.socialLinks.customIcons }}
+      {{ $social := index $.Site.Params.socialLinks.customIcons . }}
+      <span class="px-1">
+          <a href="{{ $social.url }}"
+              {{ if not (hasPrefix $social.url "#") }} target="_blank" {{ end }}
+              class="btn social-icon"
+          >
+              <img src="{{ $social.icon }}">
+          </a>
+      </span>
+    {{ end }}
+</span>
