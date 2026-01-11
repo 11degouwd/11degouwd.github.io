@@ -200,31 +200,53 @@
                     {{ end }}
 
                     {{ if not (.Site.Params.navbar.disableSearch | default false) }}
-                    <div class="d-none d-md-block">
-                      <li class="nav-item navbar-search-item position-relative">
-                        <button type="button"
-                                class="btn nav-link search-toggle"
-                                aria-label="Search"
-                                onclick="toggleSearch()">
-                            <i class="fas fa-search"></i>
-                        </button>
+                      <li class="nav-item d-none d-md-flex align-items-center navbar-search-item position-relative">
+                          <button type="button"
+                                  id="search-toggle"
+                                  class="btn nav-link p-0"
+                                  aria-label="Search"
+                                  onclick="toggleSearch()">
+                              <i class="fas fa-search"></i>
+                          </button>
 
-                        <input id="navbar-search"
+                          <input id="navbar-search"
                                 autocomplete="off"
-                                class="form-control"
+                                class="form-control ms-2"
                                 data-show-descriptions="{{ .Site.Params.search.showDescriptions | default true }}"
                                 placeholder='{{ .Site.Params.navbar.searchPlaceholder | default "Search..." }}'
                                 aria-label="Search"
                                 oninput="searchOnChange(event)">
                       </li>
-                    </div>
                     {{ end }}
 
                     {{ if (not .Site.Params.theme.disableThemeToggle | default false) }}
-                    <li class="nav-item navbar-text">
-                        <!-- darkmode mode toggle -->
+                      <li class="nav-item d-none d-md-flex align-items-center">
+                        <button id="theme-toggle"
+                                class="btn nav-link theme-toggle p-0"
+                                aria-label="Toggle theme">
+                          <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                              </svg>
+                              <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="5"></circle>
+                                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                              </svg>
+                        </button>
+                      </li>
+                      <li class="nav-item d-md-none navbar-text">
                         <div class="text-center">
-                            <button id="theme-toggle">
+                            <button id="theme-toggle" class="theme-toggle">
                                 <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                                 </svg>
@@ -250,26 +272,6 @@
         </div>
     </nav>
 </header>
-
-<style>
-  /* Show dropdown on hover */
-  .nav-item.dropdown:hover .dropdown-menu {
-    display: block;
-  }
-
-  #navbar-search {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    width: 240px;
-    z-index: 1055;
-  }
-
-  #navbar-search.active {
-      display: block !important;
-  }
-</style>
 
 <script>
   // Ensure clicking the dropdown toggle actually navigates
@@ -301,32 +303,4 @@
         input.focus();
     }
   });
-{{/*  
-  document.addEventListener("click", function (e) {
-    const search = document.getElementById("navbar-search");
-    const toggle = document.querySelector(".search-toggle");
-    const searchContent = document.getElementById("search-content");
-
-    if (!search.contains(e.target) && !toggle.contains(e.target) && !searchContent.contains(e.target)) {
-        // Remove active class from input
-        search.classList.remove("active");
-        // Hide the results container
-        if (searchContent) {
-            searchContent.style.display = "none";
-        }
-    }
-  });
-  document.addEventListener("keydown", function (e) {
-    const search = document.getElementById("navbar-search");
-    const searchContent = document.getElementById("search-content");
-
-    if (e.key === "Escape") {
-        if (search.classList.contains("active")) {
-            search.classList.remove("active");
-        }
-        if (searchContent) {
-            searchContent.style.display = "none";
-        }
-    }
-  });  */}}
 </script>
