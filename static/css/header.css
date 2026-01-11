@@ -8,7 +8,7 @@ header {
     box-shadow: 0px 8px 56px rgba(15, 80, 100, 0.16);
     top: 0;
     position: sticky;
-}
+} 
 
 header .navbar .navbar-nav a {
     color: var(--text-color) !important;
@@ -17,6 +17,12 @@ header .navbar .navbar-nav a {
 #theme-toggle {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
+    margin-top: 10px !important;
+    line-height: 1;
+}
+
+#theme-toggle:hover {
+    color: var(--primary-color) !important;
 }
 
 .navbar-toggler {
@@ -27,6 +33,7 @@ header .navbar .navbar-nav a {
 .navbar-toggler svg {
     fill: currentColor;
     color: var(--text-color);
+    vertical-align: middle;
 }
 .navbar-toggler:focus {
     box-shadow: 0 0 0 .05em;
@@ -39,6 +46,7 @@ header .navbar .navbar-nav a {
 header .nav-link{
     transition: none !important;
 }
+
 .navbar-brand {
     color: var(--primary-color) !important;
     opacity: 0.95;
@@ -74,6 +82,10 @@ li > .dropdown-toggle:focus{
 	border-top: 1px solid var(--lt-color-border-dark);
 }
 
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 #search {
     border-radius: 1rem !important;
     background-color: var(--secondary-color);
@@ -85,6 +97,17 @@ li > .dropdown-toggle:focus{
 #search:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+#search-toggle {
+  color: var(--text-color) !important;
+  transition: color 0.2s ease;
+}
+
+#search-toggle:hover {
+  color: var(--primary-color) !important;
+  transition: color 0.2s ease;
+}
+
 #search-content {
     -ms-scroll-chaining: none;
     scrollbar-width: none;
@@ -124,4 +147,17 @@ li > .dropdown-toggle:focus{
 
 #search-results .card a:hover {
     color: var(--primary-color) !important;
+}
+
+#navbar-search {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 240px;
+  z-index: 1055;
+}
+
+#navbar-search.active {
+    display: block !important;
 }
