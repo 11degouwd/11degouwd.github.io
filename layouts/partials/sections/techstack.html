@@ -1,0 +1,42 @@
+{{ if .Site.Params.techstack.enable | default false }}
+<link rel="stylesheet" href="{{ "css/techstack.css" | relURL }}">
+
+<section id="techstack" class="techstack-section py-5">
+  {{ with .Site.GetPage "techstack" }}
+  <div class="container">
+    <div class="section-header text-center">
+      <h3>{{ .Params.title }}</h3>
+      {{ with .Params.intro }}
+        <p>{{ . }}</p>
+      {{ end }}
+    </div>
+
+    <div class="techstack-grid">
+      {{ range .Params.technical_groups }}
+      <div class="techstack-card" data-aos="fade-up">
+        <h5 class="techstack-title">{{ .title }}</h5>
+
+        <div class="techstack-icons">
+        {{ range .skills }}
+          {{ if .devicon_name }}
+            <div class="techstack-icon">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-{{ with .devicon_suffix }}{{ . }}{{ else }}original{{ end }}.svg"
+                alt="{{ .name }}"
+                width="56"
+                height="56"
+                loading="lazy"
+                data-animation="skill-icon"
+              />
+              <span>{{ .name }}</span>
+            </div>
+          {{ end }}
+        {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+</section>
+{{ end }}

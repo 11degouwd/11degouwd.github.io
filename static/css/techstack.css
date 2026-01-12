@@ -1,0 +1,97 @@
+.techstack-section {
+  --card-bg: var(--bs-body-bg);
+}
+
+.techstack-grid {
+  display: flex;
+  flex-wrap: wrap;              
+  justify-content: center;    
+  gap: 1.75rem;  
+  margin: 2.5rem auto 0;
+  max-width: 1100px;
+}
+
+.techstack-card {
+  text-align: center;
+  background: var(--secondary-color);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  transition: transform .25s ease, box-shadow .25s ease;
+  max-width: 100%;
+  width: 340px;
+  margin: 0 auto; 
+  border: 2px solid transparent;
+  flex: 0 0 340px;
+}
+
+.techstack-card:hover {
+  /* transform: translateY(-6px); */
+  border: 2px solid var(--text-color);
+  transition: .3s;
+  box-shadow: 0 14px 38px rgba(0,0,0,.12);
+}
+
+.techstack-title {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 1.6rem;
+  font-weight: 600;
+}
+
+.techstack-icons {
+  display: flex;
+  flex-wrap: wrap;         
+  justify-content: center;
+  gap: 1.1rem;
+}
+
+.techstack-icon {
+  flex: 0 0 calc(25% - 1.1rem); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  font-size: .85rem;
+  text-align: center;
+}
+
+.techstack-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.techstack-icon img:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+@media (max-width: 992px) {
+  .techstack-grid {
+    grid-template-columns: repeat(2, max-content);
+  }
+}
+
+@media (max-width: 576px) {
+  .techstack-grid {
+    grid-template-columns: repeat(1, max-content);
+  }
+
+  .techstack-icons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .techstack-card {
+    width: 45%;      /* 2 per row approx */
+  }
+}
+
+@media (max-width: 576px) {
+  .techstack-card {
+    width: 100%;     /* 1 per row */
+  }
+}

@@ -137,6 +137,15 @@
                     </li>
                     {{ end }}
 
+                    {{ if and (.Site.Params.techstack.enable | default false) (not (.Site.Params.navbar.menus.disableTechstack | default false)) }}
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#techstack"
+                            aria-label="techstack">
+                            {{ .Site.Params.techstack.title | default "Tech Stack" }}
+                        </a>
+                    </li>
+                    {{ end }}
+
                     {{ if and (.Site.Params.projects.enable | default false) (not (.Site.Params.navbar.menus.disableProjects | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#projects"
