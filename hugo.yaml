@@ -77,15 +77,15 @@ params:
 
   # color preference
   color:
-    textColor: "#ff0000" #"#6c757d" # Also applies to page nav
+    textColor: "#000000" #"#6c757d" # Also applies to page nav
     secondaryTextColor: "#6c757d"
     headingsTextColor: "#343a40"
     subtitleTextColor: "#6b7280"
     contentTextColor: "#6c757d"
-    textLinkColor: "#007bff"
+    textLinkColor: "#fc6f5c"
     backgroundColor: "#eaedf0"
     secondaryBackgroundColor: "#64ffda1a"
-    primaryColor: "#2194FC"
+    primaryColor: "#fc6f5c" 
     secondaryColor: "#f8f9fa"
     tagText: "#4338ca"
     tagBackground: "#e0e7ff"

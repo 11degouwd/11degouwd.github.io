@@ -329,8 +329,9 @@ header .navbar.animate {
 
 #education .card {
     border-radius: 1.5rem;
-    box-shadow: 0px 8px 56px rgb(15 80 100 / 16%);
-    border: 2px solid var(--text-secondary-color) !important;
+    /* box-shadow: 0px 8px 56px rgb(15 80 100 / 16%); */
+    box-shadow: 0 0 36px rgba(0,0,0,0.1) !important;
+    border: 2px solid transparent !important;
     transition: box-shadow .2s linear,opacity .2s linear;
     transition: transform 0.2s;
 }
@@ -438,3 +439,27 @@ header .navbar.animate {
 /* contact */
 
 /* Moved to separate file */
+
+
+/* Top scroll */
+
+#homePage #topScroll {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#homePage #topScroll:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transition: .5s;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}

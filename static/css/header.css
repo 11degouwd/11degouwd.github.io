@@ -11,7 +11,7 @@ header {
 } 
 
 header .navbar .navbar-nav a {
-    color: var(--text-color) !important;
+    color: var(--text-color);
 }
 
 #theme-toggle {
@@ -71,7 +71,8 @@ li > .dropdown-toggle:focus{
 }
 
 .dropdown-item:hover {
-    background-color: var(--secondary-color) !important;
+    /* background-color: var(--secondary-color) !important; */
+    color: var(--primary-color) !important;
 }
 
 .dropdown-item:focus, .dropdown-item:active {
@@ -160,4 +161,21 @@ li > .dropdown-toggle:focus{
 
 #navbar-search.active {
     display: block !important;
+}
+
+#scroll-progress-container {
+    position: fixed;
+    top: 0;            /* makes it stick at the very top */
+    left: 0;
+    width: 100%;
+    height: 4px;       /* same thickness as single pages */
+    z-index: 1050;     /* above navbar if navbar z-index < 1050 */
+}
+
+#scroll-progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary-color);
+    /* transition: width 0.25s ease-out; */
+    transition: none;
 }

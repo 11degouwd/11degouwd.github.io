@@ -16,7 +16,7 @@
   background: var(--secondary-color);
   border-radius: 14px;
   padding: 1.4rem 1.6rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  box-shadow: 0 0 36px rgba(0,0,0,0.1);
   transition: transform .25s ease, box-shadow .25s ease;
   max-width: 100%;
   width: 340px;
