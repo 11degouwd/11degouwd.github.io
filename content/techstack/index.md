@@ -117,33 +117,6 @@ technical_groups:
         devicon_suffix: "original"
         name: "Hugo"
 
-  # - title: "Yeet"
-  #   skills:
-  #     - devicon_name: "git"
-  #       devicon_suffix: "plain"
-  #       name: "Git"
-  #     - devicon_name: "github"
-  #       devicon_suffix: "original-wordmark"
-  #       name: "GitHub"
-  #     - devicon_name: "gitlab"
-  #       devicon_suffix: "plain"
-  #       name: "GitLab"
-  #     - devicon_name: "vscode"
-  #       devicon_suffix: "plain"
-  #       name: "VSCode"
-  #     - devicon_name: "docker"
-  #       devicon_suffix: "original"
-  #       name: "Docker"
-  #     - devicon_name: "linux"
-  #       devicon_suffix: "original"
-  #       name: "Linux"
-  #     - devicon_name: "nginx"
-  #       devicon_suffix: "original"
-  #       name: "Nginx"
-  #     - devicon_name: "hugo"
-  #       devicon_suffix: "original"
-  #       name: "Hugo"
-
 build:
   render: never
   list: never

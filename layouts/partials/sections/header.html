@@ -282,6 +282,13 @@
     </nav>
 </header>
 
+{{ if or (.Site.Params.singlePages.scrollprogress.enable | default true) (.Params.enableScrollProgress) }}
+<div id="scroll-progress-container">
+  <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<script src="{{.Site.Params.staticPath}}/js/scrollProgressBar.js"></script>
+{{ end }}
+
 <script>
   // Ensure clicking the dropdown toggle actually navigates
   document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(el => {
