@@ -145,11 +145,13 @@ html.dark .project-filters .filter-btn.active {
   cursor: pointer;
   max-width: var(--project-max-width);
   margin: 0 auto;
+  border: 2px solid transparent;
 }
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 15px rgba(0,0,0,0.1);
   color: {{ .Site.Params.color.headingsTextColor }};
+  border: 2px solid var(--text-color);
 }
 .project-card h3,
 .project-card p,

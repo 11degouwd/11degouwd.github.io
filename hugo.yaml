@@ -134,7 +134,7 @@ params:
       disableAbout: false
       disableExperience: false
       disableEducation: false
-      disableProjects: false
+      disableTechstack: false
       disableAchievements: false
       disableContact: false
 
@@ -161,11 +161,10 @@ params:
     enable: true
     # title: "Custom Name"
 
-  # projects
-  projects:
-    enable: false
+  # Tech Stack
+  techstack:
+    enable: true
     # title: "Custom Name"
-    items:
 
   #Contact
   contact:

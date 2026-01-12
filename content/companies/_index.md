@@ -1,6 +1,6 @@
 ---
 title: "Companies"
 
-_build:
+build:
   list: false
 ---
