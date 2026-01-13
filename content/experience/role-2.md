@@ -1,12 +1,12 @@
 ---
-title: Janitor and Electronics Engineer
-company: Company yeet
-company_slug: yeet
+title: Stocktaker
+company_slug: woolworths
 start: 2011-06-01
 end: 2014-01-01
 location: Auckland, NZ
-summary: yeeted hard.
+summary: stocked hard
 
+# Required Hugo parameters
 build:
   render: never
 ---

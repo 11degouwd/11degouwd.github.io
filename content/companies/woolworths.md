@@ -1,9 +1,8 @@
 ---
 title: YEET
-logo: images/me.png
+logo: logo.png
 start: 2021
 end: 2024
-tags: [embedded, rf, manufacturing]
 ---
 
 ## About Company One

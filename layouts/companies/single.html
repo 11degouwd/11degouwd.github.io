@@ -43,8 +43,11 @@
 
           <!-- Featured image -->
           {{ if .Params.image }}
+            {{ $page := . }}
+            {{ $slug := $page.File.BaseFileName }}
+            {{ $path := (path.Join "images" $slug .Params.image) }}
             <div class="company-featured-image">
-              <img src="{{ .Params.image }}" alt="{{ .Title }}">
+              <img src="{{ $path | relURL }}" alt="{{ .Title }}">
             </div>
           {{ end }}
 
