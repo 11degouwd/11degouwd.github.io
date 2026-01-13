@@ -1,10 +1,9 @@
 ---
 title: Company One
-logo: /images/me.png
-image: /images/achievement.jpg
+logo: logo.png
+image: banner.jpg
 start: 2021
 end: 2024
-tags: [embedded, rf, manufacturing]
 ---
 
 ## About Company One

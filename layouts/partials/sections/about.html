@@ -6,16 +6,14 @@
       <h3 class="text-center bg-transparent">{{ .Params.title }}</h3>
       <div class="bg-transparent row justify-content-center px-3 py-5">
         {{ if .Params.image }}
-        <div class="col-sm-12 col-md-8 col-lg-4 mb-5 mb-sm-0 mb-md-5 mb-lg-0 d-none d-sm-none d-md-block">
-          {{ with .Resources.GetMatch .Params.image }}
-            <div class="image d-flex px-5">
-              <img
-                src="{{ .RelPermalink }}"
-                class="img-thumbnail mx-auto rounded-circle"
-                alt="">
-            </div>
-          {{ end }}
-        </div>
+          <div class="col-sm-12 col-md-8 col-lg-4 mb-5 mb-sm-0 mb-md-5 mb-lg-0 d-none d-sm-none d-md-block">
+              <div class="image d-flex px-5">
+                <img
+                  src="{{ (path.Join "images" .Params.image) | relURL }}"
+                  class="img-thumbnail mx-auto rounded-circle"
+                  alt="">
+              </div>
+          </div>
         {{ end }}
         <div class="col-sm-12 col-md-12 col-lg-8 content">
           {{ .Params.content | markdownify }}

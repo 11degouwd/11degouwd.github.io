@@ -1,19 +1,34 @@
 ---
-title: "Technical Stack"
-intro: "Technologies and tools I work with regularly."
+title: "Technical Stack" # Used for the section header
+intro: "Technologies and tools I work with regularly." # Intro 
 
-technical_groups:
+technical_groups: # List of tech stack groups
   - title: "Programming Languages"
-    skills:
-      - devicon_name: "python"
-        devicon_suffix: "original"
-        name: "Python"
+    skills: # Skills relevant to this group
+      - devicon_name: "python" # Devicon name (NAME) found in the /icons/NAME/*.svg url for each image
+        devicon_suffix: "original" # Devicon suffix found in the /icons/NAME/NAME-*.svg url for each image
+        name: "Python" # Rendered text under icon
       - devicon_name: "javascript"
         devicon_suffix: "original"
         name: "JavaScript"
       - devicon_name: "typescript"
         devicon_suffix: "original"
         name: "TypeScript"
+
+  - title: "Custom Icon Testing"
+    skills:
+      - simpleicon_name: "altiumdesigner" # SimpleIcon name
+        name: "Altium Designer" # Rendered text under icon
+      - simpleicon_name: "altiumdesigner" 
+        simpleicon_color: "#ff0000" # Color override
+        name: "Altium Designer Red"
+      - simpleicon_name: "altiumdesigner"
+        simpleicon_cdn: true # Force pull as html img off SimpleIcon
+        name: "Altium Designer img"
+      - svgporn_name: "obsidian-icon" # SimpleIcon name
+        name: "Obsidian"
+      - custom_icon: "altiumdesigner" # Local icon name
+        name: "Altium Local"
 
   - title: "Web & Frontend"
     skills:
@@ -117,21 +132,7 @@ technical_groups:
         devicon_suffix: "original"
         name: "Hugo"
 
-  - title: "Custom Icon Testing"
-    skills:
-      - simpleicon_name: "altiumdesigner"
-        name: "Altium Designer"
-      - simpleicon_name: "altiumdesigner"
-        simpleicon_color: "#ff0000"
-        name: "Altium Designer Red"
-      - simpleicon_name: "altiumdesigner"
-        simpleicon_cdn: true
-        name: "Altium Designer img"
-      - svgporn_name: "obsidian-icon"
-        name: "Obsidian"
-      - custom_icon: "altiumdesigner"
-        name: "Altium Local"
-
+# Required Hugo parameters
 build:
   render: never
   list: never

@@ -18,8 +18,10 @@
 
         <div class="techstack-icons">
         {{ range .skills }}
+          {{ $hasIcon := false }}
           <div class="techstack-icon">
             {{ if .devicon_name }}
+              {{ $hasIcon = true }}
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-{{ with .devicon_suffix }}{{ . }}{{ else }}original{{ end }}.svg"
                 alt="{{ .name }}"
@@ -32,9 +34,13 @@
               {{ if .simpleicon_color }}
                 <div class="tech-icon" style="--icon-color: {{ .simpleicon_color | default "" }}">
                   {{ $icon := resources.Get (printf "icons/simple/%s.svg" .simpleicon_name) }}
-                  {{ $icon.Content | safeHTML }}
+                  {{ if $icon }}
+                    {{ $hasIcon = true }}
+                    {{ $icon.Content | safeHTML }}
+                  {{ end }}
                 </div>
-              {{ else if .simpleicon_force_img }}
+              {{ else if .simpleicon_cdn }}
+                {{ $hasIcon = true }}
                 <img
                   src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/{{ .simpleicon_name }}.svg"
                   alt="{{ .name }}"
@@ -45,9 +51,13 @@
                 />
               {{ else }}
                 {{ $icon := resources.Get (printf "icons/simple/%s.svg" .simpleicon_name) }}
-                {{ $icon.Content | safeHTML }}
+                {{ if $icon }}
+                  {{ $hasIcon = true }}
+                  {{ $icon.Content | safeHTML }}
+                {{ end }}
               {{ end }}
             {{ else if .svgporn_name }}
+              {{ $hasIcon = true }}
               <img
                 src="https://cdn.svglogos.dev/logos/{{ .svgporn_name }}.svg"
                 alt="{{ .name }}"
@@ -57,16 +67,15 @@
                 data-animation="skill-icon"
               />
             {{ else if .custom_icon }}
-              <img
-                src="{{ .custom_icon | relURL }}"
-                alt="{{ .name }}"
-                width="56"
-                height="56"
-                loading="lazy"
-                data-animation="skill-icon"
-              />
+              {{ $icon := resources.Get (printf "icons/simple/%s.svg" .custom_icon) }}
+              {{ if $icon }}
+                {{ $hasIcon = true }}
+                {{ $icon.Content | safeHTML }}
+              {{ end }}
             {{ end }}
-            <span>{{ .name }}</span>
+            {{ if $hasIcon }}
+              <span>{{ .name }}</span>
+            {{ end }}
           </div>
         {{ end }}
         </div>
