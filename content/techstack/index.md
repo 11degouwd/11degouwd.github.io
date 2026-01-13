@@ -117,6 +117,23 @@ technical_groups:
         devicon_suffix: "original"
         name: "Hugo"
 
+  - title: "Custom Icon Testing"
+    skills:
+      - simpleicon_name: "altiumdesigner"
+        name: "Altium Designer"
+      - simpleicon_name: "altiumdesigner"
+        simpleicon_color: "#ff0000"
+        name: "Altium Designer Red"
+      - simpleicon_name: "altiumdesigner"
+        simpleicon_force_img: true
+        name: "Altium Designer img"
+      - svgporn_name: "obsidian-icon"
+        name: "Obsidian"
+      # - custom_icon: "github"
+      #   name: "GitHub"
+      # - custom_icon: "gitlab"
+      #   name: "GitLab"
+
 build:
   render: never
   list: never

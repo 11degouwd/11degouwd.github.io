@@ -18,8 +18,8 @@
 
         <div class="techstack-icons">
         {{ range .skills }}
-          {{ if .devicon_name }}
-            <div class="techstack-icon">
+          <div class="techstack-icon">
+            {{ if .devicon_name }}
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{{ .devicon_name }}/{{ .devicon_name }}-{{ with .devicon_suffix }}{{ . }}{{ else }}original{{ end }}.svg"
                 alt="{{ .name }}"
@@ -28,9 +28,46 @@
                 loading="lazy"
                 data-animation="skill-icon"
               />
-              <span>{{ .name }}</span>
-            </div>
-          {{ end }}
+            {{ else if .simpleicon_name }}
+              {{ if .simpleicon_color }}
+                <div class="tech-icon" style="--icon-color: {{ .simpleicon_color | default "" }}">
+                  {{ $icon := resources.Get (printf "icons/simple/%s.svg" .simpleicon_name) }}
+                  {{ $icon.Content | safeHTML }}
+                </div>
+              {{ else if .simpleicon_force_img }}
+                <img
+                  src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/{{ .simpleicon_name }}.svg"
+                  alt="{{ .name }}"
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  data-animation="skill-icon"
+                />
+              {{ else }}
+                {{ $icon := resources.Get (printf "icons/simple/%s.svg" .simpleicon_name) }}
+                {{ $icon.Content | safeHTML }}
+              {{ end }}
+            {{ else if .svgporn_name }}
+              <img
+                src="https://cdn.svglogos.dev/logos/{{ .svgporn_name }}.svg"
+                alt="{{ .name }}"
+                width="56"
+                height="56"
+                loading="lazy"
+                data-animation="skill-icon"
+              />
+            {{ else if .custom_icon }}
+              <img
+                src="{{ .custom_icon | relURL }}"
+                alt="{{ .name }}"
+                width="56"
+                height="56"
+                loading="lazy"
+                data-animation="skill-icon"
+              />
+            {{ end }}
+            <span>{{ .name }}</span>
+          </div>
         {{ end }}
         </div>
       </div>
