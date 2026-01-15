@@ -10,4 +10,4 @@ end: 2024
 
 Company One specialises in …
 
-![YEET](images/post.jpg)
+![Example Image](post.jpg)

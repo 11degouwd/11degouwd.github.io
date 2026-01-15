@@ -19,6 +19,7 @@
       <!-- Main content column -->
       <div class="col-sm-12 col-md-12 col-lg-9">
         <div class="pr-lg-4">
+          {{ $companySlug := .File.Dir | path.Base }}
 
           <!-- Title block -->
           <div class="title mb-5 text-center">
@@ -43,9 +44,7 @@
 
           <!-- Featured image -->
           {{ if .Params.image }}
-            {{ $page := . }}
-            {{ $slug := $page.File.BaseFileName }}
-            {{ $path := (path.Join "images" $slug .Params.image) }}
+            {{ $path := (path.Join "images" $companySlug .Params.image) }}
             <div class="company-featured-image">
               <img src="{{ $path | relURL }}" alt="{{ .Title }}">
             </div>
@@ -57,7 +56,6 @@
           </article>
           
           <!-- Work Experience -->
-          {{ $companySlug := .File.BaseFileName }}
           {{ $roles := where site.RegularPages "Section" "experience" }}
           {{ $roles = where $roles ".Params.company_slug" $companySlug }}
           {{ $roles = sort $roles "Params.start" "desc" }}
@@ -100,9 +98,8 @@
           {{ end }}
           
           <!-- Projects grid -->
-          {{ $companyName := .File.BaseFileName }}
           {{ $projects := where site.RegularPages "Section" "portfolio" }}
-          {{ $companyProjects := where $projects ".Params.company" $companyName }}
+          {{ $companyProjects := where $projects ".Params.company" $companySlug }}
 
           {{ if gt (len $companyProjects) 0 }}
             <h2 class="mt-5 mb-3">Projects at {{ .Title }}:</h2>
