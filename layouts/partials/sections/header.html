@@ -108,7 +108,7 @@
                     </li>
                     {{ end }} -->
                     {{ if and (.Site.Params.experience.enable | default false) (not (.Site.Params.navbar.menus.disableExperience | default false)) }}
-                      {{ $companies := site.GetPage "companies" }}
+                      {{ $companies := site.GetPage "section" "companies" }}
                       <li class="nav-item dropdown navbar-text">
                         <a
                           class="nav-link dropdown-toggle"
@@ -121,7 +121,7 @@
                           {{ .Site.Params.experience.title | default "Experience" }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
-                          {{ range $companies.Pages.ByTitle }}
+                          {{ range $companies.Sections.ByTitle }}
                           <li><a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
                           {{ end }}
                         </ul>

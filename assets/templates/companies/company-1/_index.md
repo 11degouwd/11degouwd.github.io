@@ -10,4 +10,4 @@ end: 2024 # End date at this company. WARNING this is seperate from experience d
 
 Company One specialises in …
 
-![YEET](images/post.jpg)
+![Example Image](post.jpg)
