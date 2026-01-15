@@ -303,13 +303,37 @@
 
 <script>
   function toggleSearch() {
-    const input = document.getElementById("navbar-search");
-    input.classList.toggle("active");
+  const input = document.getElementById("navbar-search");
+  const searchContent = document.getElementById("search-content");
+  const searchResultsContainer = document.getElementById("search-results");
 
-    if (input.classList.contains("active")) {
-        input.focus();
+  if (!input || !searchContent || !searchResultsContainer) return;
+
+  if (input.style.display === "block") {
+    input.style.display = "none";
+    searchContent.style.display = "none";
+    searchResultsContainer.innerHTML = "";
+    return;
+  } else {
+    input.style.display = "block";
+    input.focus();
+
+    {{/*  searchResultsContainer.innerHTML = ""; // clear search */}}
+    {{/*  searchContent.style.display = "none"; // hide until typing  */}}
+    {{/*  performSearch({ target: input });   */}}
+
+    // Shows results box if text is present
+    requestAnimationFrame(() => {
+      positionSearchContent();
+    });
+
+    // Runs the search again if text is present
+    if (input.value.trim() !== "") {
+      performSearch({ target: input }); // refresh results
     }
   }
+}
+
 
   document.addEventListener("keydown", function (e) {
     if ((e.ctrlKey || e.metaKey) && e.key === "k") {
