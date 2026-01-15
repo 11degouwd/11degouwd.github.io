@@ -1,6 +1,6 @@
 ---
 intro: "Hi, my name is"
-title: "Isabella."
+title: "Daniel."
 subtitle: "I build things for the web"
 content: "A passionate web app developer. I tend to make use of modern web technologies to build websites that look great, feel fantastic, and function correctly."
 image: hero.svg

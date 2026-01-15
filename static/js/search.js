@@ -93,6 +93,7 @@ async function performSearch(evt) {
           card.appendChild(link);
           searchResultsContainer.appendChild(card);
         });
+        positionSearchContent();
       } else {
         const noResultsMessage = document.createElement("p");
         noResultsMessage.className = "text-center py-3";
@@ -100,6 +101,7 @@ async function performSearch(evt) {
         noResultsMessage.style.margin = "0 auto";
         noResultsMessage.textContent = `No results found for "${searchQuery}"`;
         searchResultsContainer.appendChild(noResultsMessage);
+        positionSearchContent();
       }
 
       searchContent.style.display = "block";
@@ -115,15 +117,24 @@ async function performSearch(evt) {
 // --- Close search on outside click ---
 document.addEventListener("click", function (e) {
   const searchInput = document.getElementById("navbar-search");
-  const toggle = document.querySelector(".search-toggle");
+  const toggle = document.getElementById("search-toggle");
   const searchContent = document.getElementById("search-content");
 
   if (!searchInput || !searchContent) return;
 
-  if (!searchInput.contains(e.target) && (!toggle || !toggle.contains(e.target)) && !searchContent.contains(e.target)) {
-    searchInput.classList.remove("active");
-    searchContent.style.display = "none";
-  }
+  // Ignore clicks inside search results
+  if (e.target.closest("#search-results a")) return;
+
+  // Ignore clicks on the toggle button
+  if (toggle && toggle.contains(e.target)) return;
+
+  // Ignore clicks inside the input itself
+  if (searchInput.contains(e.target)) return;
+
+  // Otherwise, close everything
+  searchInput.style.display = "none";
+  searchInput.classList.remove("active");
+  searchContent.style.display = "none"; 
 });
 
 // --- Close search on Escape ---
@@ -135,3 +146,47 @@ document.addEventListener("keydown", function (e) {
     if (searchContent) searchContent.style.display = "none";
   }
 });
+
+// --- Repositioning the search results box ---
+function positionSearchContent() {
+  const searchInput = document.getElementById("navbar-search");
+  const searchContent = document.getElementById("search-content");
+  if (!searchInput || !searchContent) return;
+
+  const rect = searchInput.getBoundingClientRect();
+  const scrollY = window.scrollY || window.pageYOffset;
+  const scrollX = window.scrollX || window.pageXOffset;
+
+  const desiredWidth = window.innerWidth > 768 ? 500 : 300;
+  let left = rect.right + scrollX - desiredWidth;
+  if (left < 16) left = 16;
+
+  searchContent.style.top = rect.bottom + scrollY + 8 + "px";
+  searchContent.style.left = left + "px";
+  searchContent.style.width = desiredWidth + "px";
+}
+
+let ticking = false;
+
+function onScrollOrResize() {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      positionSearchContent();
+      ticking = false;
+    });
+    ticking = true;
+  }
+}
+
+window.addEventListener("scroll", onScrollOrResize);
+window.addEventListener("resize", onScrollOrResize);
+// let positionTimeout;
+// function throttledPosition() {
+//   if (positionTimeout) return;
+//   positionTimeout = setTimeout(() => {
+//     positionSearchContent();
+//     positionTimeout = null;
+//   }, 16); // run at most every 16ms (~60Hz)
+// }
+// window.addEventListener("scroll", throttledPosition);
+// window.addEventListener("resize", throttledPosition);
