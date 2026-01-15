@@ -142,7 +142,10 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     const searchInput = document.getElementById("navbar-search");
     const searchContent = document.getElementById("search-content");
-    if (searchInput) searchInput.classList.remove("active");
+    if (searchInput) {
+      searchInput.style.display = "none";
+      searchInput.classList.remove("active");
+    }
     if (searchContent) searchContent.style.display = "none";
   }
 });
