@@ -1,12 +1,10 @@
 ---
 intro: "Hi, my name is"
 title: "Daniel."
-subtitle: "I build things for the web"
-content: "A passionate web app developer. I tend to make use of modern web technologies to build websites that look great, feel fantastic, and function correctly."
-image: hero.svg
-bottomImage:
-  enable: false # Weird svg image that renders as + signs
-# roundImage: true # Make hero image circular | default false
+subtitle: "End-to-End Electronics and Systems Engineering." # OR the typical "Engineer. Coder. Problem Solver."
+content: "Electronics and systems engineering across the full development lifecycle — with a strong interest in aerospace and integrated systems."
+image: hero.jpg
+roundImage: true # Make hero image circular | default false
 button:
   enable: true
   name: "Resume"
@@ -19,6 +17,8 @@ socialLinks: # Uses the socials defined in hugo.yaml
     - twitter
   customIcons:
     - website
+bottomImage:
+  enable: false # Weird svg image that renders as + signs
 
 # Required Hugo parameters
 build:
