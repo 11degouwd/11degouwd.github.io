@@ -1,39 +1,3 @@
-{{- if (eq .Site.Params.theme.defaultTheme "light") }}
-<script>
-    if (document.body.className.includes("dark")) {
-        document.body.classList.remove('dark');
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem("pref-theme", 'light');
-    }
-</script>
-
-{{ else if (eq .Site.Params.theme.defaultTheme "dark") }}
-{{- /* theme is dark */}}
-<script>
-    if (document.body.className.includes("light")) {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-        localStorage.setItem("pref-theme", 'dark');
-    }
-</script>
-
-{{- else }}
-{{- /* theme is auto */}}
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-        document.documentElement.classList.remove('dark');
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-    }
-
-</script>
-{{- end }}
-
 {{- if (not .Site.Params.theme.disableThemeToggle) }}
 <script>
   function toggleTheme() {

@@ -1,24 +1,57 @@
-{{- /* theme is auto */}}
 <script>
-    let localStorageValue = localStorage.getItem("pref-theme");
-    let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
+let localStorageValue = localStorage.getItem("pref-theme");
+let defaultTheme = "{{ .Site.Params.theme.defaultTheme }}"; // light, dark, auto
+let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    switch (localStorageValue) {
-        case "dark":
-            document.documentElement.classList.add('dark');
-            document.body.classList.add('dark');
-            break;
+// Only apply defaultTheme if there is no user preference
+if (!localStorageValue) {
+    switch(defaultTheme) {
         case "light":
-            document.body.classList.remove('dark');
-            document.documentElement.classList.remove('dark');
+            console.log("[theme] applying default light theme");
+            if (document.body.className.includes("dark")) {
+                document.body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem("pref-theme", 'light');
+            }
             break;
-        default:
-            if (mediaQuery) {
-                document.documentElement.classList.add('dark');
+        case "dark":
+            console.log("[theme] applying default dark theme");
+            if (document.body.className.includes("light")) {
                 document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                localStorage.setItem("pref-theme", 'dark');
+            }
+            break;
+        default: // auto
+            if (mediaQuery) {
+                console.log("[theme] auto, system prefers dark");
+                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+            } else {
+                console.log("[theme] auto, system prefers light");
+                if (document.body.className.includes("dark")) {
+                    console.log("[theme] auto, removing all dark references");
+                    document.body.classList.remove('dark');
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem("pref-theme", 'light');
+                }
             }
             break;
     }
+} else {
+    console.log("[theme] using stored preference:", localStorageValue);
+    if (localStorageValue === "dark") {
+        if (document.body.className.includes("light")) {
+            document.documentElement.classList.add('dark');
+            document.body.classList.add('dark');
+        }
+    } else if (localStorageValue === "light") {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
+        }
+    }
+}
 </script>
 
 <!-- Show header on scroll up -->
