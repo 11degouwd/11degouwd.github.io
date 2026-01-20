@@ -74,7 +74,7 @@ header .navbar.animate {
     min-height: 100vh;
     line-height: 2rem;
     max-width: 100%;
-    background-color: var(--background-color);
+    background-color: var(--hero-bg-color-light, #ff0000);
     overflow: hidden;
     position: relative;
 }
@@ -82,7 +82,7 @@ header .navbar.animate {
 #hero .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: var(--hero-bg-image);
+    background-image: var(--hero-bg-image-light);
     background-repeat: no-repeat;
     background-position: top right;
     background-size: contain;
@@ -116,6 +116,12 @@ header .navbar.animate {
 
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
+}
+html.dark #hero {
+    background-color: var(--hero-bg-color-dark, #ff0000) !important;
+}
+html.dark #hero .hero-bg {
+    background-image: var(--hero-bg-image-dark);
 }
 @media (max-width: 768px) {
   #hero .hero-bg {
