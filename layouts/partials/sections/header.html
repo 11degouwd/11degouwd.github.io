@@ -39,7 +39,7 @@ if (!localStorageValue) {
             break;
     }
 } else {
-    console.log("[theme] using stored preference:", localStorageValue);
+    {{/*  console.log("[theme] using stored preference:", localStorageValue);  */}}
     if (localStorageValue === "dark") {
         if (document.body.className.includes("light")) {
             document.documentElement.classList.add('dark');

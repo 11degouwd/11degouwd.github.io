@@ -1,7 +1,10 @@
 {{ if .Site.Params.hero.enable | default false }}
-<section id="hero" class="py-5 align-middle">
+<section id="hero" class="py-5 align-middle position-relative">
   {{ $hero := site.GetPage "hero" }}
   {{ with $hero }}
+    {{ if .Params.background.enable }}
+      <div class="hero-bg"></div>
+    {{ end }}
     <div class="container px-3 px-sm-5 px-md-5 px-lg-5 pt-lg-3">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-8 content {{ if .Site.Params.animate }}animate{{ end }}" id="primary-font">
@@ -311,4 +314,16 @@
     {{ end }}
   {{ end }}
 </section>
+
+{{ with $hero }}
+  <style>
+    #hero {
+      --hero-bg-image: url('{{ (path.Join "images" .Params.background.imageLight) | relURL }}');
+    }
+
+    html.dark #hero {
+      --hero-bg-image: url('{{ (path.Join "images" .Params.background.imageDark) | relURL }}');
+    }
+  </style>
+{{ end }}
 {{ end }}
