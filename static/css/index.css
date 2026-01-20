@@ -74,7 +74,60 @@ header .navbar.animate {
     min-height: 100vh;
     line-height: 2rem;
     max-width: 100%;
+    background-color: var(--background-color);
+    overflow: hidden;
+    position: relative;
 }
+
+#hero .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg-image);
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: contain;
+    z-index: 0;
+    max-width: 100%;
+    max-height: 100%;
+    pointer-events: none;
+    mask-image:
+      linear-gradient(
+        to left,
+        rgba(0,0,0,1) 35%,
+        rgba(0,0,0,0) 50%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0,0,0,1) 80%,
+        rgba(0,0,0,0) 100%
+      );
+
+    -webkit-mask-image:
+      linear-gradient(
+        to left,
+        rgba(0,0,0,1) 35%,
+        rgba(0,0,0,0) 50%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0,0,0,1) 80%,
+        rgba(0,0,0,0) 100%
+      );
+
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+}
+@media (max-width: 768px) {
+  #hero .hero-bg {
+    display: none;
+  }
+}
+
+#hero .container {
+  position: relative;
+  z-index: 1
+}
+
 #hero .content.animate {
     animation: fade-left 1s ease-out;
 }
@@ -107,6 +160,10 @@ header .navbar.animate {
     margin: 20px 0px 0px;
     max-width: 640px;
     opacity: 0.8;
+}
+
+#hero .image {
+    z-index: 2;
 }
 
 #hero .image img {
@@ -194,7 +251,9 @@ html.dark #hero .image.animate img {
     opacity: 0.5;
 }
 
-#hero .hero-content > a:hover::after, #hero .hero-content > a:focus::after, #hero .hero-content > a:active::after {
+#hero .hero-content > a:hover::after, 
+#hero .hero-content > a:focus::after, 
+#hero .hero-content > a:active::after {
     width: 100%;
 }
 
