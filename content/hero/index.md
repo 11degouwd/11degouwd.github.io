@@ -7,10 +7,8 @@ content: "Electronics and systems engineering across the full development lifecy
 # roundImage: true # Make hero image circular | default false
 background:
   enable: true
-  # image: "hero_bkgnd_v1.svg"   # lives in /static/images/
-  # imageLight: "hero_bkgnd_v1.svg"
-  image: "post.jpg"
-  # color: "#f0f4f8"
+  image: "hero_bkgnd_v1.svg"   # lives in /static/images/
+  color: "#f0f4f8"
   darkmode:
     image: "hero_bkgnd_v1.svg"
     color: "#f0f4f8"
