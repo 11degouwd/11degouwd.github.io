@@ -74,7 +74,7 @@ header .navbar.animate {
     min-height: 100vh;
     line-height: 2rem;
     max-width: 100%;
-    background-color: var(--hero-bg-color-light, #ff0000);
+    background-color: var(--hero-bg-color-light, var(--background-color));
     overflow: hidden;
     position: relative;
 }
@@ -118,10 +118,10 @@ header .navbar.animate {
     -webkit-mask-composite: source-in;
 }
 html.dark #hero {
-    background-color: var(--hero-bg-color-dark, #ff0000) !important;
+    background-color: var(--hero-bg-color-dark, var(--background-color)) !important;
 }
 html.dark #hero .hero-bg {
-    background-image: var(--hero-bg-image-dark);
+  background-image: var(--hero-bg-image-dark, var(--hero-bg-image-light));
 }
 @media (max-width: 768px) {
   #hero .hero-bg {

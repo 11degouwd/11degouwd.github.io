@@ -1,30 +1,23 @@
 {{ if .Site.Params.hero.enable | default false }}
-<section id="hero" class="py-5 align-middle position-relative">
-  {{ $hero := site.GetPage "hero" }}
-  {{ with $hero }}
+{{ $hero := site.GetPage "hero" }}
+{{ with $hero }}
+<section id="hero" class="py-5 align-middle position-relative"
+          style='
+            {{ with .Params.background.image }}
+              --hero-bg-image-light: url("{{ path.Join "images" . | relURL }}");
+            {{ end }}
+            {{ with .Params.background.darkmode.image }}
+              --hero-bg-image-dark: url("{{ path.Join "images" . | relURL }}");
+            {{ end }}
+            {{ with .Params.background.color }}
+              --hero-bg-color-light: {{ . }};
+            {{ end }}
+            {{ with .Params.background.darkmode.color }}
+              --hero-bg-color-dark: {{ . }};
+            {{ end }}
+          '>
     {{ if .Params.background.enable }}
-      {{ $backgroundPathLight := path.Join "images" .Params.background.image }}
-      {{ $backgroundPathDark := "" }}
-      {{ with .Params.background.darkmode.image }}
-        {{ $backgroundPathDark = path.Join "images" . }}
-      {{ end }}
-
-      {{ $backgroundColorLight := "" }}
-      {{ with .Params.background.color }}
-        {{ $backgroundColorLight = . }}
-      {{ end }}
-      {{ $backgroundColorDark := "" }}
-      {{ with .Params.background.darkmode.color }}
-        {{ $backgroundColorDark = . }}
-      {{ end }}
-
-      <div  class="hero-bg"
-            style="
-                --hero-bg-image-light: url('{{ $backgroundPathLight | relURL }}');
-                {{ with $backgroundPathDark }}--hero-bg-image-dark: url('{{ . | relURL }}');{{ end }}
-                {{ with $backgroundColorLight }}--hero-bg-color-light: {{ . }};{{ end }}
-                {{ with $backgroundColorDark }}--hero-bg-color-dark: {{ . }};{{ end }}
-            "></div>
+      <div  class="hero-bg"></div>
     {{ end }}
     <div class="container px-3 px-sm-5 px-md-5 px-lg-5 pt-lg-3">
         <div class="row">
