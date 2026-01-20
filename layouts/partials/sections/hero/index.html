@@ -3,7 +3,28 @@
   {{ $hero := site.GetPage "hero" }}
   {{ with $hero }}
     {{ if .Params.background.enable }}
-      <div class="hero-bg"></div>
+      {{ $backgroundPathLight := path.Join "images" .Params.background.image }}
+      {{ $backgroundPathDark := "" }}
+      {{ with .Params.background.darkmode.image }}
+        {{ $backgroundPathDark = path.Join "images" . }}
+      {{ end }}
+
+      {{ $backgroundColorLight := "" }}
+      {{ with .Params.background.color }}
+        {{ $backgroundColorLight = . }}
+      {{ end }}
+      {{ $backgroundColorDark := "" }}
+      {{ with .Params.background.darkmode.color }}
+        {{ $backgroundColorDark = . }}
+      {{ end }}
+
+      <div  class="hero-bg"
+            style="
+                --hero-bg-image-light: url('{{ $backgroundPathLight | relURL }}');
+                {{ with $backgroundPathDark }}--hero-bg-image-dark: url('{{ . | relURL }}');{{ end }}
+                {{ with $backgroundColorLight }}--hero-bg-color-light: {{ . }};{{ end }}
+                {{ with $backgroundColorDark }}--hero-bg-color-dark: {{ . }};{{ end }}
+            "></div>
     {{ end }}
     <div class="container px-3 px-sm-5 px-md-5 px-lg-5 pt-lg-3">
         <div class="row">
@@ -315,15 +336,4 @@
   {{ end }}
 </section>
 
-{{ with $hero }}
-  <style>
-    #hero {
-      --hero-bg-image: url('{{ (path.Join "images" .Params.background.imageLight) | relURL }}');
-    }
-
-    html.dark #hero {
-      --hero-bg-image: url('{{ (path.Join "images" .Params.background.imageDark) | relURL }}');
-    }
-  </style>
-{{ end }}
 {{ end }}
