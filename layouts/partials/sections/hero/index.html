@@ -16,11 +16,11 @@
               --hero-bg-color-dark: {{ . }};
             {{ end }}
           '>
-    {{ if .Params.background.enable }}
-      <div  class="hero-bg"></div>
-    {{ end }}
     <div class="container px-3 px-sm-5 px-md-5 px-lg-5 pt-lg-3">
         <div class="row">
+            {{ if .Params.background.enable }}
+              <div  class="hero-bg"></div>
+            {{ end }}
             <div class="col-sm-12 col-md-12 col-lg-8 content {{ if .Site.Params.animate }}animate{{ end }}" id="primary-font">
                 <span class="subtitle">
                     {{ .Params.intro }}
@@ -52,12 +52,14 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row justify-content-center">
-                    <div class="col-sm-12 col-md-9 pt-5 image {{ if .Site.Params.animate }}animate{{ end }} px-5 px-md-5 px-lg-0 text-center">
-                        <img src="{{ (path.Join "images" .Params.image) | relURL }}"
-                            class="img-thumbnail mx-auto{{ if .Params.roundImage }} rounded-circle{{ end }}"
-                            alt=""
-                        >
-                    </div>
+                    {{ if .Params.headshot.enable }}
+                        <div class="col-sm-12 col-md-9 pt-5 image {{ if .Site.Params.animate }}animate{{ end }} px-5 px-md-5 px-lg-0 text-center">
+                            <img src="{{ (path.Join "images" .Params.image) | relURL }}"
+                                class="img-thumbnail mx-auto{{ if .Params.roundImage }} rounded-circle{{ end }}"
+                                alt=""
+                            >
+                        </div>
+                    {{ end }}
                 </div>
             </div>
         </div>
