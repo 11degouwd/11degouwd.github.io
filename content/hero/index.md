@@ -9,11 +9,11 @@ headshot:
   roundImage: false
 background:
   enable: true
-  image: "hero_bkgnd_v1.1.svg"   # lives in /static/images/ 1200x1200px
+  image: "hero_bg_light.svg"   # lives in /static/images/ 1200x1200px
   # color: "#f0f4f8"
   darkmode:
-    image: "hero_bkgnd_v1.svg" # 1200x1200px
-    # color: "#f0f4f8"
+    image: "hero_bg_dark.svg" # 1200x1200px
+    # color: "#686363"
 button:
   enable: true
   name: "Resume"
