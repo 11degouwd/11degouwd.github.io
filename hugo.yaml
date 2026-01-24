@@ -23,7 +23,7 @@ markup:
       unsafe: true
 
 menu:
-  main:
+  main: # Custom pages
     - name: "Portfolio"
       url: "/portfolio/"
       weight: 1
