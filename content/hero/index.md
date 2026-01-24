@@ -17,7 +17,8 @@ background:
 button:
   enable: true
   name: "Resume"
-  url: "/resume/resume.pdf" # Can be public url to access or a file in static/
+  fileLocation: "resume.pdf" # Can be public url to access or a file in static/
+  localFile: true # Set true if file is placed in static/resume/ , otherwise false if web URL
   download: true
   newPage: true
 socialLinks: # Uses the socials defined in hugo.yaml
