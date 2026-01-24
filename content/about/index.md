@@ -1,22 +1,27 @@
 ---
 title: "About Me"
-image: "me.png"
+image: "me.jpg"
+# I approach problems with methodical reasoning and strong visualisation, building clear mental models of systems to reason through real-world behaviour, interactions, and edge cases.
 content: |-
-  Hi, I’m Daniel. I specialize in electronics and systems engineering, helping companies take projects from concept to deployment.  Explore my work below or get in touch to collaborate.
+  I specialize in electronics and systems engineering, helping companies take complex projects from concept to deployment. 
+  With a background in mechatronics, I work comfortably across electronics, software, and mechanical domains, often owning systems end-to-end rather than isolated components.
 
-  I am a software developer with a passion for web development. I have a background in computer science and mathematics, and I have a strong interest in the intersection of technology and art. I am currently working as a software developer at [example org.](https://example.com) in San Francisco, CA.
+  My core experience includes lithium battery system design, solar and energy systems, embedded development, and PCB design — experience I’ve applied across aerospace and robotics platforms.
 
-  I am currently working on a project that will be used to help people find the best way to get around the city.
+  I use methodical reasoning and strong visualisation to build accurate mental models of systems, helping me anticipate interactions, constraints, and failure modes early in the design process.
+  Explore my work below, or get in touch if you’d like to collaborate.
 skills:
   enable: true
-  title: "Here are a few technologies I've been working with recently:"
+  # title: "Here are a few technologies I've been working with recently:"
+  # title: "A selection of tools and technologies I work with regularly:"
+  title: "This work spans a range of tools and technologies, including:"
   items:
-    - "HTML"
-    - "CSS"
-    - "JavaScript"
-    - "React"
-    - "Node"
-    - "Express"
+    - "Altium Designer"
+    - "Python"
+    - "SolidWorks"
+    - "Proxmox PVE"
+    - "Mikrotik"
+    - "Ubiquiti"
 
 build:
   render: never
