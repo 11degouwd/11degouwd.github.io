@@ -37,7 +37,11 @@
                 <div class="row">
                     <div class="col-auto h-100">
                         {{ if .Params.button.enable }}
-                          <a href="{{ .Params.button.url }}" class="btn" {{ cond .Params.button.download "download" "" }}
+                          {{ $buttonUrl := .Params.button.fileLocation }}
+                          {{ if .Params.button.localFile }}
+                            {{ $buttonUrl = (path.Join "resume" .Params.button.fileLocation) | relURL }}
+                          {{ end }}
+                          <a href="{{ $buttonUrl }}" class="btn" {{ cond .Params.button.download "download" "" }}
                           {{ if .Params.button.newPage | default true }}
                             target="_blank"
                             {{ end }}>
