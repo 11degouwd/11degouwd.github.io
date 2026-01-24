@@ -25,7 +25,7 @@ socialLinks: # Uses the socials defined in hugo.yaml
   fontAwesomeIcons:
     - linkedin
   # customIcons:
-  #   - website
+  #   - customName
 bottomImage:
   enable: false # Weird svg image that renders as + signs
 

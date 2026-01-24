@@ -56,42 +56,53 @@
                     {{ .Params.content | emojify | markdownify }}
                     <ul class="list-unstyled mb-0 contact-info-icons">
 
-                        <!-- Email -->
-                        {{ with .Params.info.email }}
-                        <li>
-                            <a href="mailto:{{ . }}">
-                                <i class="fas fa-envelope"></i> {{ . }}
+                        {{ range .Params.info.socialLinks.fontAwesomeIcons }}
+                          {{ $social := index $.Site.Params.socialLinks.fontAwesomeIcons . }}
+                          {{ $link := "" }}
+                          {{ $name := "ERROR" }}
+                          {{ if $social.url }}
+                            {{ $link = $social.url }}
+                            {{ $name = $social.name }}
+                          {{ else if $social.mailto }}
+                            {{ $link = printf "mailto:%s" $social.mailto }}
+                            {{ $name = $social.mailto }}
+                          {{ else if $social.tel }}
+                            {{ $link = printf "tel:%s" $social.tel }}
+                            {{ $name = $social.tel }}
+                          {{ else if $social.location }}
+                            {{ $link = printf "https://www.google.com/maps/search/?api=1&query=%s" ($social.location | urlquery ) }}
+                            {{ $name = $social.location }}
+                          {{ end }}
+                          <li>
+                            <a href="{{ $link }}" {{ if not (hasPrefix $social.url "#") }} target="_blank" {{ end }}>
+                                <i class="{{ $social.icon }}"></i> {{ $name }}
                             </a>
-                        </li>
+                          </li>
                         {{ end }}
 
-                        <!-- Phone -->
-                        {{ with .Params.info.phone }}
-                        <li>
-                            <a href="tel:{{ . }}">
-                                <i class="fas fa-phone"></i> {{ . }}
+                        {{ range .Params.info.socialLinks.customIcons }}
+                          {{ $social := index $.Site.Params.socialLinks.customIcons . }}
+                          {{ $link := "" }}
+                          {{ $name := "ERROR" }}
+                          {{ if $social.url }}
+                            {{ $link = $social.url }}
+                            {{ $name = $social.name }}
+                          {{ else if $social.mailto }}
+                            {{ $link = printf "mailto:%s" $social.mailto }}
+                            {{ $name = $social.mailto }}
+                          {{ else if $social.tel }}
+                            {{ $link = printf "tel:%s" $social.tel }}
+                            {{ $name = $social.tel }}
+                          {{ else if $social.location }}
+                            {{ $link = printf "https://www.google.com/maps/search/?api=1&query=%s" ($social.location | urlquery ) }}
+                            {{ $name = $social.location }}
+                          {{ end }}
+                          <li>
+                            <a href="{{ $link }}" {{ if not (hasPrefix $social.url "#") }} target="_blank" {{ end }}>
+                                <img src="{{ $social.icon }}"> {{ $name }}
                             </a>
-                        </li>
+                          </li>
                         {{ end }}
-
-                        <!-- LinkedIn -->
-                        {{ with .Params.info.linkedin }}
-                        <li>
-                            <a href="{{ . }}" target="_blank">
-                                <i class="fab fa-linkedin"></i> LinkedIn
-                            </a>
-                        </li>
-                        {{ end }}
-
-                        <!-- Location -->
-                        {{ with .Params.info.location }}
-                        <li>
-                            <a href="https://www.google.com/maps/search/?api=1&query={{ . | urlquery }}" target="_blank">
-                                <i class="fas fa-map-marker-alt"></i> {{ . }}
-                            </a>
-                        </li>
-                        {{ end }}
-
                     </ul>
                 </div>
             </div>

@@ -30,26 +30,39 @@ menu:
 
 params:
   title: "Daniel de Gouw"
-  description: Text about my cool site
+  description: My Project Portfolio
   # staticPath: ""  # The path to serve the static files from
   favicon: "/fav.png"
 
   
   socialLinks:
     fontAwesomeIcons:
+      email:
+        icon: fas fa-envelope
+        mailto: daniel.degouw@outlook.com
+      phone:
+        icon: fas fa-phone
+        tel: "+64 22 013 7660" # Keep in quotations
+      location:
+        icon: fas fa-map-marker-alt
+        location: Christchurch, New Zealand
       linkedin:
+        name: LinkedIn
         icon: fab fa-linkedin
         url: https://www.linkedin.com/in/daniel-de-gouw
-      # github:
-      #   icon: fab fa-github
-      #   url: https://example.com
-      # twitter:
-      #   icon: fab fa-x-twitter
-      #   url: https://example.com
+    #   github:
+    #     name: GitHub
+    #     icon: fab fa-github
+    #     url: https://example.com
+    #   twitter:
+    #     name: Twitter
+    #     icon: fab fa-x-twitter
+    #     url: https://example.com
     # customIcons:
-      # website:
-      #   icon: /fav.png
-      #   url: https://example.com
+    #   website:
+    #     name: Custom Website
+    #     icon: /fav.png
+    #     url: https://example.com
 
   # Whether to serve bootstrap css and js files from CDN or not. Can be set to true, "css" or "js" to choose between
   # serving both, only the css, or only the js files through the CDN. Any other value will make so that CDN is not used.

@@ -2,11 +2,14 @@
 content: Let's connect! I'm always interested in hearing about new projects and opportunities.
 btnName: Send Message
 info:
-  email: "hello@example.com"
-  phone: "+64 21 123 4567"
-  linkedin: "https://www.linkedin.com/in/yourprofile"
-  location: "Auckland, New Zealand"
-  website: "https://example.com"
+  socialLinks:
+    fontAwesomeIcons:
+      - email
+      - phone
+      - linkedin
+      - location
+    # customIcons:
+    #   - website
 formspree:
   enable: true # `contact.email` value will be ignored
   formId: xlggrapa 

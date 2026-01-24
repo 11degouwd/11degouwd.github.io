@@ -1,6 +1,6 @@
 ---
 title: "About Me"
-# image: "me.png"
+image: "me.png"
 content: |-
   Hi, I’m Daniel. I specialize in electronics and systems engineering, helping companies take projects from concept to deployment.  Explore my work below or get in touch to collaborate.
 
