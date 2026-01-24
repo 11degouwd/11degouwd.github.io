@@ -37,16 +37,19 @@ params:
   
   socialLinks:
     fontAwesomeIcons:
-      github:
-        icon: fab fa-github
-        url: https://example.com
-      twitter:
-        icon: fab fa-x-twitter
-        url: https://example.com
-    customIcons:
-      website:
-        icon: /fav.png
-        url: https://example.com
+      linkedin:
+        icon: fab fa-linkedin
+        url: https://www.linkedin.com/in/daniel-de-gouw
+      # github:
+      #   icon: fab fa-github
+      #   url: https://example.com
+      # twitter:
+      #   icon: fab fa-x-twitter
+      #   url: https://example.com
+    # customIcons:
+      # website:
+      #   icon: /fav.png
+      #   url: https://example.com
 
   # Whether to serve bootstrap css and js files from CDN or not. Can be set to true, "css" or "js" to choose between
   # serving both, only the css, or only the js files through the CDN. Any other value will make so that CDN is not used.

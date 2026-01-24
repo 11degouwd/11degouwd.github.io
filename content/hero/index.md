@@ -17,16 +17,15 @@ background:
 button:
   enable: true
   name: "Resume"
-  fileLocation: "resume.pdf" # Can be public url to access or a file in static/
+  fileLocation: "CV.pdf" # Can be public url to access or a file in static/
   localFile: true # Set true if file is placed in static/resume/ , otherwise false if web URL
   download: true
   newPage: true
 socialLinks: # Uses the socials defined in hugo.yaml
   fontAwesomeIcons:
-    - github
-    - twitter
-  customIcons:
-    - website
+    - linkedin
+  # customIcons:
+  #   - website
 bottomImage:
   enable: false # Weird svg image that renders as + signs
 
