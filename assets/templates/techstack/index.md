@@ -5,8 +5,8 @@ intro: "Technologies and tools I work with regularly." # Intro
 technical_groups: # List of tech stack groups
   - title: "Programming Languages"
     skills: # Skills relevant to this group
-      - devicon_name: "python" # Devicon name (NAME) found in the /icons/NAME/*.svg url for each image
-        devicon_suffix: "original" # Devicon suffix found in the /icons/NAME/NAME-*.svg url for each image
+      - devicon_name: "python" # Devicon name (NAME) found in the /icons/NAME/*.svg URL for each image
+        devicon_suffix: "original" # Devicon suffix found in the /icons/NAME/NAME-*.svg URL for each image
         name: "Python" # Rendered text under icon
       - devicon_name: "javascript"
         devicon_suffix: "original"
@@ -17,18 +17,18 @@ technical_groups: # List of tech stack groups
 
   - title: "Custom Icon Testing"
     skills:
-      - simpleicon_name: "altiumdesigner" # SimpleIcon name
-        name: "Altium Designer" # Rendered text under icon
-      - simpleicon_name: "altiumdesigner" 
-        simpleicon_color: "#ff0000" # Color override
-        name: "Altium Designer Red"
-      - simpleicon_name: "altiumdesigner"
-        simpleicon_cdn: true # Force pull as html img off SimpleIcon
-        name: "Altium Designer img"
-      - svgporn_name: "obsidian-icon" # SimpleIcon name
+      - svgporn_name: "obsidian-icon" # Icon name, pulls from https://svglogos.dev/
         name: "Obsidian"
-      - custom_icon: "altiumdesigner" # Local icon name
-        name: "Altium Local"
+      - simpleicon_name: "altiumdesigner" # SimpleIcon name found in the /assets/icons/simple/ folder
+        name: "Altium (Simple, Local)" # Rendered text under icon
+      - simpleicon_name: "altiumdesigner" 
+        simpleicon_color: "#ff0000" # Color override of icon
+        name: "Altium (Red)"
+      - simpleicon_name: "altiumdesigner"
+        simpleicon_cdn: "cdn.jsdelivr.net/npm/simple-icons@latest/icons/" # Use SimpleIcon from specific CDN, no longer uses a local file
+        name: "Altium (CDN)"
+      - custom_icon: "altiumdesigner" # Local icon name, uses raw icon as is
+        name: "Altium (Custom, Local)"
 
   - title: "Web & Frontend"
     skills:
