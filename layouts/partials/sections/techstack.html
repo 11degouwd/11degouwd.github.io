@@ -32,7 +32,7 @@
               />
             {{ else if .simpleicon_name }}
               {{ if .simpleicon_color }}
-                <div class="tech-icon" style="--icon-color: {{ .simpleicon_color | default "" }}">
+                <div class="color-override" style="--icon-color: {{ .simpleicon_color | default "" }}">
                   {{ $icon := resources.Get (printf "icons/simple/%s.svg" .simpleicon_name) }}
                   {{ if $icon }}
                     {{ $hasIcon = true }}
@@ -42,7 +42,7 @@
               {{ else if .simpleicon_cdn }}
                 {{ $hasIcon = true }}
                 <img
-                  src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/{{ .simpleicon_name }}.svg"
+                  src="https://{{ .simpleicon_cdn }}{{ .simpleicon_name }}.svg"
                   alt="{{ .name }}"
                   width="56"
                   height="56"
@@ -67,11 +67,13 @@
                 data-animation="skill-icon"
               />
             {{ else if .custom_icon }}
-              {{ $icon := resources.Get (printf "icons/simple/%s.svg" .custom_icon) }}
-              {{ if $icon }}
-                {{ $hasIcon = true }}
-                {{ $icon.Content | safeHTML }}
-              {{ end }}
+              <div class="raw-icon">
+                {{ $icon := resources.Get (printf "icons/custom/%s.svg" .custom_icon) }}
+                {{ if $icon }}
+                  {{ $hasIcon = true }}
+                  {{ $icon.Content | safeHTML }}
+                {{ end }}
+              </div>
             {{ end }}
             {{ if $hasIcon }}
               <span>{{ .name }}</span>

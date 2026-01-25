@@ -75,6 +75,10 @@
   transition: fill 0.25s ease, transform 0.25s ease;
 }
 
+.techstack-icon .raw-icon svg {
+  fill: unset;
+}
+
 .techstack-icon:hover svg {
   transform: scale(1.15) rotate(5deg);
 }
