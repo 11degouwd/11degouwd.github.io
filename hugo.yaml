@@ -106,7 +106,6 @@ params:
     tagText: "#4338ca"
     tagBackground: "#e0e7ff"
     tagBackgroundHover: "#c7d2fe"
-    projectCardBackground: "#ffffff"
     tagFilterBackground: "#eef2ff"
     tagFilterBackgroundHover: "#dbeafe"
     tagFilterBackgroundActive: "#4f46e5"
@@ -122,11 +121,10 @@ params:
       backgroundColor: "#18191a"
       secondaryBackgroundColor: "#212529"
       primaryColor: "#ffffff"
-      secondaryColor: "#212529"
+      secondaryColor: "#212529" # 1f2937 as backup color
       tagBackground: "#374151"
       tagText: "#e0e7ff"
       tagBackgroundHover: "#4b5565"
-      projectCardBackground: "#212529" # 1f2937 as backup color
       tagFilterBackground: "#1f2937"
       tagFilterBackgroundHover: "#374151"
       tagFilterBackgroundActive: "#6366f1"
