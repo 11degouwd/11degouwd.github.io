@@ -147,7 +147,7 @@ html.dark .project-filters .filter-btn.active {
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: {{ .Site.Params.color.projectCardBackground }};
+  background-color: var(--secondary-color);
   border-radius: 0.75rem;
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -179,7 +179,7 @@ html.dark .project-filters .filter-btn.active {
 }
 
 html.dark .project-card {
-  background-color: {{ .Site.Params.color.darkmode.projectCardBackground }};
+  background-color: var(--secondary-color);
   color: {{ .Site.Params.color.darkmode.headingsTextColor }};
 }
 html.dark .project-card:hover {
