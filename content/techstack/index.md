@@ -19,6 +19,15 @@ technical_groups:
         name: "C"
       - svgporn_name: "c-plusplus"
         name: "C++"
+      - devicon_name: "html5"
+        devicon_suffix: "original"
+        name: "HTML"
+      - devicon_name: "css3"
+        devicon_suffix: "original"
+        name: "CSS"
+      - devicon_name: "javascript"
+        devicon_suffix: "original"
+        name: "JavaScript"
 
   - title: "Data, Modelling & Analysis"
     skills:
@@ -106,6 +115,9 @@ technical_groups:
       - devicon_name: "raspberrypi"
         devicon_suffix: "original"
         name: "Raspberry Pi"
+      - devicon_name: "hugo"
+        devicon_suffix: "original"
+        name: "Hugo"
 
   - title: "Homelab, Automation & Hobbies"
     skills:
