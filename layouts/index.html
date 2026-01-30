@@ -12,35 +12,44 @@
 {{ end }}
 
 {{ define "main" }}
-{{- partial "sections/hero/index.html" . -}}
-{{- partial "sections/about.html" . -}}
-{{- partial "sections/experience.html" . -}}
-{{- partial "sections/education.html" . -}}
-{{- partial "sections/techstack.html" . -}}
-{{- partial "sections/achievements.html" . -}}
-{{- partial "sections/contact.html" . -}}
+  {{ if and (eq .Site.Params.siteStatus "coming-soon") (not hugo.IsServer) }}
+    <section class="min-vh-100 d-flex align-items-center justify-content-center text-center">
+    <div>
+      <h1>Coming Soon</h1>
+      <p class="text-muted">Site in active development.</p>
+    </div>
+  </section>
+  {{ else }}
+    {{- partial "sections/hero/index.html" . -}}
+    {{- partial "sections/about.html" . -}}
+    {{- partial "sections/experience.html" . -}}
+    {{- partial "sections/education.html" . -}}
+    {{- partial "sections/techstack.html" . -}}
+    {{- partial "sections/achievements.html" . -}}
+    {{- partial "sections/contact.html" . -}}
 
-<section id="homePage">
-  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
-    <i class="fas fa-angle-up"></i>
-  </button>
-</section>
+    <section id="homePage">
+      <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+        <i class="fas fa-angle-up"></i>
+      </button>
+    </section>
 
-<script>
-  var topScroll = document.getElementById("topScroll");
-  window.onscroll = function() {scrollFunction()};
+    <script>
+      var topScroll = document.getElementById("topScroll");
+      window.onscroll = function() {scrollFunction()};
 
-  function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      topScroll.style.display = "block";
-    } else {
-      topScroll.style.display = "none";
-    }
-  }
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          topScroll.style.display = "block";
+        } else {
+          topScroll.style.display = "none";
+        }
+      }
 
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-</script>
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+  {{ end }}
 {{ end }}

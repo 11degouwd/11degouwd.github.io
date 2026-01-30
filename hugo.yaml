@@ -34,12 +34,15 @@ params:
   # staticPath: ""  # The path to serve the static files from
   favicon: "/fav.png"
 
+  siteStatus: "coming-soon"   # live | coming-soon  
+  # siteStatus: "live"   # live | coming-soon  
+
   
   socialLinks:
     fontAwesomeIcons:
       email:
         icon: fas fa-envelope
-        mailto: daniel.degouw@outlook.com
+        mailto: mail@danieldegouw.com
       phone:
         icon: fas fa-phone
         tel: "+64 22 013 7660" # Keep in quotations
@@ -172,7 +175,7 @@ params:
 
   # Achievements
   achievements:
-    enable: true
+    enable: false
     # title: "Custom Name"
 
   # Tech Stack
