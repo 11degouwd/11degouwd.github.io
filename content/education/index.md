@@ -1,41 +1,34 @@
 ---
 index: false
 items:
-  - title: "Master of Business Administration"
+  - title: "Master of Electrical Engineering"
     school:
-      name: "University of California, Berkeley"
-      url: "https://example.org"
-    date: "2013 - 2015"
-    GPA: "3.8 out of 5.0"
+      name: "University of Canterbury, New Zealand"
+      url: "https://www.canterbury.ac.nz"
+    date: "2019 - 2021"
     content: |-
-      Extracurricular Activities
-        - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        - Tempora esse, eaque delectus nulla quo doloribus itaque expedita alias natus optio totam maxime nihil excepturi velit a animi laborum hic similique.
-  - title: "Bachelor of Science in Computer Science"
-    school:
-      name: "Massachusetts Institute of Technology"
-      url: "https://example.org"
-    date: "2009 - 2013"
-    GPA: "3.9 out of 5.0"
-    content: |-
-      I Publiced two papers in the ACM SIGCHI Conference on Artificial Intelligence.
-      - [Fast and Accurate Object Detection with a Single Convolutional Neural Network](https://example.com)
-      - Face mask detection using a single convolutional neural network.
+      Masters on [Tethered Aerial Vehicles for Remote Soil Moisture Sensing Applications](https://profiles.canterbury.ac.nz/Christopher-Hann/teaching)
 
-      Extracurricular Activities
-        - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        - Tempora esse, eaque delectus nulla quo doloribus itaque expedita alias natus optio totam maxime nihil excepturi velit a animi laborum hic similique.
-    featuredLink:
-      enable: true
-      name: "My academic record"
-      url: "https://example.com"
-  - title: "High School"
+      Activities and Societies:
+      - University of Canterbury Rocketry Club
+  - title: "Bachelor with First Class Honours in Mechatronics Engineering"
     school:
-      name: "Thomas Jefferson High School for Science and Technology."
-      url: "https://example.org"
-    GPA: "4.2 out of 5.0"
+      name: "University of Canterbury, New Zealand"
+      url: "https://www.canterbury.ac.nz"
+    date: "2016 - 2019"
+    GPA: "6.49 out of 9.0"
+    content: |-
+      ###### Awarded a [Summer Research Scholarship](https://profiles.canterbury.ac.nz/Neville-Watson/teaching) (Nov 2018 – Feb 2019)
+      - Conducted research on Electric Vehicle (EV) charger safety and protection device requirements.
+      - Modified and faulted power electronics circuits to simulate realistic household faults.
+      - Measured currents and voltages using oscilloscopes and Power Quality Analysers (PQAs).
+      - Analysed residual current device (RCD) trip behaviour for safe residential operation.
+      - Dismantled and inspected household and EV-related circuits to identify PFC and protection components.
+      - Developed practical skills in soldering, crimping, and circuit assembly.
+      - Produced detailed technical documentation and professional reports for regulatory recommendations.
     featuredLink:
-      enable: true
+      enable: false
+      name: "My academic record"
       url: "https://example.com"
 
 build:
