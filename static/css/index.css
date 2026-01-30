@@ -233,6 +233,9 @@ html.dark #hero .image.animate img {
     border-radius: .75rem;
     transition: none;
 }
+#hero .row .col-auto a.btn + a.btn {
+    margin-left: 0.8rem;
+}
 
 #hero a.btn:focus {
     box-shadow: none;

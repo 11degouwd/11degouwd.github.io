@@ -14,13 +14,20 @@ background:
   darkmode:
     image: "hero_bg_dark.svg" # 1200x1200px
     # color: "#686363"
-button:
+resumeButton:
   enable: true
   name: "Resume"
-  fileLocation: "CV.pdf" # Can be public url to access or a file in static/
-  localFile: true # Set true if file is placed in static/resume/ , otherwise false if web URL
+  fileName: "CV.pdf" # Can be public url (use full URL), or a file in static/resume
+  local: true # Set true if file is local not a web URL
   download: true
   newPage: true
+customButton:
+  enable: true
+  name: "Portfolio"
+  location: "/portfolio" # Can be public url (use full URL), a site page, or a local file in static/
+  local: false # Set true if location is a site page or local file, not a web URL
+  download: false
+  newPage: false
 socialLinks: # Uses the socials defined in hugo.yaml
   fontAwesomeIcons:
     - linkedin
