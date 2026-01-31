@@ -1,7 +1,7 @@
 ---
 title: Kea Aerospace
 logo: logo.png
-image: banner.jpg
+image: atmos-1B-runway.jpg
 start: 2021
 end: 2024
 ---
@@ -11,3 +11,25 @@ end: 2024
 Company One specialises in …
 
 ![Example Image](post.jpg)
+fdvce
+
+Blank
+{{< gallery >}}
+
+gallery Defaults
+{{< gallery src="gallery" >}}
+
+Single
+{{< gallery src="post.jpg" >}}
+
+gallery Grid
+{{< gallery src="gallery" layout="grid" cols="3" >}}
+
+gallery Row
+{{< gallery src="gallery2" layout="row" max="8" >}}
+
+gallery Single
+{{< gallery src="gallery3" layout="single" >}}
+
+
+blah blah i did this and that etc
