@@ -278,6 +278,10 @@ html.dark #hero .image.animate img {
 
 
 /* about me */
+#about {
+  scroll-margin-top: 80px;
+}
+
 #about h3 {
     color: var(--text-secondary-color) !important;
 }
@@ -357,6 +361,9 @@ html.dark #hero .image.animate img {
 }
 
 /* experience */
+#experience {
+  scroll-margin-top: 80px;
+}
 
 #experience h3 {
     color: var(--text-secondary-color) !important;
@@ -394,6 +401,9 @@ html.dark #hero .image.animate img {
 }
 
 /* Education */
+#education {
+  scroll-margin-top: 80px;
+}
 
 #education .container > h3 {
     color: var(--text-secondary-color) !important;
@@ -482,6 +492,9 @@ html.dark #hero .image.animate img {
 }
 
 /* achievements */
+#achievements {
+  scroll-margin-top: 80px;
+}
 
 #achievements a {
     text-decoration: none;
