@@ -17,6 +17,8 @@ items:
 
       Activities and Societies:
       - University of Canterbury Rocketry Club
+        - Launched sounding rockets up to 10km high.
+        - Improved the telemetry downlink system and redesigned the avionics stack.
   - title: "Bachelor with First Class Honours in Mechatronics Engineering"
     school:
       name: "University of Canterbury, New Zealand"
