@@ -120,11 +120,15 @@
     background-color: var(--secondary-color);
     border-radius: 1rem;
     padding: 2rem;
+    border: 2px solid transparent;
     box-shadow: 0 0 36px rgba(0,0,0,0.1);
 }
 
 #contact .contact-box:hover {
     transform: none;
+    border: 2px solid var(--primary-color);
+    transition: .3s;
+    box-shadow: 0 14px 38px rgba(0,0,0,.12);
 }
 
 #contact .contact-box label {

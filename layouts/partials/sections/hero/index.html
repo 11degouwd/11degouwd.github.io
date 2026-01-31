@@ -34,7 +34,7 @@
                 <p class="hero-content">
                     {{ .Params.content | markdownify }}
                 </p>
-                <div class="row">
+                <div class="row align-items-center">
                   {{ if or .Params.resumeButton.enable .Params.customButton.enable }}
                     <div class="col-auto h-100">
                       {{ if .Params.resumeButton.enable }}

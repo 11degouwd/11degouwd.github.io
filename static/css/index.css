@@ -437,7 +437,7 @@ html.dark #hero .image.animate img {
 
 #education .card:hover {
     transition: 0.3s;
-    border: 2px solid var(--text-color) !important;
+    border: 2px solid var(--primary-color) !important;
     box-shadow: 0 14px 38px rgba(0,0,0,.12);
 }
 
