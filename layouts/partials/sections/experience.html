@@ -20,59 +20,99 @@
           {{ $past = sort $past "Params.end" "desc" }}
           {{ $roles = union $current $past }}
           {{ $groups := $roles.GroupByParam "company_slug" }} 
- 
-          {{ if gt (len $groups) 0 }}
-          <div class="experience-container-loop">
+          {{ $companies := slice }}
+          
+          <!-- Uses order of $roles to create a list of companies -->
+          {{ range $roles }} 
+            {{ $slug := .Params.company_slug }}
+            {{ if not (in $companies $slug) }}
+              {{ $companies = $companies | append $slug }}
+            {{ end }}
+          {{ end }}
 
-            {{ range $groups }} <!-- .Key is the company slug --> 
-              {{ $group := . }}
-              {{ $companyPath := path.Join "companies" $group.Key }}
-              {{ $company := site.GetPage "section" $companyPath }}
+          ------------------------------ DEBUG START ------------------------------
 
-              <div class="experience-company">
-                {{ if $company }}
-                  <div class="company-header">
+          <p>Current: {{ range $current }} {{.Title}}{{end}} </p>
+          <p>Past: {{ range $past }} {{.Title}}{{end}} </p>
+          <p>Roles: {{ range $roles }} {{.Title}}{{end}} </p>
+          <p>Group order:
+            {{ range $groups }}
+              {{ .Key }} (Latest Role: {{ (index .Pages 0).Title }})
+            {{ end }}
+          </p>
+          <p>Companies: {{ range $companies }} {{.}}{{end}} </p>
 
-                    {{ $logoPath := path.Join "images" $group.Key $company.Params.logo }}
+          ------------------------------ DEBUG END ------------------------------
 
-                    {{ if and $company.Params.logo (fileExists (printf "static/%s" $logoPath)) }}
-                      <a class="company-logo-link" href="{{ $company.RelPermalink }}">
-                        <img src="{{ $logoPath | relURL }}" class="company-logo">
-                      </a>
-                    {{ else }}
-                      <a class="company-logo-link" href="{{ $company.RelPermalink }}">
-                        <img  src="https://ui-avatars.com/api/?name={{ $company.Title | humanize | urlquery }}&size=150&bold=true&background=DDDDDD&color=555555" 
-                            alt="Missing company" 
+          {{ if gt (len $companies) 0 }}
+            <div class="experience-container-loop">
+
+              {{ range $companies }}
+                {{ $slug := . }}
+                {{ $companyRoles := where $roles "Params.company_slug" $slug }}
+
+                {{ $companyPath := path.Join "companies" $slug }}
+                {{ $company := site.GetPage "section" $companyPath }}
+
+                {{ $companyStart := index (last 1 $companyRoles) 0 }}
+                {{ $companyEnd := index $companyRoles 0 }}
+
+                <div class="experience-company">
+
+                  {{ if $company }}
+                    <div class="company-header">
+
+                      {{ $logoPath := path.Join "images" $slug $company.Params.logo }}
+
+                      {{ if and $company.Params.logo (fileExists (printf "static/%s" $logoPath)) }}
+                        <a class="company-logo-link" href="{{ $company.RelPermalink }}">
+                          <img src="{{ $logoPath | relURL }}" class="company-logo">
+                        </a>
+                      {{ else }}
+                        <a class="company-logo-link" href="{{ $company.RelPermalink }}">
+                          <img
+                            src="https://ui-avatars.com/api/?name={{ $company.Title | humanize | urlquery }}&size=150&bold=true&background=DDDDDD&color=555555"
+                            alt="Missing company"
                             class="company-logo">
-                      </a>
-                      {{ warnf "Missing logo for company: %s (expected at: %s)" $company.Title $logoPath }}
-                    {{ end }}
-                    <div>
-                      <h4 class="company-title">
-                        <a href="{{ $company.RelPermalink }}">{{ $company.Title }}</a>
-                      </h4>
-                      <div class="company-dates">{{ $company.Params.start }} – {{ $company.Params.end | default "Present" }}</div>
+                        </a>
+                        {{ warnf "Missing logo for company: %s (expected at: %s)" $company.Title $logoPath }}
+                      {{ end }}
+
+                      <div class="company-header-text">
+                        <h4 class="company-title">
+                          <a href="{{ $company.RelPermalink }}">{{ $company.Title }}</a>
+                        </h4>
+                        <span class="company-dates">
+                          ({{ $companyStart.Params.start | time.Format "Jan 2006" }} –
+                          {{ with $companyEnd.Params.end }}{{ . | time.Format "Jan 2006" }}{{ else }}Present{{ end }})
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                {{ else }}
-                  <div class="company-header">
-                    <a href="#" class="company-logo-link">
-                      <img  src="https://ui-avatars.com/api/?name={{ $group.Key | humanize | urlquery }}&size=150&bold=true&background=DDDDDD&color=555555" 
-                            alt="Missing company" 
-                            class="company-logo">
-                    </a>
-                    <div>
-                      <h4 class="company-title">{{ $group.Key | humanize }}</h4>
+
+                  {{ else }}
+                    <div class="company-header">
+                      <img
+                        src="https://ui-avatars.com/api/?name={{ $slug | humanize | urlquery }}&size=150&bold=true&background=DDDDDD&color=555555"
+                        alt="Missing company"
+                        class="company-logo">
+                      <div class="company-header-text">
+                        <h4 class="company-title">
+                          {{ $slug | humanize | title }}
+                        </h4>
+                        <span class="company-dates">
+                          ({{ $companyStart.Params.start | time.Format "Jan 2006" }} –
+                          {{ with $companyEnd.Params.end }}{{ . | time.Format "Jan 2006" }}{{ else }}Present{{ end }})
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  {{ warnf "Missing company page: %s" $companyPath }}
-                {{ end }}
+                    {{ warnf "Missing company page: %s" $companyPath }}
+                  {{ end }}
 
                   <div class="roles-list">
-                    {{ range .Pages }}
+                    {{ range $companyRoles }}
                       <div class="role-row">
                         <div class="role-dot"></div>
-                        <div class="role-body"> 
+                        <div class="role-body">
                           <div class="role-title">{{ .Title }}</div>
                           <div class="role-meta">
                             {{ .Params.start | time.Format "Jan 2006" }} –
@@ -84,11 +124,12 @@
                       </div>
                     {{ end }}
                   </div>
-              </div>
-            {{ end }}
 
-          </div>
-          {{ end }}
+                </div>
+              {{ end }}
+
+            </div>
+            {{ end }}
 
         </div>
       </div>

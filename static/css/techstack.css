@@ -27,7 +27,7 @@
 
 .techstack-card:hover {
   /* transform: translateY(-6px); */
-  border: 2px solid var(--text-color);
+  border: 2px solid var(--primary-color);
   transition: .3s;
   box-shadow: 0 14px 38px rgba(0,0,0,.12);
 }
