@@ -193,8 +193,7 @@ params:
     copyrightName: "Daniel de Gouw"
     socialLinks:
       fontAwesomeIcons:
-        - github
-        - twitter
+        - linkedin
       customIcons:
         # - website
         

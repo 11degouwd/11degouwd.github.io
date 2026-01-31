@@ -24,6 +24,9 @@
 .experience-company:first-child::before {
   display: none;
 }
+.experience-company:last-child {
+  margin-bottom: 0;
+}
 
 .experience-company::before {
   content: "";

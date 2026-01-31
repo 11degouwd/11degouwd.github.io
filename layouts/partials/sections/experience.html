@@ -30,20 +30,6 @@
             {{ end }}
           {{ end }}
 
-          ------------------------------ DEBUG START ------------------------------
-
-          <p>Current: {{ range $current }} {{.Title}}{{end}} </p>
-          <p>Past: {{ range $past }} {{.Title}}{{end}} </p>
-          <p>Roles: {{ range $roles }} {{.Title}}{{end}} </p>
-          <p>Group order:
-            {{ range $groups }}
-              {{ .Key }} (Latest Role: {{ (index .Pages 0).Title }})
-            {{ end }}
-          </p>
-          <p>Companies: {{ range $companies }} {{.}}{{end}} </p>
-
-          ------------------------------ DEBUG END ------------------------------
-
           {{ if gt (len $companies) 0 }}
             <div class="experience-container-loop">
 
