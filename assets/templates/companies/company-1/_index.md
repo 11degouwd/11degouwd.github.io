@@ -13,6 +13,20 @@ Company One specialises in …
 ![Example Image](post.jpg)
 
 
-{{< gallery  >}}
+Blank
+{{< gallery >}}
+
+gallery Defaults
 {{< gallery src="someFolder" >}}
+
+Single
 {{< gallery src="post.jpg" >}}
+
+gallery Grid
+{{< gallery src="someFolder" layout="grid" cols="3" >}}
+
+gallery Row
+{{< gallery src="someFolder2" layout="row" max="8" >}}
+
+gallery Single
+{{< gallery src="someFolder3" layout="single" >}}
