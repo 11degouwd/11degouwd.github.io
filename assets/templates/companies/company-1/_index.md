@@ -11,3 +11,8 @@ end: 2024 # End date at this company. WARNING this is seperate from experience d
 Company One specialises in …
 
 ![Example Image](post.jpg)
+
+
+{{< gallery  >}}
+{{< gallery src="someFolder" >}}
+{{< gallery src="post.jpg" >}}
