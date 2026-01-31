@@ -1,0 +1,86 @@
+{{ $src := .Get "src" | default "" }}
+{{ $layout := .Get "layout" | default "grid" }}
+{{ $cols := .Get "cols" | default "3" }}
+{{ $max := .Get "max" | default "5" | int }}
+
+{{ $pattern := "" }}
+{{ $uniqueID := "" }}
+
+{{if gt $max 5 }}{{ $max = 5 }}{{ end }}
+
+{{ if eq $src "" }}
+  {{ $pattern = "*.{jpg,jpeg,svg,png,webp}" }}
+  {{ $uniqueID = .Page.File.Path }}
+{{ else if strings.Contains $src "." }}
+  {{ $pattern = $src }}
+  {{ $uniqueID = strings.TrimSuffix (path.Ext $src) $src }}
+{{ else }}
+  {{ $pattern = printf "%s/*.{jpg,jpeg,svg,png,webp}" $src }}
+  {{ $uniqueID = $src }}
+{{ end }}
+
+{{ $images := .Page.Resources.Match $pattern }}
+{{ $galleryID := printf "gallery-%s" $uniqueID }}
+
+<div
+  class="gallery gallery--{{ $layout }}"
+  {{ if eq $layout "grid" }}style="--gallery-cols: {{ $cols }};"{{ end }}
+>
+  {{ range $i, $img := $images }}
+
+    {{ if or  (and (eq $layout "single") (gt $i 0))
+              (and (eq $layout "row") (gt $i (sub $max 1))) 
+    }}
+        <a
+          href="{{ $img.RelPermalink }}"
+          data-fancybox="{{ $galleryID }}"
+          data-caption="{{ $img.Name | humanize }}"
+          hidden
+        >
+          <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}" loading="lazy">
+        </a>
+    {{ else if or  (and (eq $layout "single") (eq $i 0))
+              (and (eq $layout "row") (eq $i (sub $max 1))) 
+    }}
+      <a
+        href="{{ $img.RelPermalink }}"
+        data-fancybox="{{ $galleryID }}"
+        data-caption="{{ $img.Name | humanize }}"
+        class="gallery-item gallery-more"
+      >
+        <span class="gallery-thumb">
+          <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}">
+          {{ if gt (len $images) $max }}
+            <span class="gallery-more-badge">+{{ sub (len $images) $max }}</span>
+          {{ end }}
+        </span>
+      </a>
+    {{ else if eq $layout "row" }}
+      {{ if lt $i (sub $max 1) }}
+        <a
+          href="{{ $img.RelPermalink }}"
+          data-fancybox="{{ $galleryID }}"
+          data-caption="{{ $img.Name | humanize }}"
+          class="gallery-item"
+        >
+          <span class="gallery-thumb">
+            <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}" loading="lazy">
+          </span>
+        </a>
+      {{ end }}
+
+    {{ else }}
+      <a
+        href="{{ $img.RelPermalink }}"
+        data-fancybox="{{ $galleryID }}"
+        data-caption="{{ $img.Name | humanize }}"
+        class="gallery-item"
+      >
+        <span class="gallery-thumb">
+          <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}" loading="lazy">
+        </span>
+      </a>
+    {{ end }}
+
+  {{ end }}
+</div>
