@@ -9,7 +9,7 @@
     </h3>
 
     <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-8 col-lg-8 py-5">
+      <div class="col-sm-12 col-md-8 col-lg-10 py-5">
         <div class="experience-container px-3 pt-2">
 
           <!-- Sort roles by most recent first start and currently active -->
@@ -105,7 +105,7 @@
                             {{ with .Params.end }}{{ . | time.Format "Jan 2006" }}{{ else }}Present{{ end }}
                             {{ with .Params.location }} · {{ . }}{{ end }}
                           </div>
-                          <p class="role-summary">{{ .Params.summary }}</p>
+                          <p class="role-summary">{{ .Params.summary | markdownify }}</p>
                         </div>
                       </div>
                     {{ end }}

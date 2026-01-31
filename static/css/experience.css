@@ -91,11 +91,11 @@
   border: 2px solid transparent;
   box-shadow: 0 0 36px rgba(0,0,0,0.1);
 }
-.company-dates:hover {
+/* .company-dates:hover {
   border: 2px solid var(--primary-color);
   transition: .3s;
   box-shadow: 0 14px 38px rgba(0,0,0,.12);
-}
+} */
 
 /* Roles */
 .roles-list .role-row:last-child::before {
@@ -168,6 +168,11 @@ html.dark .role-dot {
 
 .role-body {
   flex: 1;
+}
+
+.role-body p,
+.role-body ul {
+  margin-bottom: 0rem;
 }
 
 .role-title {
