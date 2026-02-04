@@ -89,3 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("img[loading='lazy']").forEach(img => {
+      if (img.complete) {
+        img.classList.add("is-loaded");
+      } else {
+        img.addEventListener("load", () => {
+          img.classList.add("is-loaded");
+        });
+      }
+    });
+  });
+</script>

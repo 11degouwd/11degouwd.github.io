@@ -17,6 +17,9 @@
     --text-link-color: var(--text-link-color-dark) !important;
     --primary-color: var(--primary-color-dark);
     --secondary-color: var(--secondary-color-dark);
+    --text-headings-color: var(--text-headings-color-dark);
+    --text-subtitle-color: var(--text-subtitle-color-dark);
+    --text-content-color: var(--text-content-color-dark);
     /* --card-color: var(--card-color-dark); */
 }
 

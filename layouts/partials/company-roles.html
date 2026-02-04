@@ -1,0 +1,50 @@
+{{ $companySlug := .company_slug }}
+{{ $companyName := .company_name }}
+{{ $showTitle := true }}
+{{ if isset . "show_title" }}
+  {{ if or (eq .show_title "false") (eq .show_title false) }}
+    {{ $showTitle = false }}
+  {{ end }}
+{{ end }}
+
+{{ $roles := where site.RegularPages "Section" "experience" }}
+{{ $roles = where $roles ".Params.company_slug" $companySlug }}
+{{ $roles = sort $roles "Params.start" "desc" }}
+
+{{ if gt (len $roles) 0 }}
+  {{ if $showTitle }}
+    <h2 class="mt-5 mb-3">Roles at {{ $companyName }}:</h2>
+  {{ end }}
+  <section id="experience" class="py-5" style="padding-top: 0 !important;">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-8 col-lg-12 py-5" style="padding-bottom: 0 !important; padding-top: 0 !important;">
+        <div class="experience-container px-3 pt-2">
+          <div class="experience-company">
+            <!-- Roles -->
+            <div class="roles-list">
+              {{ range $roles }}
+                <div class="role-row">
+                  <div class="role-dot"></div>
+
+                  <div class="role-body">
+                    <div class="role-title">{{ .Title }}</div>
+
+                    <div class="role-meta">
+                      {{ .Params.start | time.Format "Jan 2006" }} –
+                      {{ with .Params.end }}{{ . | time.Format "Jan 2006" }}{{ else }}Present{{ end }}
+                      {{ with .Params.location }} · {{ . }}{{ end }}
+                    </div>
+
+                    {{ with .Params.summary }}
+                      <p class="role-summary">{{ . | markdownify }}</p>
+                    {{ end }}
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}
