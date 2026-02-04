@@ -59,6 +59,9 @@
         --secondary-background-color: {{ .Site.Params.color.secondaryBackgroundColor | default "#64ffda1a" }};
         --primary-color: {{ .Site.Params.color.primaryColor | default "#007bff" }};
         --secondary-color: {{ .Site.Params.color.secondaryColor | default "#f8f9fa" }};
+        --text-headings-color: {{ .Site.Params.color.headingsTextColor | default (.Site.Params.color.textLinkColor | default "#343a40") }};
+        --text-subtitle-color: {{ .Site.Params.color.subtitleTextColor | default (.Site.Params.color.textLinkColor | default "#6b7280") }};
+        --text-content-color: {{ .Site.Params.color.contentTextColor | default (.Site.Params.color.textColor | default "#6c757d") }};
         /*  --card-color: {{ .Site.Params.color.cardColor | default (.Site.Params.color.secondaryColor | default "#f8f9fa") }};  */
 
         /* dark mode colors */
@@ -69,6 +72,9 @@
         --secondary-background-color-dark: {{ .Site.Params.color.darkmode.secondaryBackgroundColor | default "#212529" }};
         --primary-color-dark: {{ .Site.Params.color.darkmode.primaryColor | default "#ffffff" }};
         --secondary-color-dark: {{ .Site.Params.color.darkmode.secondaryColor | default "#212529" }};
+        --text-headings-color-dark: {{ .Site.Params.color.darkmode.headingsTextColor | default (.Site.Params.color.darkmode.textLinkColor | default "#b0b3b8") }};
+        --text-subtitle-color-dark: {{ .Site.Params.color.darkmode.subtitleTextColor | default (.Site.Params.color.darkmode.textLinkColor | default "#b0b3b8") }};
+        --text-content-color-dark: {{ .Site.Params.color.darkmode.contentTextColor | default (.Site.Params.color.darkmode.textColor | default "#e4e6eb") }};
         /*  --card-color-dark: {{ .Site.Params.color.darkmode.cardColor | default (.Site.Params.color.darkmode.secondaryColor | default "#212529") }};  */
     }
     body {

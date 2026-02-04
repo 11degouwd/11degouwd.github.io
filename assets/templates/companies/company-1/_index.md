@@ -30,3 +30,21 @@ gallery Row
 
 gallery Single
 {{< gallery src="someFolder3" layout="single" >}}
+
+<!-- {{< gallery
+  layout="row"
+  max="5"
+  thumbSize="40x"
+  thumbQuality="20"
+  fullSize="1400x"
+  fullQuality="85"
+  showCaption="false"
+>}}
+
+
+{{< gallery
+  layout="grid"
+  cols="3"
+  thumbSize="60x"
+  fullSize="1600x"
+>}} -->

@@ -2,6 +2,12 @@
 {{ $layout := .Get "layout" | default "grid" }}
 {{ $cols := .Get "cols" | default "3" }}
 {{ $max := .Get "max" | default "5" | int }}
+{{ $showCaption := .Get "showCaption" | default false }}
+
+{{ $thumbSize := .Get "thumbSize" | default "480x" }}
+{{ $thumbQuality := .Get "thumbQuality" | default "60" }}
+{{ $fullSize := .Get "fullSize" | default "1200x" }}
+{{ $fullQuality := .Get "fullQuality" | default "85" }}
 
 {{ $pattern := "" }}
 {{ $uniqueID := "" }}
@@ -27,29 +33,38 @@
   {{ if eq $layout "grid" }}style="--gallery-cols: {{ $cols }};"{{ end }}
 >
   {{ range $i, $img := $images }}
+    {{ $normalized := $img.Filter (images.AutoOrient) }}
+    {{ $thumb := $normalized.Resize (printf "%s q%s" $thumbSize $thumbQuality) }}
+    {{ $full := $normalized.Resize (printf "%s q%s" $fullSize $fullQuality) }}
 
     {{ if or  (and (eq $layout "single") (gt $i 0))
               (and (eq $layout "row") (gt $i (sub $max 1))) 
     }}
         <a
-          href="{{ $img.RelPermalink }}"
+          href="{{ $full.RelPermalink }}"
           data-fancybox="{{ $galleryID }}"
-          data-caption="{{ $img.Name | humanize }}"
+          {{ if $showCaption }}data-caption="{{ $img.Name | humanize }}"{{ end }}
           hidden
         >
-          <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}" loading="lazy">
+          <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+            alt="{{ $img.Name | humanize }}" 
+            loading="lazy"   
+            class="lazy-blur">
         </a>
     {{ else if or  (and (eq $layout "single") (eq $i 0))
               (and (eq $layout "row") (eq $i (sub $max 1))) 
     }}
       <a
-        href="{{ $img.RelPermalink }}"
+        href="{{ $full.RelPermalink }}"
         data-fancybox="{{ $galleryID }}"
-        data-caption="{{ $img.Name | humanize }}"
+        {{ if $showCaption }}data-caption="{{ $img.Name | humanize }}"{{ end }}
         class="gallery-item gallery-more"
       >
         <span class="gallery-thumb">
-          <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}">
+          <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+            alt="{{ $img.Name | humanize }}" 
+            loading="lazy"   
+            class="lazy-blur">
           {{ if gt (len $images) $max }}
             <span class="gallery-more-badge">+{{ sub (len $images) $max }}</span>
           {{ end }}
@@ -58,26 +73,32 @@
     {{ else if eq $layout "row" }}
       {{ if lt $i (sub $max 1) }}
         <a
-          href="{{ $img.RelPermalink }}"
+          href="{{ $full.RelPermalink }}"
           data-fancybox="{{ $galleryID }}"
-          data-caption="{{ $img.Name | humanize }}"
+          {{ if $showCaption }}data-caption="{{ $img.Name | humanize }}"{{ end }}
           class="gallery-item"
         >
           <span class="gallery-thumb">
-            <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}" loading="lazy">
+            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+              alt="{{ $img.Name | humanize }}" 
+              loading="lazy"   
+              class="lazy-blur">
           </span>
         </a>
       {{ end }}
 
     {{ else }}
       <a
-        href="{{ $img.RelPermalink }}"
+        href="{{ $full.RelPermalink }}"
         data-fancybox="{{ $galleryID }}"
-        data-caption="{{ $img.Name | humanize }}"
+        {{ if $showCaption }}data-caption="{{ $img.Name | humanize }}"{{ end }}
         class="gallery-item"
       >
         <span class="gallery-thumb">
-          <img src="{{ $img.RelPermalink }}" alt="{{ $img.Name | humanize }}" loading="lazy">
+          <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+            alt="{{ $img.Name | humanize }}" 
+            loading="lazy"   
+            class="lazy-blur">
         </span>
       </a>
     {{ end }}

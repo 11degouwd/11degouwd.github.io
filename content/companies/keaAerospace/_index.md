@@ -22,8 +22,14 @@ gallery Defaults
 Single
 {{< gallery src="post.jpg" >}}
 
+Projects
+{{< company-projects company_slug="keaAerospace" company_name="Some Company" show_title="false" >}}
+
 gallery Grid
 {{< gallery src="gallery" layout="grid" cols="3" >}}
+
+Roles
+{{< company-roles company_slug="keaAerospace" company_name="Some Company" show_title="false" >}}
 
 gallery Row
 {{< gallery src="gallery2" layout="row" max="8" >}}

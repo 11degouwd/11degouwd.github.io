@@ -1,0 +1,58 @@
+{{ $companySlug := .company_slug }}
+{{ $companyName := .company_name }}
+{{ $showTitle := true }}
+{{ if isset . "show_title" }}
+  {{ if or (eq .show_title "false") (eq .show_title false) }}
+    {{ $showTitle = false }}
+  {{ end }}
+{{ end }}
+
+{{ $projects := where site.RegularPages "Section" "portfolio" }}
+{{ $companyProjects := where $projects ".Params.company" $companySlug }}
+
+{{ if gt (len $companyProjects) 0 }}
+  {{ if $showTitle }}
+    <h2 class="mt-5 mb-3">Projects at {{ $companyName }}:</h2>
+  {{ end }}
+
+  <div style="
+    display:grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap:1.5rem;
+    max-width: calc(4 * 250px + 3 * 1.5rem); 
+    margin: 0 auto;">
+    
+    {{ range $companyProjects }}
+      <a href="{{ .RelPermalink }}" 
+        class="project-card"
+        data-tags="{{ delimit .Params.tags " " }}"
+        style="display:flex; flex-direction:column; text-align:center; height:100%;">
+        
+        <!-- Square thumbnail -->
+        {{ with .Resources.GetMatch .Params.image }}
+          {{ $thumb := .Fill "400x400 Center" }}
+          <img
+            src="{{ $thumb.RelPermalink }}"
+            width="{{ $thumb.Width }}"
+            height="{{ $thumb.Height }}"
+            loading="lazy"
+            class="project-img"
+          />
+        {{ end }}
+
+        <!-- Project text -->
+        <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
+          <h3 style="font-weight:600; font-size:0.9rem;">{{ .Title }}</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">{{ .Params.summary }}</p>
+
+          <!-- Tags -->
+          <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
+            {{ range .Params.tags }}
+              <button class="tag-btn" data-tag="{{ . }}" type="button">{{ . }}</button>
+            {{ end }}
+          </div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}

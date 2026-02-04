@@ -1,6 +1,6 @@
 ---
 title: "Smart HVAC Controller"
-company: "company-1"
+company: "keaAerospace"
 summary: "Embedded firmware and cloud integration."
 searchDescription: "Searchable description for results"
 tags: ["Embedded", "IoT"]

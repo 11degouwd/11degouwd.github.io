@@ -6,29 +6,26 @@
 }
 
 /* experience */
-/* ========================= */
-/* Academic Experience Style */
-/* ========================= */
 
-.experience-container-loop,
-.experience-container {
+#experience .experience-container-loop,
+#experience .experience-container {
   margin-top: 0rem;
 }
 
-.experience-company {
+#experience .experience-company {
   margin-bottom: 3.5rem;
   position: relative;
   z-index: 0;
 }
 
-.experience-company:first-child::before {
+#experience .experience-company:first-child::before {
   display: none;
 }
-.experience-company:last-child {
+#experience .experience-company:last-child {
   margin-bottom: 0;
 }
 
-.experience-company::before {
+#experience .experience-company::before {
   content: "";
   position: absolute;
   left: calc(1.5rem + 4px);
@@ -42,7 +39,7 @@
 
 
 /* Company header */
-.company-header {
+#experience .company-header {
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -50,7 +47,7 @@
   padding-left: 0.5rem;
   z-index: 2;
 }
-.company-header-text {
+#experience .company-header-text {
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -59,7 +56,7 @@
   color: var(--primary-color);
 }
 
-.company-logo {
+#experience .company-logo {
   background-color: var(--background-color);
   padding: 3px;
   border-radius: 50%;
@@ -69,17 +66,17 @@
   z-index: 3;
 }
 
-.company-title {
+#experience .company-title {
   flex: 1;
   margin: 0;
   font-weight: 600;
 }
 
-.company-title a {
+#experience .company-title a {
   text-decoration: none;
 }
 
-.company-dates {
+#experience .company-dates {
   margin-left: auto;
   font-size: 0.9rem;
   font-weight: 400;
@@ -91,23 +88,23 @@
   border: 2px solid transparent;
   box-shadow: 0 0 36px rgba(0,0,0,0.1);
 }
-/* .company-dates:hover {
+/* #experience .company-dates:hover {
   border: 2px solid var(--primary-color);
   transition: .3s;
   box-shadow: 0 14px 38px rgba(0,0,0,.12);
 } */
 
 /* Roles */
-.roles-list .role-row:last-child::before {
+#experience .roles-list .role-row:last-child::before {
   display: none;
 }
 
-.roles-list {
+#experience .roles-list {
   position: relative;
   padding-left: 3rem; 
 }
 
-.role-row::before {
+#experience .role-row::before {
   content: "";
   position: absolute;
   left: calc(-1.8rem + 7.5px - 1px); 
@@ -118,11 +115,11 @@
   opacity: 0.6;
 }
 
-html.dark .role-row::before {
+#experience html.dark .role-row::before {
   background-color: #b0b3b8;
 }
 
-.role-row {
+#experience .role-row {
   position: relative;
   display: flex;
   gap: 1rem;
@@ -135,13 +132,13 @@ html.dark .role-row::before {
   box-shadow: 0 0 36px rgba(0,0,0,0.1);
 }
 
-.role-row:hover {
+#experience .role-row:hover {
   border: 2px solid var(--primary-color);
   transition: .3s;
   box-shadow: 0 14px 38px rgba(0,0,0,.12);
 }
 
-.role-dot {
+#experience .role-dot {
   position: absolute;
   left: -1.8rem; 
   top: 13px;
@@ -153,12 +150,12 @@ html.dark .role-row::before {
   border: 2px solid var(--secondary-color);
 } 
 
-html.dark .role-dot {
+#experience html.dark .role-dot {
   background-color: #b0b3b8;
   border: 2px solid #18191a;
 }
 
-.role-dates {
+#experience .role-dates {
   width: 90px;
   flex-shrink: 0;
   font-size: 0.85rem;
@@ -166,48 +163,48 @@ html.dark .role-dot {
   text-align: right;
 }
 
-.role-body {
+#experience .role-body {
   flex: 1;
 }
 
-.role-body p,
-.role-body ul {
+#experience .role-body p,
+#experience .role-body ul {
   margin-bottom: 0rem;
 }
 
-.role-title {
-  font-weight: 600;
+#experience .role-title {
+  font-weight: 600; 
 }
 
-.role-meta {
+#experience .role-meta {
   font-size: 0.85rem;
   color: var(--text-secondary-color);
   margin-bottom: 0.25rem;
 }
 
-.role-summary {
+#experience .role-summary {
   margin: 0;
   font-size: 0.95rem;
 }
 
 /* Mobile */
 @media (max-width: 576px) {
-  .company-dates {
+  #experience .company-dates {
     display: block;
     margin-left: 0;
     font-size: 0.9rem;
   }
 
-  .role-row {
+  #experience .role-row {
     flex-direction: column;
   }
 
-  .role-dates {
+  #experience .role-dates {
     width: auto;
     text-align: left;
   }
 
-  /* .roles-list {
+  /* #experience .roles-list {
     padding-left: 3rem;
   } */
 }

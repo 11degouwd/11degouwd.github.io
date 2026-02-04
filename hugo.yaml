@@ -114,7 +114,7 @@ params:
     tagFilterBackgroundActive: "#4f46e5"
     tagFilterText: "#4338ca"
 
-    darkmode:
+    darkmode: # TODO Colors
       textColor: "#e4e6eb"
       secondaryTextColor: "#b0b3b8"
       headingsTextColor: "#b0b3b8"
