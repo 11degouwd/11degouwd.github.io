@@ -1,8 +1,7 @@
 {{ define "head" }}
 <meta name="description" content="{{ .Params.description }}">
 <link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/single.css">
-<link rel="stylesheet" href="{{ "css/company.css" | relURL }}">
-<link rel="stylesheet" href="{{ "css/experience.css" | relURL }}">
+<link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/experience.css">
 
 <!-- fontawesome -->
 <script defer src="{{ .Site.Params.staticPath }}/fontawesome-6/all-6.4.2.js"></script>
@@ -21,10 +20,11 @@
       <div class="col-sm-12 col-md-12 col-lg-10">
         <div class="pr-lg-4">
           {{ $companySlug := .File.Dir | path.Base }}
+          {{ $companyName := .Title }}
 
           <!-- Title block -->
           <div class="title mb-5 text-center">
-            <h1 class="mb-1">{{ .Title }}</h1>
+            <h1 class="mb-1">{{ $companyName }}</h1>
 
             {{ with .Params.company }}
               <p class="subtitle" style="font-size:1.2rem; color:#6b7280; margin:0;">
@@ -47,7 +47,7 @@
           {{ if .Params.image }}
             {{ $path := (path.Join "images" $companySlug .Params.image) }}
             <div class="company-featured-image">
-              <img src="{{ $path | relURL }}" alt="{{ .Title }}">
+              <img src="{{ $path | relURL }}" alt="{{ $companyName }}">
             </div>
           {{ end }}
 
@@ -57,16 +57,25 @@
           </article>
           
           <!-- Work Experience -->
-          <!-- TODO CREATE if block -->
-          {{ partial "company-roles.html" (dict "company_slug" $companySlug "company_name" .Title) }}
+          {{ with .Params.roles.enable }}
+            {{ partial "company-roles.html" (dict "companySlug" $companySlug "companyName" $companyName) }}
+          {{ end }}
           
           <!-- Gallery grid -->
           <!-- TODO CREATE if block -->
-          <!-- TODO utilise shortcode in if block, allow row/grid parameter -->
+          <!-- TODO use parameters from front matter -->
+          {{ partial "gallery.html" (dict 
+            "src" "gallery"
+            "source" "bundle"
+            "layout" "row"
+            "page" .
+          ) }}
           
           <!-- Projects grid -->
-          <!-- TODO CREATE if block -->
-          {{ partial "company-projects.html" (dict "company_slug" $companySlug "company_name" .Title) }}
+          <!-- TODO use parameters from front matter -->
+          {{ with .Params.projects.enable }}
+            {{ partial "company-projects.html" (dict "companySlug" $companySlug "companyName" $companyName) }}
+          {{ end }}
         </div>
       </div>
     </div>

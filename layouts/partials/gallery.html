@@ -1,0 +1,152 @@
+{{/* 
+  Gallery partial - supports both page bundle resources and static/assets images
+  
+  Parameters:
+  - src: image pattern or directory (default: all images)
+  - source: "bundle" (page resources) or "static" (static/images folder) or "assets" (assets folder) - default: "bundle"
+  - layout: "grid", "row", or "single" - default: "grid"
+  - cols: number of columns for grid layout - default: "3"
+  - max: maximum visible images - default: 5
+  - showCaption: show image captions - default: false
+  - thumbSize: thumbnail size - default: "480x"
+  - thumbQuality: thumbnail quality - default: "60"
+  - fullSize: full image size - default: "1200x"
+  - fullQuality: full image quality - default: "85"
+  - page: the page context (required when source is "bundle")
+*/}}
+
+{{ $src := .src | default "" }}
+{{ $source := .source | default "bundle" }}
+{{ $layout := .layout | default "grid" }}
+{{ $cols := .cols | default "3" }}
+{{ $max := .max | default 5 | int }}
+{{ $showCaption := .showCaption | default false }}
+
+{{ $thumbSize := .thumbSize | default "480x" }}
+{{ $thumbQuality := .thumbQuality | default "60" }}
+{{ $fullSize := .fullSize | default "1200x" }}
+{{ $fullQuality := .fullQuality | default "85" }}
+
+{{ $page := .page }}
+{{ $pattern := "" }}
+{{ $uniqueID := "" }}
+{{ $images := slice }}
+
+{{if gt $max 5 }}{{ $max = 5 }}{{ end }}
+
+{{/* Determine pattern and unique ID */}}
+{{ if eq $src "" }}
+  {{ $pattern = "*.{jpg,jpeg,svg,png,webp}" }}
+  {{ if eq $source "bundle" }}
+    {{ $uniqueID = $page.File.Path }}
+  {{ else }}
+    {{ $uniqueID = "gallery-default" }}
+  {{ end }}
+{{ else if strings.Contains $src "." }}
+  {{ $pattern = $src }}
+  {{ $uniqueID = strings.TrimSuffix (path.Ext $src) $src }}
+{{ else }}
+  {{ $pattern = printf "%s/*.{jpg,jpeg,svg,png,webp}" $src }}
+  {{ $uniqueID = $src }}
+{{ end }}
+
+{{/* Get images based on source type */}}
+{{ if eq $source "bundle" }}
+  {{ $images = $page.Resources.Match $pattern }}
+{{ else if eq $source "static" }}
+  {{/* For static files, we'll use resources.Match from site resources */}}
+  {{ $images = resources.Match (printf "images/%s" $pattern) }}
+{{ else if eq $source "assets" }}
+  {{/* For assets, use resources.Match */}}
+  {{ $images = resources.Match $pattern }}
+{{ end }}
+
+{{ $galleryID := printf "gallery-%s" $uniqueID }}
+
+<section id="gallery">
+  <div
+    class="gallery gallery--{{ $layout }}"
+    {{ if eq $layout "grid" }}style="--gallery-cols: {{ $cols }};"{{ end }}
+  >
+    {{ range $i, $img := $images }}
+      {{ $normalized := $img }}
+      {{ $thumb := $img }}
+      {{ $full := $img }}
+      {{ $imgName := $img.Name }}
+      
+      {{/* Only process images if they support Filter (page resources and assets) */}}
+      {{ if $img.Filter }}
+        {{ $normalized = $img.Filter (images.AutoOrient) }}
+        {{ $thumb = $normalized.Resize (printf "%s q%s" $thumbSize $thumbQuality) }}
+        {{ $full = $normalized.Resize (printf "%s q%s" $fullSize $fullQuality) }}
+      {{ end }}
+
+      {{ if or  (and (eq $layout "single") (gt $i 0))
+                (and (eq $layout "row") (gt $i (sub $max 1))) 
+      }}
+          <a
+            href="{{ $full.RelPermalink }}"
+            data-fancybox="{{ $galleryID }}"
+            {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
+            hidden
+          >
+            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+              alt="{{ $imgName | humanize }}" 
+              loading="lazy"   
+              class="lazy-blur">
+          </a>
+      {{ else if or  (and (eq $layout "single") (eq $i 0))
+                (and (eq $layout "row") (eq $i (sub $max 1))) 
+      }}
+        <a
+          href="{{ $full.RelPermalink }}"
+          data-fancybox="{{ $galleryID }}"
+          {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
+          class="gallery-item gallery-more"
+        >
+          <span class="gallery-thumb">
+            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+              alt="{{ $imgName | humanize }}" 
+              loading="lazy"   
+              class="lazy-blur">
+            {{ if gt (len $images) $max }}
+              <span class="gallery-more-badge">+{{ sub (len $images) $max }}</span>
+            {{ end }}
+          </span>
+        </a>
+      {{ else if eq $layout "row" }}
+        {{ if lt $i (sub $max 1) }}
+          <a
+            href="{{ $full.RelPermalink }}"
+            data-fancybox="{{ $galleryID }}"
+            {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
+            class="gallery-item"
+          >
+            <span class="gallery-thumb">
+              <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+                alt="{{ $imgName | humanize }}" 
+                loading="lazy"   
+                class="lazy-blur">
+            </span>
+          </a>
+        {{ end }}
+
+      {{ else }}
+        <a
+          href="{{ $full.RelPermalink }}"
+          data-fancybox="{{ $galleryID }}"
+          {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
+          class="gallery-item"
+        >
+          <span class="gallery-thumb">
+            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+              alt="{{ $imgName | humanize }}" 
+              loading="lazy"   
+              class="lazy-blur">
+          </span>
+        </a>
+      {{ end }}
+
+    {{ end }}
+  </div>
+</section>

@@ -1,8 +1,17 @@
-{{ $companySlug := .company_slug }}
-{{ $companyName := .company_name }}
+{{/* 
+  Company Roles partial - displays experience roles filtered by company
+  
+  Parameters:
+  - company_slug: slug of the company to filter by (required)
+  - company_name: display name of the company (required)
+  - show_title: show "Roles at {Company}" heading - default: true
+*/}}
+
+{{ $companySlug := .companySlug }}
+{{ $companyName := .companyName }}
 {{ $showTitle := true }}
-{{ if isset . "show_title" }}
-  {{ if or (eq .show_title "false") (eq .show_title false) }}
+{{ if isset . "showTitle" }}
+  {{ if or (eq .showTitle "false") (eq .showTitle false) }}
     {{ $showTitle = false }}
   {{ end }}
 {{ end }}

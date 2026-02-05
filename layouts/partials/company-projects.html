@@ -1,58 +1,90 @@
-{{ $companySlug := .company_slug }}
-{{ $companyName := .company_name }}
+{{/* 
+  Company Projects partial - displays project cards filtered by company
+  
+  Parameters:
+  - companySlug: slug of the company to filter by (required)
+  - companyName: display name of the company (optional, auto-detected if not provided)
+  - showCompanyName: show company name on each project card - default: false
+  - showTitle: show "Projects at {Company}" heading - default: true
+  - tagFilter: comma-separated list of tags to filter by (case-insensitive, OR operation) - default: none
+  - minWeight: minimum project weight to display (1-5, where 1 is default) - default: 1
+*/}}
+
+{{ $companySlug := .companySlug }}
+
+{{ $showCompanyName := false }}
+{{ if isset . "showCompanyName" }}
+  {{ if or (eq .showCompanyName "true") (eq .showCompanyName true) }}
+    {{ $showCompanyName = true }}
+  {{ end }}
+{{ end }}
+
+{{ $companyName := .companyName | default "" }}
+{{ if not $companyName }}
+  {{- $companyPage := site.GetPage (printf "companies/%s" $companySlug) -}}
+  {{- if $companyPage -}}
+    {{ $companyName = $companyPage.Title }}
+  {{- else -}}
+    {{ $companyName = $companySlug | humanize | title }}
+  {{- end -}}
+{{ end }}
+
 {{ $showTitle := true }}
-{{ if isset . "show_title" }}
-  {{ if or (eq .show_title "false") (eq .show_title false) }}
+{{ if isset . "showTitle" }}
+  {{ if or (eq .showTitle "false") (eq .showTitle false) }}
     {{ $showTitle = false }}
   {{ end }}
 {{ end }}
 
 {{ $projects := where site.RegularPages "Section" "portfolio" }}
-{{ $companyProjects := where $projects ".Params.company" $companySlug }}
+{{ $projectsList := where $projects ".Params.company" $companySlug }}
 
-{{ if gt (len $companyProjects) 0 }}
-  {{ if $showTitle }}
-    <h2 class="mt-5 mb-3">Projects at {{ $companyName }}:</h2>
-  {{ end }}
-
-  <div style="
-    display:grid; 
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-    gap:1.5rem;
-    max-width: calc(4 * 250px + 3 * 1.5rem); 
-    margin: 0 auto;">
-    
-    {{ range $companyProjects }}
-      <a href="{{ .RelPermalink }}" 
-        class="project-card"
-        data-tags="{{ delimit .Params.tags " " }}"
-        style="display:flex; flex-direction:column; text-align:center; height:100%;">
-        
-        <!-- Square thumbnail -->
-        {{ with .Resources.GetMatch .Params.image }}
-          {{ $thumb := .Fill "400x400 Center" }}
-          <img
-            src="{{ $thumb.RelPermalink }}"
-            width="{{ $thumb.Width }}"
-            height="{{ $thumb.Height }}"
-            loading="lazy"
-            class="project-img"
-          />
-        {{ end }}
-
-        <!-- Project text -->
-        <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-          <h3 style="font-weight:600; font-size:0.9rem;">{{ .Title }}</h3>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">{{ .Params.summary }}</p>
-
-          <!-- Tags -->
-          <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
-            {{ range .Params.tags }}
-              <button class="tag-btn" data-tag="{{ . }}" type="button">{{ . }}</button>
-            {{ end }}
-          </div>
-        </div>
-      </a>
+{{/* Filter by minimum weight */}}
+{{ $minWeight := .minWeight | default 1 }}
+{{ if gt $minWeight 1 }}
+  {{ $filteredProjects := slice }}
+  {{ range $projectsList }}
+    {{ $projectWeight := .Params.weight | default 1 }}
+    {{ if ge $projectWeight $minWeight }}
+      {{ $filteredProjects = $filteredProjects | append . }}
     {{ end }}
-  </div>
+  {{ end }}
+  {{ $projectsList = $filteredProjects }}
 {{ end }}
+
+{{/* Filter by tags if provided */}}
+{{ $tagFilter := .tagFilter | default "" }}
+{{ if $tagFilter }}
+  {{ $filteredProjects := slice }}
+  {{ $filterTags := split $tagFilter "," }}
+  {{ range $projectsList }}
+    {{ $project := . }}
+    {{ $hasTag := false }}
+    {{ range $filterTags }}
+      {{ $filterTag := trim . " " | lower }}
+      {{ range $project.Params.tags }}
+        {{ if eq (. | lower) $filterTag }}
+          {{ $hasTag = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ if $hasTag }}
+      {{ $filteredProjects = $filteredProjects | append $project }}
+    {{ end }}
+  {{ end }}
+  {{ $projectsList = $filteredProjects }}
+{{ end }}
+
+<section id="portfolio">
+  {{ if gt (len $projectsList) 0 }}
+    {{ if $showTitle }}
+      <h2 class="mt-5 mb-3">Projects at {{ $companyName }}:</h2>
+    {{ end }}
+  {{ end }}
+      
+
+  {{ partial "project-cards.html" (dict
+    "projectsList" $projectsList
+    "showCompanyName" $showCompanyName
+  ) }}
+</section>

@@ -21,6 +21,13 @@
     --text-subtitle-color: var(--text-subtitle-color-dark);
     --text-content-color: var(--text-content-color-dark);
     /* --card-color: var(--card-color-dark); */
+    --project-tag-text-color: var(--project-tag-text-color-dark);
+    --project-tag-bg-color: var(--project-tag-bg-color-dark);
+    --project-tag-bg-hover-color: var(--project-tag-bg-hover-color-dark);
+    --project-filter-text-color: var(--project-filter-text-color-dark);
+    --project-filter-bg-color: var(--project-filter-bg-color-dark);
+    --project-filter-hover-color: var(--project-filter-hover-color-dark);
+    --project-filter-active-color: var(--project-filter-active-color-dark);
 }
 
 .dark #footer-socialNetworks-github-svg-path{
