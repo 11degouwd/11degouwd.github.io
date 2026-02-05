@@ -106,13 +106,13 @@ params:
     secondaryBackgroundColor: "#64ffda1a"
     primaryColor: "#fc6f5c" 
     secondaryColor: "#f8f9fa"
-    tagText: "#4338ca"
-    tagBackground: "#e0e7ff"
-    tagBackgroundHover: "#c7d2fe"
-    tagFilterBackground: "#eef2ff"
-    tagFilterBackgroundHover: "#dbeafe"
-    tagFilterBackgroundActive: "#4f46e5"
-    tagFilterText: "#4338ca"
+    projectTagTextColor: "#4338ca"
+    projectTagBackgroundColor: "#e0e7ff" #
+    projectTagBackgroundHoverColor: "#c7d2fe"
+    projectFilterTextColor: "#4338ca"
+    projectFilterBackgroundColor: "#e0e7ff" #"#eef2ff"
+    projectFilterBackgroundHoverColor: "#dbeafe"
+    projectFilterBackgroundActiveColor: "#4f46e5"
 
     darkmode: # TODO Colors
       textColor: "#e4e6eb"
@@ -125,13 +125,13 @@ params:
       secondaryBackgroundColor: "#212529"
       primaryColor: "#ffffff"
       secondaryColor: "#212529" # 1f2937 as backup color
-      tagBackground: "#374151"
-      tagText: "#e0e7ff"
-      tagBackgroundHover: "#4b5565"
-      tagFilterBackground: "#1f2937"
-      tagFilterBackgroundHover: "#374151"
-      tagFilterBackgroundActive: "#6366f1"
-      tagFilterText: "#e0e7ff"
+      projectTagTextColor: "#e0e7ff"
+      projectTagBackgroundColor: "#374151"
+      projectTagBackgroundHoverColor: "#4b5565"
+      projectFilterTextColor: "#e0e7ff"
+      projectFilterBackgroundColor: "#1f2937"
+      projectFilterBackgroundHoverColor: "#374151"
+      projectFilterBackgroundActiveColor: "#6366f1"
   
   search:
     showDescriptions: true

@@ -48,3 +48,18 @@ gallery Single
   thumbSize="60x"
   fullSize="1600x"
 >}} -->
+
+
+Projects
+{{< company-projects companySlug="keaAerospace" showTitle="false" >}}
+
+Projects (advanced)
+{{< company-projects companySlug="keaAerospace" companyName="Some Company" showTitle="false" tagFilter="OMG, IOT" minWeight="1" >}}
+
+
+Roles
+{{< company-roles companySlug="keaAerospace" companyName="Some Company" showTitle="false" >}}
+
+
+
+blah blah i did this and that etc

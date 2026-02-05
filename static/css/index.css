@@ -432,6 +432,7 @@ html.dark #hero .image.animate img {
     border: 2px solid transparent !important;
     transition: box-shadow .2s linear,opacity .2s linear;
     transition: transform 0.2s;
+    background-color: var(--secondary-color) !important;
 }
 
 #education .card .card-body {

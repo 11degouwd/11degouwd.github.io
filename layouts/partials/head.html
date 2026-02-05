@@ -40,8 +40,8 @@
 <!-- theme -->
 <link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/theme.css" media="all">
 
-<!-- Shortcodes -->
-<link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/shortcodes.css" media="all">
+<!-- partials -->
+<link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/partials.css" media="all">
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
@@ -63,6 +63,13 @@
         --text-subtitle-color: {{ .Site.Params.color.subtitleTextColor | default (.Site.Params.color.textLinkColor | default "#6b7280") }};
         --text-content-color: {{ .Site.Params.color.contentTextColor | default (.Site.Params.color.textColor | default "#6c757d") }};
         /*  --card-color: {{ .Site.Params.color.cardColor | default (.Site.Params.color.secondaryColor | default "#f8f9fa") }};  */
+        --project-tag-text-color: {{ .Site.Params.color.projectTagTextColor | default "#4338ca" }};
+        --project-tag-bg-color: {{ .Site.Params.color.projectTagBkgndColor | default "#e0e7ff" }};
+        --project-tag-bg-hover-color: {{ .Site.Params.color.projectTagBackgroundHoverColor | default "#c7d2fe" }};
+        --project-filter-text-color: {{ .Site.Params.color.projectFilterTextColor | default "#4338ca" }};
+        --project-filter-bg-color: {{ .Site.Params.color.projectFilterBackgroundColor | default "#e0e7ff" }};
+        --project-filter-hover-color: {{ .Site.Params.color.projectFilterBackgroundHoverColor | default "#dbeafe" }};
+        --project-filter-active-color: {{ .Site.Params.color.projectFilterBackgroundActiveColor | default "#4f46e5" }};
 
         /* dark mode colors */
         --text-color-dark: {{ .Site.Params.color.darkmode.textColor | default "#e4e6eb" }};
@@ -76,6 +83,13 @@
         --text-subtitle-color-dark: {{ .Site.Params.color.darkmode.subtitleTextColor | default (.Site.Params.color.darkmode.textLinkColor | default "#b0b3b8") }};
         --text-content-color-dark: {{ .Site.Params.color.darkmode.contentTextColor | default (.Site.Params.color.darkmode.textColor | default "#e4e6eb") }};
         /*  --card-color-dark: {{ .Site.Params.color.darkmode.cardColor | default (.Site.Params.color.darkmode.secondaryColor | default "#212529") }};  */
+        --project-tag-text-color-dark: {{ .Site.Params.color.darkmode.projectTagTextColor | default "#e0e7ff" }};
+        --project-tag-bg-color-dark: {{ .Site.Params.color.darkmode.projectTagBackgroundColor | default "#374151" }};
+        --project-tag-bg-hover-color-dark: {{ .Site.Params.color.darkmode.projectTagBackgroundHoverColor | default "#4b5565" }};
+        --project-filter-text-color-dark: {{ .Site.Params.color.darkmode.projectFilterTextColor | default "#e0e7ff" }};
+        --project-filter-bg-color-dark: {{ .Site.Params.color.darkmode.projectFilterBackgroundColor | default "#1f2937" }};
+        --project-filter-hover-color-dark: {{ .Site.Params.color.darkmode.projectFilterBackgroundHoverColor | default "#374151" }};
+        --project-filter-active-color-dark: {{ .Site.Params.color.darkmode.projectFilterBackgroundActiveColor | default "#6366f1" }};
     }
     body {
         font-size: {{ .Site.Params.font.fontSize | default "1rem" }};
