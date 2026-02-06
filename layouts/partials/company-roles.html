@@ -2,7 +2,7 @@
   Company Roles partial - displays experience roles filtered by company
   
   Parameters:
-  - company_slug: slug of the company to filter by (required)
+  - companySlug: slug of the company to filter by (required)
   - company_name: display name of the company (required)
   - show_title: show "Roles at {Company}" heading - default: true
 */}}
@@ -17,7 +17,7 @@
 {{ end }}
 
 {{ $roles := where site.RegularPages "Section" "experience" }}
-{{ $roles = where $roles ".Params.company_slug" $companySlug }}
+{{ $roles = where $roles ".Params.companySlug" $companySlug }}
 {{ $roles = sort $roles "Params.start" "desc" }}
 
 {{ if gt (len $roles) 0 }}

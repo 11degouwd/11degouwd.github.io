@@ -1,6 +1,6 @@
 ---
 title: Power & Avionics Engineer
-company_slug: keaAerospace
+companySlug: keaAerospace
 start: 2022-08-02
 # end: 
 location: Christchurch, NZ

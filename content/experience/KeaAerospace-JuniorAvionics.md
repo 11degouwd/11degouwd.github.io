@@ -1,6 +1,6 @@
 ---
 title: Junior Avionics Engineer
-company_slug: keaAerospace
+companySlug: keaAerospace
 start: 2021-07-01
 end: 2022-08-01
 location: Christchurch, NZ

@@ -8,6 +8,8 @@
   - showTitle: show "Projects at {Company}" heading - default: true
   - tagFilter: comma-separated list of tags to filter by (case-insensitive, OR operation) - default: none
   - minWeight: minimum project weight to display (1-5, where 1 is default) - default: 1
+  - cardHeight: height of the card image in pixels (min: 150px, max: 400px) - default: 150
+  - excludeFolders: comma-separated list of subfolder names to exclude (e.g., "personal,drafts") - default: none
 */}}
 
 {{ $companySlug := .companySlug }}
@@ -37,7 +39,7 @@
 {{ end }}
 
 {{ $projects := where site.RegularPages "Section" "portfolio" }}
-{{ $projectsList := where $projects ".Params.company" $companySlug }}
+{{ $projectsList := where $projects ".Params.companySlug" $companySlug }}
 
 {{/* Filter by minimum weight */}}
 {{ $minWeight := .minWeight | default 1 }}
@@ -86,5 +88,7 @@
   {{ partial "project-cards.html" (dict
     "projectsList" $projectsList
     "showCompanyName" $showCompanyName
+    "cardHeight" (.cardHeight | default 150)
+    "excludeFolders" (.excludeFolders | default "")
   ) }}
 </section>

@@ -1,6 +1,6 @@
 ---
 title: Mechanical Engineer
-company_slug: justinNeilEngineering
+companySlug: justinNeilEngineering
 start: 2017-11-15
 end: 2018-02-02
 location: Christchurch, NZ

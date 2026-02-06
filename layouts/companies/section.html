@@ -26,7 +26,7 @@
           <div class="title mb-5 text-center">
             <h1 class="mb-1">{{ $companyName }}</h1>
 
-            {{ with .Params.company }}
+            {{ with .Params.companySlug }}
               <p class="subtitle" style="font-size:1.2rem; color:#6b7280; margin:0;">
                 {{ . }}
               </p>
@@ -57,24 +57,40 @@
           </article>
           
           <!-- Work Experience -->
-          {{ with .Params.roles.enable }}
+          {{ if .Params.roles.enable }}
             {{ partial "company-roles.html" (dict "companySlug" $companySlug "companyName" $companyName) }}
           {{ end }}
           
-          <!-- Gallery grid -->
-          <!-- TODO CREATE if block -->
-          <!-- TODO use parameters from front matter -->
-          {{ partial "gallery.html" (dict 
-            "src" "gallery"
-            "source" "bundle"
-            "layout" "row"
-            "page" .
-          ) }}
+          <!-- Gallery Grid -->
+          {{ if .Params.gallery.enable }}
+            {{ if .Params.gallery.title }}
+              <h2 class="mt-5 mb-3">{{ .Params.gallery.title }}:</h2>
+            {{ end }}
+            {{ partial "gallery.html" (dict 
+              "src" (.Params.gallery.location | default "")
+              "source" (.Params.gallery.source | default "bundle")
+              "layout" (.Params.gallery.layout | default "grid")
+              "cols" (.Params.gallery.cols | default "3")
+              "max" (.Params.gallery.max | default 5)
+              "showCaption" (.Params.gallery.showCaption | default false)
+              "thumbSize" (.Params.gallery.thumbSize | default "480x")
+              "thumbQuality" (.Params.gallery.thumbQuality | default "60")
+              "fullSize" (.Params.gallery.fullSize | default "1200x")
+              "fullQuality" (.Params.gallery.fullQuality | default "85")
+              "page" .
+            ) }}
+          {{ end }}
           
-          <!-- Projects grid -->
-          <!-- TODO use parameters from front matter -->
-          {{ with .Params.projects.enable }}
-            {{ partial "company-projects.html" (dict "companySlug" $companySlug "companyName" $companyName) }}
+          <!-- Projects Grid -->
+          {{ if .Params.projects.enable }}
+            {{ partial "company-projects.html" (dict 
+              "companySlug" $companySlug 
+              "companyName" $companyName
+              "tagFilter" (.Params.projects.tagFilter | default "")
+              "minWeight" (.Params.projects.minWeight | default 1)
+              "cardHeight" (.Params.projects.cardHeight | default 400)
+              "excludeFolders" (.Params.projects.excludeFolders | default "")
+            ) }}
           {{ end }}
         </div>
       </div>

@@ -21,6 +21,10 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+  tableOfContents:
+    startLevel: 1  # Include H1 headings
+    endLevel: 3    # Up to H3 headings
+    ordered: false # Use unordered list
 
 menu:
   main: # Custom pages
@@ -135,6 +139,7 @@ params:
   
   search:
     showDescriptions: true
+    maxDescriptionLength: 100 # Characters
 
   # If you want to customize the menu, you can change it here
   navbar:
@@ -182,6 +187,11 @@ params:
   techstack:
     enable: true
     # title: "Custom Name"
+
+  # Portfolio
+  portfolio:
+    cardHeight: 250 # Card image height in pixels (min: 150, max: 400)
+    excludeFolders: "" # Comma-separated list of subfolder names to exclude (e.g., "personal,drafts")
 
   #Contact
   contact:

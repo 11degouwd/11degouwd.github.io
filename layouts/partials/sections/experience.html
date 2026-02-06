@@ -19,12 +19,12 @@
           {{ $past := where $roles ".Params.end" "!=" nil }}
           {{ $past = sort $past "Params.end" "desc" }}
           {{ $roles = union $current $past }}
-          {{ $groups := $roles.GroupByParam "company_slug" }} 
+          {{ $groups := $roles.GroupByParam "companySlug" }} 
           {{ $companies := slice }}
           
           <!-- Uses order of $roles to create a list of companies -->
           {{ range $roles }} 
-            {{ $slug := .Params.company_slug }}
+            {{ $slug := .Params.companySlug }}
             {{ if not (in $companies $slug) }}
               {{ $companies = $companies | append $slug }}
             {{ end }}
@@ -35,7 +35,7 @@
 
               {{ range $companies }}
                 {{ $slug := . }}
-                {{ $companyRoles := where $roles "Params.company_slug" $slug }}
+                {{ $companyRoles := where $roles "Params.companySlug" $slug }}
 
                 {{ $companyPath := path.Join "companies" $slug }}
                 {{ $company := site.GetPage "section" $companyPath }}

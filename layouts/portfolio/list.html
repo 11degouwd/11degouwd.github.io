@@ -39,6 +39,8 @@
   {{ partial "project-cards.html" (dict
     "projectsList" $projectsList
     "showCompanyName" true
+    "cardHeight" (.Site.Params.portfolio.cardHeight | default 400)
+    "excludeFolders" (.Site.Params.portfolio.excludeFolders | default "")
   ) }}
 
 </section>
