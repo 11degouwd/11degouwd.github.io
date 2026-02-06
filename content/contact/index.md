@@ -13,7 +13,7 @@ info:
 formspree:
   enable: true # `contact.email` value will be ignored
   formId: xlggrapa 
-  captchaSiteKey: "d8881154-fad2-4134-ba4c-dccae1d042ec"
+  captchaSiteKey: "a3900e3a-22f4-4c92-906e-bec2f4b0d80a"
   emailCaption: "Enter your email address"
   messageCaption: "Enter your message here"
   subjectCaption: "Enter subject"

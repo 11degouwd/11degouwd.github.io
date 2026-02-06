@@ -87,7 +87,7 @@
 /* Form status popup */
 #contact-form-status {
     position: fixed;
-    bottom: 10px;
+    bottom: 50px;
     right: 10px;
     z-index: 1;
     transform: translate3d(0, 0, 0);
