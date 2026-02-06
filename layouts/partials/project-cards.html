@@ -45,22 +45,15 @@
 
 <section id="portfolio-cards" style="--project-img-height: {{ $cardHeight }}px;">
   {{ if gt (len $projectsList) 0 }}
-    <div style="
-      display:grid; 
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-      gap:1.5rem;
-      max-width: calc(4 * 250px + 3 * 1.5rem); 
-      margin: 0 auto;">
-      
+    <div class="project-cards-grid">
       {{ range $projectsList }}
         {{ $companySlug := .Params.companySlug }}
 
         <a href="{{ .RelPermalink }}" 
           class="project-card"
-          data-tags="{{ delimit .Params.tags " " }}"
-          style="display:flex; flex-direction:column; text-align:center; height:100%;">
+          data-tags="{{ delimit .Params.tags " " }}">
           
-          <!-- Square thumbnail -->
+          <!-- Project thumbnail -->
           {{ with .Resources.GetMatch .Params.image }}
             {{ $thumb := .Fill "400x400 Center" }}
             <img
@@ -72,9 +65,9 @@
             />
           {{ end }}
 
-          <!-- Project text -->
-          <div style="margin-top:0.75rem; display:flex; flex-direction:column; flex-grow:1;">
-            <h3 style="font-weight:600; font-size:0.9rem;">{{ .Title }}</h3>
+          <!-- Project content -->
+          <div class="project-content">
+            <h3>{{ .Title }}</h3>
 
             {{ if $showCompanyName }}
               {{ $companyName := "" }}
@@ -84,13 +77,13 @@
               {{- else -}}
                 {{ $companyName = $companySlug | humanize | title }}
               {{- end -}}
-              <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:0.25rem;">Company: {{ $companyName }}</p>
+              <p class="project-company">Company: {{ $companyName }}</p>
             {{ end }}
 
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">{{ .Params.summary }}</p>
+            <p class="project-summary">{{ .Params.summary }}</p>
 
             <!-- Tags -->
-            <div class="project-tags" style="margin-top:auto; display:flex; flex-wrap:wrap; justify-content:center; gap:0.25rem;">
+            <div class="project-tags">
               {{ range .Params.tags }}
                 <button class="tag-btn" data-tag="{{ . }}" type="button">{{ . }}</button>
               {{ end }}

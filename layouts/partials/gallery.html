@@ -74,7 +74,6 @@
       {{ $full := $img }}
       {{ $imgName := $img.Name }}
       
-      {{/* Only process images if they support Filter (page resources and assets) */}}
       {{ if $img.Filter }}
         {{ $normalized = $img.Filter (images.AutoOrient) }}
         {{ $thumb = $normalized.Resize (printf "%s q%s" $thumbSize $thumbQuality) }}
