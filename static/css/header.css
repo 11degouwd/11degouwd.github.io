@@ -117,7 +117,7 @@ li > .dropdown-toggle:focus{
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     z-index: 9999;
     width: 10%;
-    max-height: 350px;
+    max-height: 700px;
     background-color: var(--secondary-color) !important;
     position: absolute;
     overflow: scroll;
@@ -130,7 +130,7 @@ li > .dropdown-toggle:focus{
 #search-results > .card {
     background-color: transparent !important;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 #search-results > .card :hover {
@@ -148,6 +148,37 @@ li > .dropdown-toggle:focus{
 
 #search-results .card a:hover {
     color: var(--primary-color) !important;
+}
+
+#search-results .search-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#search-results .search-badge {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: var(--text-color);
+  opacity: 0.8;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Optional color accents */
+#search-results .search-badge--project {
+  background: rgba(0, 200, 255, 0.15);
+}
+
+#search-results .search-badge--company {
+  background: rgba(0, 255, 150, 0.15);
+}
+
+#search-results .search-badge--role {
+  background: rgba(255, 200, 0, 0.15);
 }
 
 #navbar-search {

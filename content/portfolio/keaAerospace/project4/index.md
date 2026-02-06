@@ -1,7 +1,10 @@
 ---
 title: "duh HVAC Controller"
-company: "keaAerospace"
+companySlug: "keaAerospace"
 summary: "Embedded firmware and cloud integration."
+date: 2024-02-02
+searchTags: "Tags for search results"
+searchDescription: "Displayed description for search results"
 tags: ["Embedded", "OMG"]
 image: "image.jpg"
 weight: 1

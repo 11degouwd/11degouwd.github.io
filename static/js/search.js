@@ -32,6 +32,12 @@ async function performSearch(evt) {
 
   if (!searchInput || !searchContent || !searchResultsContainer) return;
 
+  if (searchQuery.length < 3) {
+    searchContent.style.display = "none";
+    searchResultsContainer.innerHTML = "";
+    return;
+  }
+
   if (searchQuery !== "") {
     // Position search results
     const rect = searchInput.getBoundingClientRect();
@@ -48,6 +54,12 @@ async function performSearch(evt) {
     searchContent.style.width = desiredWidth + "px";
     searchContent.style.left = left + "px";
 
+    const TYPE_PRIORITY = {
+      project: 0,
+      company: 1,
+      role: 2
+    };
+
     try {
       let response = await fetch("/index.json");
       if (!response.ok) throw new Error("Failed to fetch search data");
@@ -55,14 +67,37 @@ async function performSearch(evt) {
       let searchJson = await response.json();
 
       // --- Filter search results ---
-      const searchResults = searchJson.filter(item => {
-        if (!item || typeof item !== "object") return false;
-        return (
-          (item.title && item.title.toLowerCase().includes(searchQuery)) ||
-          (item.description && item.description.toLowerCase().includes(searchQuery)) ||
-          (item.content && item.content.toLowerCase().includes(searchQuery))
-        );
+      const searchResults = searchJson
+      .map(item => {
+        if (!item || typeof item !== "object") return null;
+
+        const q = searchQuery;
+
+        let score = 0;
+
+        if (item.title?.toLowerCase().includes(q)) score += 3;
+        if (item.searchTags?.toLowerCase().includes(q)) score += 2;
+        if (item.content?.toLowerCase().includes(q)) score += 1;
+
+        if (score === 0) return null;
+
+        return {
+          ...item,
+          _score: score
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => {
+        const pa = TYPE_PRIORITY[(a.type || "").toLowerCase()] ?? 99;
+        const pb = TYPE_PRIORITY[(b.type || "").toLowerCase()] ?? 99;
+
+        if (pa !== pb) return pa - pb;
+        if (b._score !== a._score) return b._score - a._score;
+
+        return (a.title || "").localeCompare(b.title || "");
       });
+
+
 
       searchResultsContainer.innerHTML = "";
 
@@ -77,16 +112,27 @@ async function performSearch(evt) {
           link.href = item.permalink;
 
           const contentDiv = document.createElement("div");
-          contentDiv.className = "p-3";
+          contentDiv.className = "p-2";
 
           const title = document.createElement("h5");
           title.textContent = item.title || "Untitled";
 
-          const description = document.createElement("div");
-          description.textContent = item.description || "";
+          const titleRow = document.createElement("div");
+          titleRow.className = "search-title-row";
+          titleRow.appendChild(title);
 
-          contentDiv.appendChild(title);
-          if (showDescriptions && item.description) {
+          if (item.type) {
+            const badge = document.createElement("span");
+            badge.className = `search-badge search-badge--${item.type.toLowerCase()}`;
+            badge.textContent = item.type;
+            titleRow.appendChild(badge);
+          }
+
+          const description = document.createElement("div");
+          description.textContent = item.content || "";
+
+          contentDiv.appendChild(titleRow);
+          if (showDescriptions && item.searchTags) {
               contentDiv.appendChild(description);
           }
           link.appendChild(contentDiv);

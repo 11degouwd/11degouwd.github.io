@@ -1,8 +1,10 @@
 ---
 title: "Smart HVAC Controller"
-company: "keaAerospace"
+companySlug: "keaAerospace"
 summary: "Embedded firmware and cloud integration."
-searchDescription: "Searchable description for results"
+date: 2024-02-02
+searchTags: "hippo bannana Kea Aerospace"
+searchDescription: "Displayed description for search results"
 tags: ["Embedded", "IoT"]
 image: "image.jpg"
 weight: 1

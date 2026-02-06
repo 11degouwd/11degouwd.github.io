@@ -4,6 +4,20 @@ logo: logo.png # Located in /static/images/THE_NAME_OF_THIS_MARKDOWN_FILE/
 image: banner.jpg # Located in /static/images/THE_NAME_OF_THIS_MARKDOWN_FILE/
 start: 2021 # Start date at this company. WARNING this is seperate from experience dates, check for alignment
 end: 2024 # End date at this company. WARNING this is seperate from experience dates, check for alignment
+roles: # Enable Work experience at bottom of page
+  enable: true
+gallery: # Enable Gallery at bottom of page
+  enable: true
+  title: My Work
+  location: gallery # single image or directory
+  source: bundle # "bundle" (page resources) or "static" (static/images folder) or "assets" (assets folder)
+  layout: row # "grid", "row", or "single"
+projects: # Enable Projects List at bottom of page
+  enable: true
+  # tagFilter: "tag1,tag2" # Allowed project tags
+  minWeight: 1 # Allowed minimum weight
+  cardHeight: 250 # Card image height in pixels (min: 150, max: 400)
+  # excludeFolders: "personal,drafts" # Comma-separated list of subfolders to exclude
 ---
 
 ## About Company One
@@ -51,10 +65,10 @@ gallery Single
 
 
 Projects
-{{< company-projects companySlug="keaAerospace" showTitle="false" >}}
+{{< company-projects companySlug="keaAerospace" showTitle="false" cardHeight="150" >}}
 
 Projects (advanced)
-{{< company-projects companySlug="keaAerospace" companyName="Some Company" showTitle="false" tagFilter="OMG, IOT" minWeight="1" >}}
+{{< company-projects companySlug="keaAerospace" companyName="Some Company" showTitle="false" tagFilter="OMG, IOT" minWeight="1" cardHeight="150" >}}
 
 
 Roles

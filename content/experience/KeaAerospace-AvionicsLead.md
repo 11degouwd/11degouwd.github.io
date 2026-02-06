@@ -1,6 +1,6 @@
 ---
 title: Avionics Design Lead
-company_slug: keaAerospace
+companySlug: keaAerospace
 start: 2023-01-01
 # end: 
 location: Christchurch, NZ

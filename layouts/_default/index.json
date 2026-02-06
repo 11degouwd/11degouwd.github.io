@@ -1,19 +1,56 @@
 {{- $.Scratch.Add "index" slice -}}
-{{- range .Site.RegularPages -}}
-    {{- $desc := "" -}}
-
-    {{- if .Params.searchDescription -}}
-        {{- $desc = .Params.searchDescription -}}
-    {{- else -}}
-        {{- $desc = .Summary | plainify -}}
+{{- range where .Site.Pages "Kind" "in" (slice "page" "section") -}}
+    {{- if and (eq .Section "portfolio") (eq .Params.title "Portfolio") -}}
+      {{- continue -}}
     {{- end -}}
 
+    {{- $type := "" -}}
+    {{- $content := "" -}}
+    {{- $companyName := "" -}}
+    {{- $permalink := .Permalink -}}
+    {{- $searchTags := "" -}}
+
+    {{- if .Params.searchTags -}}
+        {{- $searchTags = .Params.searchTags -}}
+    {{- else -}}
+        {{- $searchTags = .Summary | plainify -}}
+    {{- end -}}
+
+    {{- if .Params.searchDescription -}}
+      {{- $content = .Params.searchDescription -}}
+    {{- else -}}
+      {{- $content = .Plain -}}
+    {{- end -}}
+
+    {{- if eq .Section "portfolio" -}}
+      {{- $type = "Project" -}}
+
+    {{- else if eq .Section "experience" -}}
+      {{- $type = "Role" -}}
+
+      {{- $permalink = printf "%s#experience" site.Home.Permalink -}}
+
+      {{- $companySlug := .Params.companySlug -}}
+      {{- $companyPage := site.GetPage (printf "companies/%s" $companySlug) -}}
+      {{- if $companyPage -}}
+        {{- $content = $companyPage.Title -}}
+      {{- else if $companySlug -}}
+        {{- $content = $companySlug | humanize | title -}}
+      {{- end -}}
+
+      {{- $searchTags = $companyPage.Title -}}
+
+    {{- else if eq .Section "companies" -}}
+      {{- $type = "Company" -}}
+
+    {{- end -}}
+    
     {{- $.Scratch.Add "index" (dict 
         "title" .Title 
-        "description" $desc 
-        "content" .Plain 
-        "image" (or .Params.image nil) 
-        "permalink" .Permalink
+        "searchTags" $searchTags 
+        "content" ($content | truncate (.Site.Params.maxDescriptionLength | default 100)) 
+        "permalink" $permalink
+        "type" $type
     ) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}

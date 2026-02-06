@@ -144,6 +144,7 @@
 /* -------------------------- */
 :root {
   --project-max-width: 400px;
+  --project-img-height: 400px; /* Default/maximum image height */
 }
 
 #portfolio-cards .project-card {
@@ -210,7 +211,9 @@
 #portfolio-cards .project-img {
   width: 100%;
   max-width: var(--project-max-width);
-  aspect-ratio: 1 / 1;
+  height: var(--project-img-height);
+  min-height: 150px;
+  max-height: 400px;
   object-fit: cover;
   border-radius: 0.5rem;
   margin: 0 auto;
