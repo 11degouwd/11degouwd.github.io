@@ -64,11 +64,7 @@
 
   function setActiveDropdownItem(companyName) {
     const dropdownItem = document.querySelector(`.dropdown-item[data-company="${companyName.toLowerCase()}"]`);
-    console.log("We in this function");
-    console.log("name:",companyName);
-    console.log(dropdownItem);
     if (dropdownItem) {
-      console.log("Success");
       dropdownItem.classList.add('active');
     }
   }
@@ -88,7 +84,6 @@
     if (!companySlug) {
       return;
     }
-    console.log(companySlug);
 
     // Always highlight the Experience dropdown toggle when on a company page
     const experienceDropdown = document.querySelector('.nav-link[data-section="experience"]');
@@ -100,7 +95,6 @@
     // Get the dropdown element
     const dropdownElement = experienceDropdown?.closest('.dropdown');
     if (!dropdownElement) {
-      console.log("failed");
       return;
     }
 
@@ -201,7 +195,6 @@
       return;
     }
 
-    console.log('[CustomMenus] Checking custom menus for path:', pageContext.currentPath);
 
     // Strategy: Check dropdown items for href matches, then highlight parent by data-section
     const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
@@ -211,7 +204,6 @@
       const href = item.getAttribute('href');
       const dataSection = item.getAttribute('data-section');
 
-      console.log('[CustomMenus] Checking dropdown item:', href, 'data-section:', dataSection);
 
       // Skip invalid hrefs
       if (!href || href.startsWith('#')) {
@@ -220,7 +212,6 @@
 
       // Check if this item's href matches current path
       if (pageContext.currentPath.includes(href)) {
-        console.log('[CustomMenus] ✓ Match! Dropdown item matches current path');
 
         // If this item has a data-section, find and highlight parent dropdown toggle
         if (dataSection) {
@@ -229,22 +220,18 @@
           );
 
           if (dropdownToggle) {
-            console.log('[CustomMenus] ✓ Highlighting dropdown toggle with data-section:', dataSection);
             clearAllActiveLinks();
             dropdownToggle.classList.add('active');
 
             // Also highlight the dropdown item itself
             clearAllActiveDropdownItems();
             item.classList.add('active');
-            console.log('[CustomMenus] ✓ Also highlighting dropdown item');
 
             foundMatch = true;
           } else {
-            console.log('[CustomMenus] ✗ No dropdown toggle found with data-section:', dataSection);
           }
         } else {
           // No data-section, fall back to highlighting the item itself
-          console.log('[CustomMenus] No data-section, highlighting item directly');
           clearAllActiveLinks();
           item.classList.add('active');
           foundMatch = true;
@@ -254,7 +241,6 @@
 
     // If no dropdown match, try to match with regular nav links
     if (!foundMatch) {
-      console.log('[CustomMenus] No dropdown match, checking regular nav links...');
 
       const allNavLinks = document.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)');
 
@@ -266,11 +252,9 @@
           return;
         }
 
-        console.log('[CustomMenus] Checking nav link:', href);
 
         // Check for match
         if (pageContext.currentPath.includes(href)) {
-          console.log('[CustomMenus] ✓ Match! Highlighting nav link');
           clearAllActiveLinks();
           link.classList.add('active');
         }
