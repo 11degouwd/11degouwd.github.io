@@ -187,7 +187,7 @@ if (!localStorageValue) {
                               </a>
                               <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
                                   {{ range .Children }}
-                                  <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
+                                  <a class="dropdown-item nav-link" href="{{ .URL }}"
                                       title="{{ .Title }}"
                                       data-section="{{ .Parent }}">
                                       {{ .Name }}
@@ -235,7 +235,7 @@ if (!localStorageValue) {
                               </a>
                               <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
                                   {{ range .Children }}
-                                  <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
+                                  <a class="dropdown-item nav-link" href="{{ .URL }}"
                                       title="{{ .Title }}"
                                       data-section="{{ .Parent }}">
                                       {{ .Name }}
@@ -385,6 +385,79 @@ if (!localStorageValue) {
           document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
             menu.classList.remove('show');
           });
+        }
+      });
+    }
+  })();
+
+  // Prevent navbar collapse from closing when interacting with dropdowns on mobile
+  (function() {
+    const navbarCollapse = document.getElementById('navbarContent');
+    if (!navbarCollapse) return;
+
+    const isTouchDevice = !window.matchMedia('(hover: hover)').matches;
+
+    if (isTouchDevice) {
+      // Prevent clicks on dropdown toggles from closing the navbar
+      document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation(); // Stop event from reaching Bootstrap Collapse
+        });
+      });
+
+      // Prevent clicks inside dropdown menus from closing the navbar
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+          const target = e.target.closest('.dropdown-item');
+          if (target) {
+            const href = target.getAttribute('href');
+            // For anchor links or same-page navigation, prevent collapse
+            if (href && href.startsWith('#')) {
+              e.stopPropagation();
+              // After navigation, close the navbar
+              setTimeout(() => {
+                const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (bsCollapse) {
+                  bsCollapse.hide();
+                }
+              }, 100);
+            }
+            // For different page links, allow default behavior (navbar closes naturally)
+          }
+        });
+      });
+    }
+  })();
+
+  // Click-outside-to-close for mobile navbar
+  (function() {
+    const navbarCollapse = document.getElementById('navbarContent');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+
+    if (!navbarCollapse || !navbarToggler) return;
+
+    const isTouchDevice = !window.matchMedia('(hover: hover)').matches;
+
+    if (isTouchDevice) {
+      document.addEventListener('click', function(e) {
+        // Check if navbar is currently open
+        const isNavbarOpen = navbarCollapse.classList.contains('show');
+
+        if (!isNavbarOpen) return;
+
+        // Check if click is outside navbar content and toggler button
+        const clickedInsideNavbar = navbarCollapse.contains(e.target);
+        const clickedToggler = navbarToggler.contains(e.target);
+
+        if (!clickedInsideNavbar && !clickedToggler) {
+          // Close the navbar using Bootstrap's Collapse API
+          const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+          if (bsCollapse) {
+            bsCollapse.hide();
+          } else {
+            // Fallback: manually trigger the toggler
+            navbarToggler.click();
+          }
         }
       });
     }

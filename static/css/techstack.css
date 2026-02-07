@@ -1,5 +1,11 @@
 #techstack {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 500px;
+}
+
+@media (min-width: 991px) {
+  #techstack {
+    scroll-margin-top: 80px;
+  }
 }
 
 .techstack-section {

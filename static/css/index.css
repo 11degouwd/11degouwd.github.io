@@ -279,7 +279,13 @@ html.dark #hero .image.animate img {
 
 /* about me */
 #about {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 500px;
+}
+
+@media (min-width: 991px) {
+  #about {
+    scroll-margin-top: 80px;
+  }
 }
 
 #about h3 {
@@ -362,7 +368,13 @@ html.dark #hero .image.animate img {
 
 /* experience */
 #experience {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 500px;
+}
+
+@media (min-width: 991px) {
+  #experience {
+    scroll-margin-top: 80px;
+  }
 }
 
 #experience h3 {
@@ -402,7 +414,13 @@ html.dark #hero .image.animate img {
 
 /* Education */
 #education {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 500px;
+}
+
+@media (min-width: 991px) {
+  #education {
+    scroll-margin-top: 80px;
+  }
 }
 
 #education .container > h3 {
@@ -494,7 +512,13 @@ html.dark #hero .image.animate img {
 
 /* achievements */
 #achievements {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 500px;
+}
+
+@media (min-width: 991px) {
+  #achievements {
+    scroll-margin-top: 80px;
+  }
 }
 
 #achievements a {
