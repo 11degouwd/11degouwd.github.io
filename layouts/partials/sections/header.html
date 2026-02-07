@@ -148,7 +148,6 @@ if (!localStorageValue) {
                           href="{{ .Site.BaseURL | relURL }}#experience"
                           id="experienceDropdown"
                           role="button"
-                          data-bs-toggle="dropdown"
                           aria-expanded="false"
                           data-section="experience"
                         >
@@ -206,13 +205,15 @@ if (!localStorageValue) {
                           <!-- Dropdown menu -->
                           <li class="nav-item navbar-text dropdown">
                               <a class="nav-link dropdown-toggle" href="{{ .URL }}" id="navbarDropdown" role="button"
-                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}">
+                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}"
+                                  data-section="{{ .Identifier }}">
                                   {{ .Name }}
                               </a>
                               <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
                                   {{ range .Children }}
                                   <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
-                                      title="{{ .Title }}">
+                                      title="{{ .Title }}"
+                                      data-section="{{ .Parent }}">
                                       {{ .Name }}
                                   </a>
                                   {{ end }}
@@ -252,13 +253,15 @@ if (!localStorageValue) {
                           <!-- Dropdown menu -->
                           <li class="nav-item navbar-text dropdown">
                               <a class="nav-link dropdown-toggle" href="{{ .URL }}" id="navbarDropdown" role="button"
-                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}">
+                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}"
+                                  data-section="{{ .Identifier }}">
                                   {{ .Name }}
                               </a>
                               <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
                                   {{ range .Children }}
                                   <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
-                                      title="{{ .Title }}">
+                                      title="{{ .Title }}"
+                                      data-section="{{ .Parent }}">
                                       {{ .Name }}
                                   </a>
                                   {{ end }}
@@ -361,15 +364,55 @@ if (!localStorageValue) {
 {{ end }}
 
 <script>
-  // Ensure clicking the dropdown toggle actually navigates
-  document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(el => {
-    el.addEventListener('click', function(e) {
-      // Only navigate if the dropdown menu is already shown
-      if (this.nextElementSibling.classList.contains('show')) {
-        window.location.href = this.href;
+  // Smart dropdown handling for ALL dropdowns
+  // Desktop: hover shows dropdown, click navigates (if href exists)
+  // Mobile/touch: first click shows dropdown, second click navigates (if href exists)
+  (function() {
+    const dropdownToggles = document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle');
+
+    // Detect if device supports hover (desktop) vs touch-only (mobile)
+    const isTouchDevice = !window.matchMedia('(hover: hover)').matches;
+
+    dropdownToggles.forEach(function(toggle) {
+      const dropdownMenu = toggle.nextElementSibling;
+      if (!dropdownMenu) return;
+
+      if (isTouchDevice) {
+        // Mobile/touch: toggle dropdown on click
+        toggle.addEventListener('click', function(e) {
+          const isVisible = dropdownMenu.classList.contains('show');
+
+          if (!isVisible) {
+            // First click: show dropdown
+            e.preventDefault();
+
+            // Close all other dropdowns first
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+              if (menu !== dropdownMenu) {
+                menu.classList.remove('show');
+              }
+            });
+
+            dropdownMenu.classList.add('show');
+          }
+          // Second click: navigate (default behavior, don't preventDefault)
+          // If toggle has no href or href="#", this does nothing
+        });
       }
+      // Desktop: no handler needed, CSS hover + default navigation works
     });
-  });
+
+    if (isTouchDevice) {
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.nav-item.dropdown')) {
+          document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+          });
+        }
+      });
+    }
+  })();
 </script> 
 
 <script>

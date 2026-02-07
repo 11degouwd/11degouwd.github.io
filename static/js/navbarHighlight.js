@@ -201,14 +201,81 @@
       return;
     }
 
-    // Try to match current path with nav links
-    const allNavLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    allNavLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && !href.startsWith('#') && pageContext.currentPath.includes(href)) {
-        setActiveLink(`a[href="${href}"]`);
+    console.log('[CustomMenus] Checking custom menus for path:', pageContext.currentPath);
+
+    // Strategy: Check dropdown items for href matches, then highlight parent by data-section
+    const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
+    let foundMatch = false;
+
+    dropdownItems.forEach(item => {
+      const href = item.getAttribute('href');
+      const dataSection = item.getAttribute('data-section');
+
+      console.log('[CustomMenus] Checking dropdown item:', href, 'data-section:', dataSection);
+
+      // Skip invalid hrefs
+      if (!href || href.startsWith('#')) {
+        return;
+      }
+
+      // Check if this item's href matches current path
+      if (pageContext.currentPath.includes(href)) {
+        console.log('[CustomMenus] ✓ Match! Dropdown item matches current path');
+
+        // If this item has a data-section, find and highlight parent dropdown toggle
+        if (dataSection) {
+          const dropdownToggle = document.querySelector(
+            `.nav-item.dropdown > .dropdown-toggle[data-section="${dataSection}"]`
+          );
+
+          if (dropdownToggle) {
+            console.log('[CustomMenus] ✓ Highlighting dropdown toggle with data-section:', dataSection);
+            clearAllActiveLinks();
+            dropdownToggle.classList.add('active');
+
+            // Also highlight the dropdown item itself
+            clearAllActiveDropdownItems();
+            item.classList.add('active');
+            console.log('[CustomMenus] ✓ Also highlighting dropdown item');
+
+            foundMatch = true;
+          } else {
+            console.log('[CustomMenus] ✗ No dropdown toggle found with data-section:', dataSection);
+          }
+        } else {
+          // No data-section, fall back to highlighting the item itself
+          console.log('[CustomMenus] No data-section, highlighting item directly');
+          clearAllActiveLinks();
+          item.classList.add('active');
+          foundMatch = true;
+        }
       }
     });
+
+    // If no dropdown match, try to match with regular nav links
+    if (!foundMatch) {
+      console.log('[CustomMenus] No dropdown match, checking regular nav links...');
+
+      const allNavLinks = document.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)');
+
+      allNavLinks.forEach(link => {
+        const href = link.getAttribute('href');
+
+        // Skip hash links
+        if (!href || href.startsWith('#')) {
+          return;
+        }
+
+        console.log('[CustomMenus] Checking nav link:', href);
+
+        // Check for match
+        if (pageContext.currentPath.includes(href)) {
+          console.log('[CustomMenus] ✓ Match! Highlighting nav link');
+          clearAllActiveLinks();
+          link.classList.add('active');
+        }
+      });
+    }
   }
 
   // ==================== Initialize ====================

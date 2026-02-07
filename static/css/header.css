@@ -241,8 +241,8 @@ li > .dropdown-toggle:focus{
     transition: none;
 }
 
-/* Active navbar link - underline style */
-.nav-link.active {
+/* Active navbar link - underline style (but not for dropdown items) */
+.nav-link.active:not(.dropdown-item) {
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: calc(0.5rem - 2px); /* Adjust padding to prevent layout shift */
     transition: border-bottom 0.2s ease;
@@ -255,4 +255,10 @@ li > .dropdown-toggle:focus{
     color: var(--primary-color) !important;
     font-weight: 500;
     background-color: var(--secondary-color) !important;
+}
+
+/* Remove pointer cursor from dropdown toggles with empty href */
+.dropdown-toggle[href=""],
+.dropdown-toggle[href="#"] {
+    cursor: default;
 }
