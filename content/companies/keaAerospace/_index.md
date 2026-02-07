@@ -9,7 +9,7 @@ searchDescription: "Stratospheric Glider"
 roles: # Enable Work experience at bottom of page
   enable: true
 gallery: # Enable Gallery at bottom of page
-  enable: true
+  enable: false
   title: My Work
   location: gallery # single image or directory
   source: bundle # "bundle" (page resources) or "static" (static/images folder) or "assets" (assets folder)
@@ -24,37 +24,4 @@ projects: # Enable Projects List at bottom of page
 
 ## About Company One
 
-Company One specialises in …
-
-![Example Image](post.jpg)
-fdvce
-
-Blank
-{{< gallery >}}
-
-gallery Defaults
-{{< gallery src="gallery" >}}
-
-Single
-{{< gallery src="post.jpg" >}}
-
-Projects
-{{< company-projects companySlug="keaAerospace" showTitle="false" >}}
-
-Projects (advanced)
-{{< company-projects companySlug="keaAerospace" companyName="Some Company" showTitle="false" tagFilter="OMG, IOT" minWeight="1" >}}
-
-gallery Grid
-{{< gallery src="gallery" layout="grid" cols="3" >}}
-
-Roles
-{{< company-roles companySlug="keaAerospace" companyName="Some Company" showTitle="false" >}}
-
-gallery Row
-{{< gallery src="gallery2" layout="row" max="8" >}}
-
-gallery Single
-{{< gallery src="gallery3" layout="single" >}}
-
-
-blah blah i did this and that etc
+TODO

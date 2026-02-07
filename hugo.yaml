@@ -1,7 +1,7 @@
-baseURL: "https://hugo-profile.netlify.app"
+baseURL: "https://portfolio.engineeredbydan.systems" # Set this to your intended deployment URL
 languageCode: "en-us"
-title: "Daniel de Gouw"
-theme: hugo-profile
+title: "Daniel de Gouw" # Page title (shows in tab name) 
+theme: hugo-profile # Base theme for this Project Portfolio Template
 
 outputs:
   home:
@@ -12,19 +12,19 @@ outputs:
     - "HTML"
     - "RSS"
 
-enableRobotsTXT: true
+enableRobotsTXT: true # Set to true to allow search engines and bots to crawl your site
 
-pagination:
-  pagerSize: 3
+pagination: # Used to split lists over multiple pages
+  pagerSize: 3 # Setting currently not in use - please ignore
 
-markup:
+markup: # Defines how Markdown files are interpreted
   goldmark:
     renderer:
       unsafe: true
   tableOfContents:
     startLevel: 1  # Include H1 headings
     endLevel: 3    # Up to H3 headings
-    ordered: false # Use unordered list
+    ordered: false # Defines whether ToC is ordered (numbered list) or unordered (bullet list) - Currently does not effect single page ToC
 
 menu:
   main: # Custom pages
@@ -33,10 +33,10 @@ menu:
       weight: 1
 
 params:
-  title: "Daniel de Gouw"
-  description: My Project Portfolio
+  title: "Daniel de Gouw" # Page title (shows in Navigation Bar)
+  description: Mechatronics engineer specializing in aerospace systems and lithium battery design, taking projects from concept to deployment. Check out my project portfolio. # Descriptive snippet used by search engines, keep this 150-160 characters long
   # staticPath: ""  # The path to serve the static files from
-  favicon: "/fav.png"
+  favicon: "/fav.png" # Favicon used in nav bar and in the tab title
 
   siteStatus: "coming-soon"   # live | coming-soon  
   # siteStatus: "live"   # live | coming-soon  
@@ -145,13 +145,14 @@ params:
   navbar:
     align: ms-auto # Left: ms-auto | center: mx-auto | right: me-auto | Default: ms-auto
     # brandLogo: "/logo.png" # Logo for the brand | default is the favicon variable
-    showBrandLogo: false # Show brand logo in nav bar | default is true
-    # brandName: "Daniel de Gouw" # Brand name for the brand | default is the title variable
+    showBrandLogo: false # Show brand logo in nav bar
     disableSearch: false
-    searchPlaceholder: "Search..."
+    searchPlaceholder: "Search..." # Default placeholder text in search box
     stickyNavBar:
-      enable : true
-      showOnScrollUp : false
+      enable : true # Set true for a persistent (sticky) navbar
+      showOnScrollUp : false # If sticky nav bar is not used, set true for navbar to be revealed when scrolling up
+    enableSeparator: false # Adds in a separator before the custom menu items - setting ignored if showContactsLast is true
+    showContactLast: true # Forces contacts menu to be last in the list
     menus:
       disableAbout: false
       disableExperience: false
@@ -221,6 +222,8 @@ params:
       enable: true
     tags:
       openInNewTab: false
+    portfolio: 
+      noDatePlaceholder: "In Development"
 
   # For translations
   terms:

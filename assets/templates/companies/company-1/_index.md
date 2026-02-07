@@ -10,7 +10,7 @@ gallery: # Enable Gallery at bottom of page
   enable: true
   title: My Work
   location: gallery # single image or directory
-  source: bundle # "bundle" (page resources) or "static" (static/images folder) or "assets" (assets folder)
+  source: bundle # "bundle" (page resources) or "static" (static/images folder) or "assets" (assets/images folder)
   layout: row # "grid", "row", or "single"
 projects: # Enable Projects List at bottom of page
   enable: true
