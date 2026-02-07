@@ -125,7 +125,7 @@ if (!localStorageValue) {
 
                     {{ if and (.Site.Params.about.enable | default false) (not (.Site.Params.navbar.menus.disableAbout | default false)) }}
                     <li class="nav-item navbar-text">
-                        <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#about" aria-label="about">
+                        <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#about" aria-label="about" data-section="about">
                             {{ .Site.Params.about.title | default "About" }}
                         </a>
                     </li>
@@ -150,12 +150,14 @@ if (!localStorageValue) {
                           role="button"
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
+                          data-section="experience"
                         >
                           {{ .Site.Params.experience.title | default "Experience" }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="experienceDropdown">
                           {{ range $companies.Sections.ByTitle }}
-                          <li><a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                            {{ $companySlug := path.Base .File.Dir }}
+                            <li><a class="dropdown-item" href="{{ .RelPermalink }}" data-company="{{ $companySlug | lower }}">{{ .Title }}</a></li>
                           {{ end }}
                         </ul>
                       </li>
@@ -164,7 +166,7 @@ if (!localStorageValue) {
                     {{ if and (.Site.Params.education.enable | default false) (not (.Site.Params.navbar.menus.disableEducation | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#education"
-                            aria-label="education">
+                            aria-label="education" data-section="education">
                             {{ .Site.Params.education.title | default "Education" }}
                         </a>
                     </li>
@@ -173,7 +175,7 @@ if (!localStorageValue) {
                     {{ if and (.Site.Params.techstack.enable | default false) (not (.Site.Params.navbar.menus.disableTechstack | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#techstack"
-                            aria-label="techstack">
+                            aria-label="techstack" data-section="techstack">
                             {{ .Site.Params.techstack.title | default "Tech Stack" }}
                         </a>
                     </li>
@@ -182,7 +184,7 @@ if (!localStorageValue) {
                     {{ if and (.Site.Params.projects.enable | default false) (not (.Site.Params.navbar.menus.disableProjects | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#projects"
-                            aria-label="projects">
+                            aria-label="projects" data-section="projects">
                             {{ .Site.Params.projects.title | default "Projects" }}
                         </a>
                     </li>
@@ -191,7 +193,7 @@ if (!localStorageValue) {
                     {{ if and (.Site.Params.achievements.enable | default false) (not (.Site.Params.navbar.menus.disableAchievements | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#achievements"
-                            aria-label="achievements">
+                            aria-label="achievements" data-section="achievements">
                             {{ .Site.Params.achievements.title | default "Achievements" }}
                         </a>
                     </li>
@@ -231,7 +233,7 @@ if (!localStorageValue) {
                     {{ if and (.Site.Params.contact.enable | default false) (not (.Site.Params.navbar.menus.disableContact | default false)) }}
                     <li class="nav-item navbar-text">
                         <a class="nav-link" href="{{ .Site.BaseURL | relURL }}#contact"
-                            aria-label="contact">
+                            aria-label="contact" data-section="contact">
                             {{ .Site.Params.contact.title | default "Contact" }}
                         </a>
                     </li>
