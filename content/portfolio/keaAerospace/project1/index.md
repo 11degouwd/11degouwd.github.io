@@ -8,5 +8,8 @@ searchDescription: "Displayed description for search results"
 tags: ["Embedded", "IoT"]
 image: "image.jpg"
 weight: 1
+enableReadingTime: true
+#author: "Daniel de Gouw"
+draft: false
 ---
 Detailed description of the project here.
