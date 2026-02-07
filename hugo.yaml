@@ -207,6 +207,7 @@ params:
   portfolio:
     cardHeight: 250 # Card image height in pixels (min: 150, max: 400)
     excludeFolders: "" # Comma-separated list of subfolder names to exclude (e.g., "personal,drafts")
+    enablePagination: false # Set to true if you want to split projects into pages, false if you want a single page
 
   #Contact
   contact:

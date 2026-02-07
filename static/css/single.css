@@ -220,6 +220,42 @@
     opacity: 0.8;
 }
 
+/* Skills */
+#single aside.skills {
+    max-height: 35vh;
+    overflow: scroll;
+}
+
+#single aside.skills h5 {
+    margin: .7em 0;
+    margin-bottom: 1em;
+}
+
+#single aside.skills ul.skills-ul {
+    margin-bottom: 0;
+}
+
+#single aside.skills ul.skills-ul li {
+    margin-bottom: 0.8rem;
+}
+
+#single aside.skills ul.skills-ul li .skill-pill {
+    padding: 5px 12px;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size: 14px;
+    cursor: default;
+    transition: none;
+    text-decoration: none;
+}
+
+/* Optional: Very subtle hover effect that doesn't suggest clickability */
+#single aside.skills ul.skills-ul li .skill-pill:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.05);
+}
+
 
 /*TOC*/
 #single aside.toc {
