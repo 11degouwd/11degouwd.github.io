@@ -7,7 +7,6 @@ let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
 if (!localStorageValue) {
     switch(defaultTheme) {
         case "light":
-            console.log("[theme] applying default light theme");
             if (document.body.className.includes("dark")) {
                 document.body.classList.remove('dark');
                 document.documentElement.classList.remove('dark');
@@ -15,7 +14,6 @@ if (!localStorageValue) {
             }
             break;
         case "dark":
-            console.log("[theme] applying default dark theme");
             if (document.body.className.includes("light")) {
                 document.body.classList.add('dark');
                 document.documentElement.classList.add('dark');
@@ -24,13 +22,10 @@ if (!localStorageValue) {
             break;
         default: // auto
             if (mediaQuery) {
-                console.log("[theme] auto, system prefers dark");
                 document.body.classList.add('dark');
                 document.documentElement.classList.add('dark');
             } else {
-                console.log("[theme] auto, system prefers light");
                 if (document.body.className.includes("dark")) {
-                    console.log("[theme] auto, removing all dark references");
                     document.body.classList.remove('dark');
                     document.documentElement.classList.remove('dark');
                     localStorage.setItem("pref-theme", 'light');
@@ -39,7 +34,6 @@ if (!localStorageValue) {
             break;
     }
 } else {
-    {{/*  console.log("[theme] using stored preference:", localStorageValue);  */}}
     if (localStorageValue === "dark") {
         if (document.body.className.includes("light")) {
             document.documentElement.classList.add('dark');
