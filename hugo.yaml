@@ -107,7 +107,7 @@ params:
 
   theme:
     # disableThemeToggle: true
-    defaultTheme: "light" # dark
+    defaultTheme: "light" # light or dark
 
   font:
     fontSize: 1rem # default: 1rem
@@ -117,7 +117,7 @@ params:
 
   # color preference
   color:
-    textColor: "#000000" #"#6c757d" # Also applies to page nav
+    textColor: "#000000" #"#6c757d"
     secondaryTextColor: "#6c757d"
     headingsTextColor: "#343a40"
     subtitleTextColor: "#6b7280"
@@ -128,10 +128,10 @@ params:
     primaryColor: "#fc6f5c" 
     secondaryColor: "#f8f9fa"
     projectTagTextColor: "#4338ca"
-    projectTagBackgroundColor: "#e0e7ff" #
+    projectTagBackgroundColor: "#e0e7ff"
     projectTagBackgroundHoverColor: "#c7d2fe"
     projectFilterTextColor: "#4338ca"
-    projectFilterBackgroundColor: "#e0e7ff" #"#eef2ff"
+    projectFilterBackgroundColor: "#e0e7ff"
     projectFilterBackgroundHoverColor: "#dbeafe"
     projectFilterBackgroundActiveColor: "#4f46e5"
 
@@ -156,11 +156,10 @@ params:
   
   search:
     showDescriptions: true
-    maxDescriptionLength: 100 # Characters
+    maxDescriptionLength: 100 # Max number of characters to show for each results description
 
   # If you want to customize the menu, you can change it here
   navbar:
-    align: ms-auto # Left: ms-auto | center: mx-auto | right: me-auto | Default: ms-auto
     # brandLogo: "/logo.png" # Logo for the brand | default is the favicon variable
     showBrandLogo: false # Show brand logo in nav bar
     disableSearch: false
@@ -229,7 +228,6 @@ params:
   listPages:
     disableFeaturedImage: false
 
-  # Single pages like blog and post
   singlePages:
     socialShare: true
     readTime:
