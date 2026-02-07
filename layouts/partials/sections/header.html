@@ -373,10 +373,18 @@ if (!localStorageValue) {
             e.preventDefault();
             console.log('[SmartDropdown] Preventing navigation and opening dropdown');
 
-            // Close all other dropdowns first
+            // Close all other dropdowns first (both manual and Bootstrap-managed)
             document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
               if (menu !== dropdownMenu) {
                 menu.classList.remove('show');
+                // Also close Bootstrap-managed dropdowns
+                const parentToggle = menu.previousElementSibling;
+                if (parentToggle && parentToggle.hasAttribute('data-bs-toggle')) {
+                  const bsDropdown = bootstrap.Dropdown.getInstance(parentToggle);
+                  if (bsDropdown) {
+                    bsDropdown.hide();
+                  }
+                }
               }
             });
 
@@ -389,20 +397,51 @@ if (!localStorageValue) {
               console.log('[SmartDropdown] After timeout, dropdown is', stillVisible ? 'STILL OPEN' : 'NOW CLOSED');
             }, 10);
           } else {
+            // Second click: allow navigation and close navbar if anchor link
             console.log('[SmartDropdown] Dropdown already open, allowing navigation');
+            const href = toggle.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              // It's an anchor link, close navbar after navigation
+              console.log('[SmartDropdown] Anchor link detected, closing navbar after navigation');
+              setTimeout(() => {
+                const navbarCollapse = document.getElementById('navbarContent');
+                if (navbarCollapse._allowCollapseClose) {
+                  navbarCollapse._allowCollapseClose();
+                }
+                const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (bsCollapse) {
+                  bsCollapse.hide();
+                }
+              }, 100);
+            }
           }
           // Second click: allow navigation (default behavior, don't preventDefault)
-          // stopPropagation still active to prevent navbar collapse
+          // stopPropagation still active to prevent navbar collapse initially
         });
       }
       // Desktop: no handler needed, CSS hover + default navigation works
     });
 
     // Prevent Bootstrap Collapse from closing when interacting with dropdowns
+    // But allow it to close when we explicitly call hide() (e.g., after navigation)
     if (isTouchDevice) {
       const navbarCollapse = document.getElementById('navbarContent');
+      let allowCollapseClose = false; // Flag to allow manual closing
+
       if (navbarCollapse) {
+        // Store the flag setter on the navbar element for access from other handlers
+        navbarCollapse._allowCollapseClose = function() {
+          allowCollapseClose = true;
+        };
+
         navbarCollapse.addEventListener('hide.bs.collapse', function(e) {
+          // Allow closing if we explicitly set the flag
+          if (allowCollapseClose) {
+            console.log('[SmartDropdown] Allowing collapse to close (manual trigger)');
+            allowCollapseClose = false; // Reset flag
+            return;
+          }
+
           // Check if a dropdown is currently being interacted with
           const dropdownOpen = document.querySelector('.dropdown-menu.show');
           if (dropdownOpen) {
@@ -420,6 +459,35 @@ if (!localStorageValue) {
             menu.classList.remove('show');
           });
         }
+      });
+
+      // Close navbar when clicking section links (especially when dropdown is open)
+      document.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          const navbarCollapse = document.getElementById('navbarContent');
+
+          // If it's an anchor link (section navigation), close navbar after navigation
+          if (href && href.startsWith('#')) {
+            console.log('[SmartDropdown] Section link clicked, closing navbar after navigation');
+
+            // Close any open dropdowns first
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+              menu.classList.remove('show');
+            });
+
+            // Then close the navbar
+            setTimeout(() => {
+              if (navbarCollapse._allowCollapseClose) {
+                navbarCollapse._allowCollapseClose();
+              }
+              const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+              if (bsCollapse) {
+                bsCollapse.hide();
+              }
+            }, 100);
+          }
+        });
       });
     }
   })();
@@ -443,6 +511,9 @@ if (!localStorageValue) {
             // For anchor links, close navbar after navigation
             if (href && href.startsWith('#')) {
               setTimeout(() => {
+                if (navbarCollapse._allowCollapseClose) {
+                  navbarCollapse._allowCollapseClose();
+                }
                 const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
                 if (bsCollapse) {
                   bsCollapse.hide();
@@ -478,6 +549,9 @@ if (!localStorageValue) {
 
         if (!clickedInsideNavbar && !clickedToggler) {
           // Close the navbar using Bootstrap's Collapse API
+          if (navbarCollapse._allowCollapseClose) {
+            navbarCollapse._allowCollapseClose();
+          }
           const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
           if (bsCollapse) {
             bsCollapse.hide();
