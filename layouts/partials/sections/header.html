@@ -344,23 +344,34 @@ if (!localStorageValue) {
   // Desktop: hover shows dropdown, click navigates (if href exists)
   // Mobile/touch: first click shows dropdown, second click navigates (if href exists)
   (function() {
+    console.log('[SmartDropdown] Initializing...');
     const dropdownToggles = document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle');
+    console.log('[SmartDropdown] Found', dropdownToggles.length, 'dropdown toggles');
 
     // Detect if device supports hover (desktop) vs touch-only (mobile)
     const isTouchDevice = !window.matchMedia('(hover: hover)').matches;
+    console.log('[SmartDropdown] Device type:', isTouchDevice ? 'TOUCH' : 'DESKTOP');
 
     dropdownToggles.forEach(function(toggle) {
       const dropdownMenu = toggle.nextElementSibling;
       if (!dropdownMenu) return;
 
       if (isTouchDevice) {
+        console.log('[SmartDropdown] Attaching mobile handler to', toggle.id);
         // Mobile/touch: toggle dropdown on click
         toggle.addEventListener('click', function(e) {
+          console.log('[SmartDropdown] Click on', toggle.id);
           const isVisible = dropdownMenu.classList.contains('show');
+          console.log('[SmartDropdown] Dropdown is', isVisible ? 'OPEN' : 'CLOSED');
+
+          // Always prevent navbar collapse on mobile
+          e.stopPropagation();
+          e.stopImmediatePropagation(); // Stop ALL handlers including Bootstrap
 
           if (!isVisible) {
-            // First click: show dropdown
+            // First click: show dropdown, prevent navigation
             e.preventDefault();
+            console.log('[SmartDropdown] Preventing navigation and opening dropdown');
 
             // Close all other dropdowns first
             document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
@@ -370,15 +381,38 @@ if (!localStorageValue) {
             });
 
             dropdownMenu.classList.add('show');
+            console.log('[SmartDropdown] Added .show class');
+
+            // Verify it was added
+            setTimeout(() => {
+              const stillVisible = dropdownMenu.classList.contains('show');
+              console.log('[SmartDropdown] After timeout, dropdown is', stillVisible ? 'STILL OPEN' : 'NOW CLOSED');
+            }, 10);
+          } else {
+            console.log('[SmartDropdown] Dropdown already open, allowing navigation');
           }
-          // Second click: navigate (default behavior, don't preventDefault)
-          // If toggle has no href or href="#", this does nothing
+          // Second click: allow navigation (default behavior, don't preventDefault)
+          // stopPropagation still active to prevent navbar collapse
         });
       }
       // Desktop: no handler needed, CSS hover + default navigation works
     });
 
+    // Prevent Bootstrap Collapse from closing when interacting with dropdowns
     if (isTouchDevice) {
+      const navbarCollapse = document.getElementById('navbarContent');
+      if (navbarCollapse) {
+        navbarCollapse.addEventListener('hide.bs.collapse', function(e) {
+          // Check if a dropdown is currently being interacted with
+          const dropdownOpen = document.querySelector('.dropdown-menu.show');
+          if (dropdownOpen) {
+            console.log('[SmartDropdown] Preventing collapse from hiding while dropdown is open');
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        });
+      }
+
       // Close dropdowns when clicking outside
       document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-item.dropdown')) {
@@ -390,7 +424,7 @@ if (!localStorageValue) {
     }
   })();
 
-  // Prevent navbar collapse from closing when interacting with dropdowns on mobile
+  // Prevent navbar collapse when clicking dropdown items on mobile
   (function() {
     const navbarCollapse = document.getElementById('navbarContent');
     if (!navbarCollapse) return;
@@ -398,76 +432,27 @@ if (!localStorageValue) {
     const isTouchDevice = !window.matchMedia('(hover: hover)').matches;
 
     if (isTouchDevice) {
-      // Intercept clicks at the navbarCollapse level using capture phase
-      navbarCollapse.addEventListener('click', function(e) {
-        // Check if click is on or inside a dropdown toggle or dropdown menu
-        const isDropdownToggle = e.target.closest('.nav-item.dropdown > .dropdown-toggle');
-        const isDropdownMenu = e.target.closest('.dropdown-menu');
-        const isDropdownItem = e.target.closest('.dropdown-item');
+      // Prevent clicks inside dropdown menus from closing navbar
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+          e.stopPropagation(); // Prevent navbar collapse
 
-        console.log('[Navbar] Click detected:', {
-          isDropdownToggle: !!isDropdownToggle,
-          isDropdownMenu: !!isDropdownMenu,
-          isDropdownItem: !!isDropdownItem,
-          target: e.target
-        });
-
-        // If clicking dropdown toggle, prevent collapse
-        if (isDropdownToggle) {
-          const dropdownMenu = isDropdownToggle.nextElementSibling;
-          const isDropdownOpen = dropdownMenu && dropdownMenu.classList.contains('show');
-
-          console.log('[Navbar] Dropdown toggle click - isOpen:', isDropdownOpen);
-
-          if (!isDropdownOpen) {
-            // First click: prevent both collapse and navigation, show dropdown
-            console.log('[Navbar] First click - preventing navigation and collapse');
-            e.preventDefault();
-            e.stopPropagation();
-          } else {
-            // Second click: allow navigation, prevent collapse
-            console.log('[Navbar] Second click - allowing navigation');
-            e.stopPropagation();
-          }
-          return;
-        }
-
-        // If clicking inside dropdown menu
-        if (isDropdownMenu || isDropdownItem) {
-          console.log('[Navbar] Click inside dropdown menu');
-
-          // Check if it's a dropdown item with href
-          if (isDropdownItem) {
-            const href = isDropdownItem.getAttribute('href');
-            console.log('[Navbar] Dropdown item href:', href);
-
-            // For anchor links, prevent collapse but close navbar after navigation
+          const target = e.target.closest('.dropdown-item');
+          if (target) {
+            const href = target.getAttribute('href');
+            // For anchor links, close navbar after navigation
             if (href && href.startsWith('#')) {
-              console.log('[Navbar] Anchor link detected, preventing collapse temporarily');
-              e.stopPropagation();
               setTimeout(() => {
-                console.log('[Navbar] Closing navbar after anchor navigation');
                 const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
                 if (bsCollapse) {
                   bsCollapse.hide();
                 }
               }, 100);
-              return;
             }
-
-            // For external pages, prevent collapse (will close on page navigation)
-            if (href && !href.startsWith('#')) {
-              console.log('[Navbar] External link, allowing default navigation');
-              // Don't stop propagation - let it navigate and close naturally
-              return;
-            }
-          } else {
-            // Click somewhere else in dropdown menu (not on an item)
-            console.log('[Navbar] Preventing collapse for dropdown menu click');
-            e.stopPropagation();
+            // For external pages, navbar closes naturally on page navigation
           }
-        }
-      }, true); // Use capture phase to intercept before Bootstrap
+        });
+      });
     }
   })();
 
