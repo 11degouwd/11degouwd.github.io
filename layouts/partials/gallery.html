@@ -1,18 +1,23 @@
 {{/* 
-  Gallery partial - supports both page bundle resources and static/assets images
+  Gallery partial - supports page bundle resources, static images and assets images
   
   Parameters:
   - src: image pattern or directory (default: all images)
-  - source: "bundle" (page resources) or "static" (static/images folder) or "assets" (assets folder) - default: "bundle"
-  - layout: "grid", "row", or "single" - default: "grid"
-  - cols: number of columns for grid layout - default: "3"
-  - max: maximum visible images - default: 5
-  - showCaption: show image captions - default: false
-  - thumbSize: thumbnail size - default: "480x"
-  - thumbQuality: thumbnail quality - default: "60"
-  - fullSize: full image size - default: "1200x"
-  - fullQuality: full image quality - default: "85"
+  - source: (default: "bundle")
+    * "bundle": Page bundle resources (with image processing)
+    * "static": Files in static/images/ (no processing, served as-is)
+    * "assets": Files in assets/images/ (with image processing)
+  - layout: "grid", "row", or "single" - (default: "grid")
+  - cols: number of columns for grid layout - (default: "3")
+  - max: maximum visible images - (default: 5)
+  - showCaption: show image captions - (default: false)
+  - thumbSize: thumbnail size - (default: "480x" - only for source=bundle/assets)
+  - thumbQuality: thumbnail quality - (default: "60" - only for source=bundle/assets)
+  - fullSize: full image size - (default: "1200x" - only for source=bundle/assets)
+  - fullQuality: full image quality - (default: "85" - only for source=bundle/assets)
   - page: the page context (required when source is "bundle")
+  
+  Note: Static files are served directly without image processing (resize, quality).
 */}}
 
 {{ $src := .src | default "" }}
@@ -54,11 +59,31 @@
 {{ if eq $source "bundle" }}
   {{ $images = $page.Resources.Match $pattern }}
 {{ else if eq $source "static" }}
-  {{/* For static files, we'll use resources.Match from site resources */}}
-  {{ $images = resources.Match (printf "images/%s" $pattern) }}
+  {{/* For static files, we need to read the directory and build paths manually */}}
+  {{ $staticPath := "" }}
+  {{ if eq $src "" }}
+    {{ $staticPath = "static/images" }}
+  {{ else if strings.Contains $src "." }}
+    {{ $staticPath = printf "static/images/%s" (path.Dir $src) }}
+  {{ else }}
+    {{ $staticPath = printf "static/images/%s" $src }}
+  {{ end }}
+  
+  {{ $files := slice }}
+  {{ with os.ReadDir $staticPath }}
+    {{ range . }}
+      {{ if not .IsDir }}
+        {{ $ext := path.Ext .Name | lower }}
+        {{ if in (slice ".jpg" ".jpeg" ".png" ".webp" ".svg") $ext }}
+          {{ $files = $files | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $images = $files }}
 {{ else if eq $source "assets" }}
   {{/* For assets, use resources.Match */}}
-  {{ $images = resources.Match $pattern }}
+  {{ $images = resources.Match (printf "images/%s" $pattern) }}
 {{ end }}
 
 {{ $galleryID := printf "gallery-%s" $uniqueID }}
@@ -72,24 +97,45 @@
       {{ $normalized := $img }}
       {{ $thumb := $img }}
       {{ $full := $img }}
-      {{ $imgName := $img.Name }}
+      {{ $imgName := "" }}
+      {{ $thumbPath := "" }}
+      {{ $fullPath := "" }}
       
-      {{ if $img.Filter }}
-        {{ $normalized = $img.Filter (images.AutoOrient) }}
-        {{ $thumb = $normalized.Resize (printf "%s q%s" $thumbSize $thumbQuality) }}
-        {{ $full = $normalized.Resize (printf "%s q%s" $fullSize $fullQuality) }}
+      {{ if eq $source "static" }}
+        {{/* Static files don't support .Filter - use direct paths */}}
+        {{ $imgName = $img.Name }}
+        {{ $relPath := "" }}
+        {{ if eq $src "" }}
+          {{ $relPath = printf "/images/%s" $img.Name }}
+        {{ else if strings.Contains $src "." }}
+          {{ $relPath = printf "/images/%s/%s" (path.Dir $src) $img.Name }}
+        {{ else }}
+          {{ $relPath = printf "/images/%s/%s" $src $img.Name }}
+        {{ end }}
+        {{ $thumbPath = $relPath }}
+        {{ $fullPath = $relPath }}
+      {{ else }}
+        {{/* Resources support .Filter */}}
+        {{ $imgName = $img.Name }}
+        {{ if $img.Filter }}
+          {{ $normalized = $img.Filter (images.AutoOrient) }}
+          {{ $thumb = $normalized.Resize (printf "%s q%s" $thumbSize $thumbQuality) }}
+          {{ $full = $normalized.Resize (printf "%s q%s" $fullSize $fullQuality) }}
+        {{ end }}
+        {{ $thumbPath = $thumb.RelPermalink }}
+        {{ $fullPath = $full.RelPermalink }}
       {{ end }}
 
       {{ if or  (and (eq $layout "single") (gt $i 0))
                 (and (eq $layout "row") (gt $i (sub $max 1))) 
       }}
           <a
-            href="{{ $full.RelPermalink }}"
+            href="{{ $fullPath }}"
             data-fancybox="{{ $galleryID }}"
             {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
             hidden
           >
-            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+            <img src="{{ $thumbPath }}" data-src="{{ $fullPath }}" 
               alt="{{ $imgName | humanize }}" 
               loading="lazy"   
               class="lazy-blur">
@@ -98,13 +144,13 @@
                 (and (eq $layout "row") (eq $i (sub $max 1))) 
       }}
         <a
-          href="{{ $full.RelPermalink }}"
+          href="{{ $fullPath }}"
           data-fancybox="{{ $galleryID }}"
           {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
           class="gallery-item gallery-more"
         >
           <span class="gallery-thumb">
-            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+            <img src="{{ $thumbPath }}" data-src="{{ $fullPath }}" 
               alt="{{ $imgName | humanize }}" 
               loading="lazy"   
               class="lazy-blur">
@@ -116,13 +162,13 @@
       {{ else if eq $layout "row" }}
         {{ if lt $i (sub $max 1) }}
           <a
-            href="{{ $full.RelPermalink }}"
+            href="{{ $fullPath }}"
             data-fancybox="{{ $galleryID }}"
             {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
             class="gallery-item"
           >
             <span class="gallery-thumb">
-              <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+              <img src="{{ $thumbPath }}" data-src="{{ $fullPath }}" 
                 alt="{{ $imgName | humanize }}" 
                 loading="lazy"   
                 class="lazy-blur">
@@ -132,13 +178,13 @@
 
       {{ else }}
         <a
-          href="{{ $full.RelPermalink }}"
+          href="{{ $fullPath }}"
           data-fancybox="{{ $galleryID }}"
           {{ if $showCaption }}data-caption="{{ $imgName | humanize }}"{{ end }}
           class="gallery-item"
         >
           <span class="gallery-thumb">
-            <img src="{{ $thumb.RelPermalink }}" data-src="{{ $full.RelPermalink }}" 
+            <img src="{{ $thumbPath }}" data-src="{{ $fullPath }}" 
               alt="{{ $imgName | humanize }}" 
               loading="lazy"   
               class="lazy-blur">

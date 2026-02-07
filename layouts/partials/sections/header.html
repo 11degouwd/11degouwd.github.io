@@ -196,40 +196,36 @@ if (!localStorageValue) {
                         </a>
                     </li>
                     {{ end }}
-
-                    <!-- Don't need this feature  -->
-                    <!-- {{ if and .Site.Menus.main (.Site.Params.navbar.enableSeparator | default false) }}
-                        <li class="nav-item navbar-text d-none d-lg-block d-xl-block"><div class="nav-link nav-link-sep"></div></li>
-                        <div class="dropdown-divider"></div>
-                    {{ end }} -->
-
-                    <!-- custom menus from the user -->
-                    {{ range .Site.Menus.main }}
-                    {{ if .HasChildren }}
-                    <!-- Dropdown menu -->
-                    <li class="nav-item navbar-text dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ .URL }}" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}">
-                            {{ .Name }}
-                        </a>
-                        <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
-                            {{ range .Children }}
-                            <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
-                                title="{{ .Title }}">
-                                {{ .Name }}
-                            </a>
-                            {{ end }}
-                        </div>
-                    </li>
-                    {{else}}
-                    <!-- Single menu item -->
-                    <li class="nav-item navbar-text">
-                        <a class="nav-link" href="{{.URL}}" title="{{ .Title }}">
-                            {{ .Pre }}
-                            {{ .Name }}
-                        </a>
-                    </li>
-                    {{end}}
+                    
+                    {{ if .Site.Params.navbar.showContactLast }}
+                      <!-- custom menus from the user -->
+                      {{ range .Site.Menus.main }}
+                        {{ if .HasChildren }}
+                          <!-- Dropdown menu -->
+                          <li class="nav-item navbar-text dropdown">
+                              <a class="nav-link dropdown-toggle" href="{{ .URL }}" id="navbarDropdown" role="button"
+                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}">
+                                  {{ .Name }}
+                              </a>
+                              <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
+                                  {{ range .Children }}
+                                  <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
+                                      title="{{ .Title }}">
+                                      {{ .Name }}
+                                  </a>
+                                  {{ end }}
+                              </div>
+                          </li>
+                        {{else}}
+                          <!-- Single menu item -->
+                          <li class="nav-item navbar-text">
+                              <a class="nav-link" href="{{.URL}}" title="{{ .Title }}">
+                                  {{ .Pre }}
+                                  {{ .Name }}
+                              </a>
+                          </li>
+                        {{end}}
+                      {{end}}
                     {{end}}
 
                     {{ if and (.Site.Params.contact.enable | default false) (not (.Site.Params.navbar.menus.disableContact | default false)) }}
@@ -240,6 +236,43 @@ if (!localStorageValue) {
                         </a>
                     </li>
                     {{ end }}
+                    
+                    {{ if not .Site.Params.navbar.showContactLast }}
+                      <!-- Nav Bar Separator  -->
+                      {{ if and .Site.Menus.main (.Site.Params.navbar.enableSeparator | default false) }}
+                          <li class="nav-item navbar-text d-none d-lg-block d-xl-block"><div class="nav-link nav-link-sep"></div></li>
+                          <div class="dropdown-divider"></div>
+                      {{ end }}
+
+                      <!-- custom menus from the user -->
+                      {{ range .Site.Menus.main }}
+                        {{ if .HasChildren }}
+                          <!-- Dropdown menu -->
+                          <li class="nav-item navbar-text dropdown">
+                              <a class="nav-link dropdown-toggle" href="{{ .URL }}" id="navbarDropdown" role="button"
+                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ .Title }}">
+                                  {{ .Name }}
+                              </a>
+                              <div class="dropdown-menu shadow-lg rounded" aria-labelledby="navbarDropdown">
+                                  {{ range .Children }}
+                                  <a class="dropdown-item text-center nav-link" href="{{ .URL }}"
+                                      title="{{ .Title }}">
+                                      {{ .Name }}
+                                  </a>
+                                  {{ end }}
+                              </div>
+                          </li>
+                        {{else}}
+                          <!-- Single menu item -->
+                          <li class="nav-item navbar-text">
+                              <a class="nav-link" href="{{.URL}}" title="{{ .Title }}">
+                                  {{ .Pre }}
+                                  {{ .Name }}
+                              </a>
+                          </li>
+                        {{end}}
+                      {{end}}
+                    {{end}}
 
                     {{ if not (.Site.Params.navbar.disableSearch | default false) }}
                       <li class="nav-item d-none d-md-flex align-items-center navbar-search-item position-relative">
@@ -248,7 +281,10 @@ if (!localStorageValue) {
                                   class="btn nav-link p-0"
                                   aria-label="Search"
                                   onclick="toggleSearch()">
-                              <i class="fas fa-search"></i>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="11" cy="11" r="8"></circle>
+                                  <path d="m21 21-4.35-4.35"></path>
+                              </svg>
                           </button>
 
                           <input id="navbar-search"
@@ -350,10 +386,6 @@ if (!localStorageValue) {
   } else {
     input.style.display = "block";
     input.focus();
-
-    {{/*  searchResultsContainer.innerHTML = ""; // clear search */}}
-    {{/*  searchContent.style.display = "none"; // hide until typing  */}}
-    {{/*  performSearch({ target: input });   */}}
 
     // Shows results box if text is present
     requestAnimationFrame(() => {

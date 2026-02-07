@@ -25,6 +25,12 @@ header .navbar .navbar-nav a {
     color: var(--primary-color) !important;
 }
 
+#theme-toggle:focus,
+#theme-toggle:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .navbar-toggler {
     border: none;
     outline: none;
@@ -102,11 +108,35 @@ li > .dropdown-toggle:focus{
 #search-toggle {
   color: var(--text-color) !important;
   transition: color 0.2s ease;
+  background: none;
+  border: none;
+}
+
+#search-toggle svg {
+  display: block;
+  color: inherit;
 }
 
 #search-toggle:hover {
   color: var(--primary-color) !important;
   transition: color 0.2s ease;
+}
+
+#search-toggle:focus,
+#search-toggle:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Add spacing before search/theme toggle items */
+.navbar-search-item,
+.nav-item.d-none.d-md-flex.align-items-center:has(#theme-toggle) {
+  margin-left: 1rem;
+}
+
+/* Ensure spacing is present even when only one utility is shown */
+.navbar-search-item:first-of-type {
+  margin-left: 1rem;
 }
 
 #search-content {
