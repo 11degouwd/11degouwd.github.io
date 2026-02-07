@@ -208,7 +208,7 @@ params:
     cardHeight: 250 # Card image height in pixels (min: 150, max: 400)
     excludeFolders: "" # Comma-separated list of subfolder names to exclude (e.g., "personal,drafts")
     enablePagination: true # Set to true if you want to split projects into pages, false if you want a single page
-    pagerSize: 3 # Pagersize must be set here for pagination to work correctly | Default: 8
+    pagerSize: 4 # Pagersize must be set here for pagination to work correctly | Default: 8
 
   #Contact
   contact:

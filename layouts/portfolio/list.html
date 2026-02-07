@@ -80,6 +80,7 @@
     });
 
     if (paginationEnabled) {
+      setGridMinHeight(); // Recalculate grid height for filtered results
       updatePagination();
       showPage(1);
     } else {
@@ -147,21 +148,15 @@
     pagination.querySelectorAll('a.page-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('Click detected on:', link.textContent, 'data-page:', link.dataset.page);
 
         // Don't process clicks on disabled buttons
         if (link.parentElement.classList.contains('disabled')) {
-          console.log('Button is disabled, ignoring click');
           return;
         }
 
         const page = parseInt(link.dataset.page);
-        console.log('Parsed page number:', page, 'totalPages:', totalPages, 'currentPage:', currentPage);
         if (page >= 1 && page <= totalPages) {
-          console.log('Calling showPage(' + page + ')');
           showPage(page);
-        } else {
-          console.log('Page number out of range');
         }
       });
     });
@@ -173,24 +168,32 @@
     if (!pagination) return;
 
     const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+    const items = pagination.querySelectorAll('.page-item');
 
-    // Update active states
-    pagination.querySelectorAll('.page-item').forEach((item, index) => {
+    // Update active states and data-page attributes
+    items.forEach((item, index) => {
       item.classList.remove('active', 'disabled');
+      const link = item.querySelector('.page-link');
 
-      // Previous button
-      if (index === 0 && currentPage === 1) {
-        item.classList.add('disabled');
+      // Previous button (first item)
+      if (index === 0) {
+        link.dataset.page = currentPage - 1;
+        if (currentPage === 1) {
+          item.classList.add('disabled');
+        }
       }
-      // Page numbers
-      else if (index > 0 && index <= totalPages) {
+      // Next button (last item)
+      else if (index === items.length - 1) {
+        link.dataset.page = currentPage + 1;
+        if (currentPage === totalPages) {
+          item.classList.add('disabled');
+        }
+      }
+      // Page numbers (middle items)
+      else {
         if (index === currentPage) {
           item.classList.add('active');
         }
-      }
-      // Next button
-      else if (index === pagination.children.length - 1 && currentPage === totalPages) {
-        item.classList.add('disabled');
       }
     });
   }
@@ -234,9 +237,34 @@
     if (filterBtn) filterBtn.click();
   }
 
+  // Set fixed grid height for consistent pagination position
+  function setGridMinHeight() {
+    if (!paginationEnabled) return;
+
+    const grid = document.querySelector('.project-cards-grid');
+    if (!grid) return;
+
+    // Calculate grid layout based on items per page (not total filtered cards)
+    // This ensures pagination stays at same position even with fewer cards on last page
+    const maxColumns = 4;
+    const cardsToShow = Math.min(filteredCards.length, itemsPerPage);
+    const columns = Math.min(maxColumns, cardsToShow);
+    const rows = Math.ceil(cardsToShow / columns);
+
+    // Card dimensions (max height 550px + gap)
+    const maxCardHeight = 550;
+    const rowGap = 28; // 1.75rem gap between rows
+
+    // Calculate minimum height: rows * (card height + gap) - one gap
+    const minHeight = rows > 0 ? (rows * (maxCardHeight + rowGap)) - rowGap : 0;
+
+    grid.style.minHeight = minHeight + 'px';
+  }
+
   // Initialize pagination if enabled
   if (paginationEnabled) {
     filteredCards = Array.from(cards);
+    setGridMinHeight();
     updatePagination();
     showPage(1);
   }
