@@ -398,34 +398,76 @@ if (!localStorageValue) {
     const isTouchDevice = !window.matchMedia('(hover: hover)').matches;
 
     if (isTouchDevice) {
-      // Prevent clicks on dropdown toggles from closing the navbar
-      document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-          e.stopPropagation(); // Stop event from reaching Bootstrap Collapse
-        });
-      });
+      // Intercept clicks at the navbarCollapse level using capture phase
+      navbarCollapse.addEventListener('click', function(e) {
+        // Check if click is on or inside a dropdown toggle or dropdown menu
+        const isDropdownToggle = e.target.closest('.nav-item.dropdown > .dropdown-toggle');
+        const isDropdownMenu = e.target.closest('.dropdown-menu');
+        const isDropdownItem = e.target.closest('.dropdown-item');
 
-      // Prevent clicks inside dropdown menus from closing the navbar
-      document.querySelectorAll('.dropdown-menu').forEach(menu => {
-        menu.addEventListener('click', function(e) {
-          const target = e.target.closest('.dropdown-item');
-          if (target) {
-            const href = target.getAttribute('href');
-            // For anchor links or same-page navigation, prevent collapse
+        console.log('[Navbar] Click detected:', {
+          isDropdownToggle: !!isDropdownToggle,
+          isDropdownMenu: !!isDropdownMenu,
+          isDropdownItem: !!isDropdownItem,
+          target: e.target
+        });
+
+        // If clicking dropdown toggle, prevent collapse
+        if (isDropdownToggle) {
+          const dropdownMenu = isDropdownToggle.nextElementSibling;
+          const isDropdownOpen = dropdownMenu && dropdownMenu.classList.contains('show');
+
+          console.log('[Navbar] Dropdown toggle click - isOpen:', isDropdownOpen);
+
+          if (!isDropdownOpen) {
+            // First click: prevent both collapse and navigation, show dropdown
+            console.log('[Navbar] First click - preventing navigation and collapse');
+            e.preventDefault();
+            e.stopPropagation();
+          } else {
+            // Second click: allow navigation, prevent collapse
+            console.log('[Navbar] Second click - allowing navigation');
+            e.stopPropagation();
+          }
+          return;
+        }
+
+        // If clicking inside dropdown menu
+        if (isDropdownMenu || isDropdownItem) {
+          console.log('[Navbar] Click inside dropdown menu');
+
+          // Check if it's a dropdown item with href
+          if (isDropdownItem) {
+            const href = isDropdownItem.getAttribute('href');
+            console.log('[Navbar] Dropdown item href:', href);
+
+            // For anchor links, prevent collapse but close navbar after navigation
             if (href && href.startsWith('#')) {
+              console.log('[Navbar] Anchor link detected, preventing collapse temporarily');
               e.stopPropagation();
-              // After navigation, close the navbar
               setTimeout(() => {
+                console.log('[Navbar] Closing navbar after anchor navigation');
                 const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
                 if (bsCollapse) {
                   bsCollapse.hide();
                 }
               }, 100);
+              return;
             }
-            // For different page links, allow default behavior (navbar closes naturally)
+
+            // For external pages, prevent collapse (will close on page navigation)
+            if (href && !href.startsWith('#')) {
+              console.log('[Navbar] External link, allowing default navigation');
+              // Don't stop propagation - let it navigate and close naturally
+              return;
+            }
+          } else {
+            // Click somewhere else in dropdown menu (not on an item)
+            console.log('[Navbar] Preventing collapse for dropdown menu click');
+            e.stopPropagation();
           }
-        });
-      });
+        }
+      }, true); // Use capture phase to intercept before Bootstrap
     }
   })();
 
