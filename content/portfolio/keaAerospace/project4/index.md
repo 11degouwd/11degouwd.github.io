@@ -11,7 +11,7 @@ skills:
   - time-management
   - leadership
   - teamwork
-tags: ["Embedded", "OMG"]
+tags: ["Embedded", "test"]
 image: "image.jpg"
 weight: 1
 ---

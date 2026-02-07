@@ -131,3 +131,40 @@
 #portfolio .project-tags .tag-btn:hover {
   background-color: var(--project-tag-bg-hover-color);
 }
+
+/* Portfolio Pagination */
+#portfolio .pagination {
+  margin-top: 2rem;
+}
+
+#portfolio .pagination .page-link {
+  transition: all 0.2s ease;
+  border-color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+#portfolio .pagination .page-link:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+#portfolio .pagination .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb, 252, 111, 92), 0.25);
+}
+
+#portfolio .pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--secondary-color);
+  z-index: 3;
+}
+
+#portfolio .pagination .page-item.disabled .page-link {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--text-secondary-color);
+  opacity: 0.5;
+  cursor: not-allowed;
+}

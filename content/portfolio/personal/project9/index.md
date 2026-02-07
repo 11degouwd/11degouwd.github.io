@@ -1,5 +1,5 @@
 ---
-title: "dfcd HVAC Controller"
+title: "dfcd HVAC Cfvwontroller"
 companySlug: "company-1"
 summary: "Embedded firmware and cloud integration."
 date: 2024-02-02
