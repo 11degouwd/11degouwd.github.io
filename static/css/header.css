@@ -240,3 +240,19 @@ li > .dropdown-toggle:focus{
     /* transition: width 0.25s ease-out; */
     transition: none;
 }
+
+/* Active navbar link - underline style */
+.nav-link.active {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: calc(0.5rem - 2px); /* Adjust padding to prevent layout shift */
+    transition: border-bottom 0.2s ease;
+}
+
+/* Active dropdown item - left accent + color style */
+.dropdown-item.active {
+    border-left: 3px solid var(--primary-color);
+    padding-left: calc(1rem - 3px); /* Adjust padding to prevent layout shift */
+    color: var(--primary-color) !important;
+    font-weight: 500;
+    background-color: var(--secondary-color) !important;
+}
