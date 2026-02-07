@@ -5,6 +5,12 @@ summary: "Embedded firmware and cloud integration. rojnerponcojkencj knjefn cje 
 date: 2024-06-30
 searchTags: "Tags for search results"
 searchDescription: "Displayed description for search results"
+skills:
+  - c++
+  - python
+  - time-management
+  - leadership
+  - teamwork
 tags: ["Embedded", "YEEET"]
 image: "image.jpg"
 weight: 1

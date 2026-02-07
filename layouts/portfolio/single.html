@@ -71,6 +71,21 @@
           </aside>
           {{ end }}
 
+          {{ if .Params.skills }}
+          <aside class="skills">
+            <h5>{{ .Site.Params.terms.skills | default "Skills" }}</h5>
+            <section id="portfolio-cards">
+              <ul class="skills-ul list-unstyled list-inline project-skills" style="display: block;">
+                {{ range .Params.skills }}
+                  <li class="list-inline-item">
+                    <span class="skill-pill">{{ . }}</span>
+                  </li>
+                {{ end }}
+              </ul>
+            </section>
+          </aside>
+          {{end}}
+
           {{ if .Params.tags }}
           <aside class="tags">
             <h5>{{ .Site.Params.terms.tags | default "Tags" }}</h5>
