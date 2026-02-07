@@ -55,7 +55,7 @@ params:
   # staticPath: ""  # The path to serve the static files from
   favicon: "/fav.png" # Favicon used in nav bar and in the tab title
 
-  siteStatus: "coming-soon"   # live | coming-soon  
+  siteStatus: "live"   # live | coming-soon  
   
   socialLinks:
     fontAwesomeIcons:
