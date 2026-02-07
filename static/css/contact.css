@@ -1,6 +1,12 @@
 /* Copy of index.css with minor modifications!!! */
 
 /* Contact */
+@media (max-width: 991px) {
+  #contact {
+    scroll-margin-top: 500px;
+  }
+}
+
 #contact h3 {
     color: var(--text-secondary-color) !important;
     margin-bottom: 2rem;
