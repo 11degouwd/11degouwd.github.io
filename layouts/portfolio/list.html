@@ -27,7 +27,7 @@
   </h1>
 
   <!-- Filter buttons -->
-  <div class="project-filters" style="text-align:center; margin-bottom:2.5rem;">
+  <div class="project-filters" style="text-align:center; margin-bottom:1rem;">
     <button class="filter-btn active" data-tag="All">All</button>
     {{ range $allTags }}
       <button class="filter-btn" data-tag="{{ . }}">{{ . }}</button>
@@ -39,7 +39,8 @@
   {{ partial "project-cards.html" (dict
     "projectsList" $projectsList
     "showCompanyName" true
-    "cardHeight" (.Site.Params.portfolio.cardHeight | default 400)
+    "cardHeight" (.Site.Params.portfolio.cardHeight | default 550)
+    "cardImgHeight" (.Site.Params.portfolio.cardImgHeight | default 200)
     "excludeFolders" (.Site.Params.portfolio.excludeFolders | default "")
   ) }}
 
@@ -244,6 +245,10 @@
     const grid = document.querySelector('.project-cards-grid');
     if (!grid) return;
 
+    // Ensure grid rows don't stretch - cards should remain auto-height
+    grid.style.gridAutoRows = 'auto';
+    grid.style.alignContent = 'start';
+
     // Calculate grid layout based on items per page (not total filtered cards)
     // This ensures pagination stays at same position even with fewer cards on last page
     const maxColumns = 4;
@@ -251,8 +256,10 @@
     const columns = Math.min(maxColumns, cardsToShow);
     const rows = Math.ceil(cardsToShow / columns);
 
-    // Card dimensions (max height 550px + gap)
-    const maxCardHeight = 550;
+    // Read max card height from CSS variable (defined in partials.css :root)
+    const maxCardHeightStr = getComputedStyle(document.documentElement)
+      .getPropertyValue('--max-card-height').trim();
+    const maxCardHeight = parseInt(maxCardHeightStr) || 550; // Fallback to 550 if not defined
     const rowGap = 28; // 1.75rem gap between rows
 
     // Calculate minimum height: rows * (card height + gap) - one gap
