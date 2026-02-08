@@ -154,7 +154,8 @@
 /* -------------------------- */
 :root {
   --project-max-width: 400px;
-  --project-img-height: 400px; /* Default/maximum image height */
+  --project-img-height: 250px; /* Default maximum image height */
+  --max-card-height: 550px; /* Default maximum card height */
 }
 
 #portfolio-cards .project-cards-grid {
@@ -170,6 +171,8 @@
   flex-direction: column;
   text-align: center;
   height: 100%;
+  max-height: var(--max-card-height); /* Cap total card height */
+  overflow: hidden; /* Hide content that exceeds max height */
   background-color: var(--secondary-color);
   border-radius: 0.75rem;
   padding: 1rem;
@@ -231,8 +234,8 @@
   width: 100%;
   max-width: var(--project-max-width);
   height: var(--project-img-height);
-  min-height: 150px;
-  max-height: 400px;
+  min-height: var(--project-img-height);
+  max-height: var(--project-img-height);
   object-fit: cover;
   border-radius: 0.5rem;
   margin: 0 auto;
