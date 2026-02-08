@@ -155,7 +155,7 @@
 :root {
   --project-max-width: 400px;
   --project-img-height: 250px; /* Default maximum image height */
-  --max-card-height: 552px; /* Default maximum card height */
+  --max-card-height: 500px; /* Default maximum card height */
 
   /* Calculate available space for description based on card and image heights */
   /* Formula: total card height - image height - overhead for (padding, title, company, tags, margins) */
@@ -168,6 +168,7 @@
   gap: 1.5rem;
   max-width: calc(4 * 250px + 3 * 1.5rem);
   margin: 0 auto;
+  min-height: 500px;
 }
 
 #portfolio-cards .project-card {
