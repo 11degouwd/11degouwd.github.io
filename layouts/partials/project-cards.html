@@ -33,12 +33,34 @@
 {{ end }}
 {{ $cardImgHeight := .cardImgHeight | default 200 }}
 {{ $cardHeight := .cardHeight | default 550 }}
+{{ $cardSummaryHeightMin := .cardSummaryHeightMin | default 32 }}
+{{ $cardSummaryHeightMax := .cardSummaryHeightMax | default 150 }}
 
 {{ if lt $cardImgHeight 150 }}{{ $cardImgHeight = 150 }}{{ end }}
 {{ if gt $cardImgHeight 400 }}{{ $cardImgHeight = 400 }}{{ end }}
 
 {{ if lt $cardHeight 450 }}{{ $cardHeight = 450 }}{{ end }}
 {{ if gt $cardHeight 600 }}{{ $cardHeight = 600 }}{{ end }}
+
+{{ $cardPadding := 32 }}
+{{ $cardImgPadding := 12 }}
+{{ $cardTitleHeight := 42 }}
+{{ $cardSubtitleHeight := 38 }}
+{{ $cardTagHeight := 50 }}
+{{ $imgHeightMax := sub $cardHeight (add $cardPadding $cardImgPadding $cardTitleHeight $cardSubtitleHeight $cardTagHeight $cardSummaryHeightMin) }}
+{{ $summaryHeightMax := sub $cardHeight (add $cardPadding $cardImgPadding $cardTitleHeight $cardSubtitleHeight $cardTagHeight $cardImgHeight) }}
+
+{{ $summaryHeight := $cardSummaryHeightMax }}
+
+{{ if lt $imgHeightMax $cardImgHeight }}
+  {{/*  Our card is too small for the desired image size -> shrink the image  */}}
+  {{ $cardImgHeight = $imgHeightMax }}
+  {{ $summaryHeight = $cardSummaryHeightMin }}
+{{ else }}
+  {{/*  Our card is good, just need to check max summary length  */}}
+{{ $summaryHeight = $summaryHeightMax }}
+  {{ if gt $summaryHeight $cardSummaryHeightMax }}{{ $summaryHeight = $cardSummaryHeightMax }}{{ end }}
+{{ end }}
 
 {{ $showCompanyName := true }}
 {{ if isset . "showCompanyName" }}
@@ -47,7 +69,10 @@
   {{ end }}
 {{ end }}
 
-<section id="portfolio-cards" style="--project-img-height: {{ $cardImgHeight }}px; --max-card-height: {{ $cardHeight }}px;">
+<section id="portfolio-cards" style="
+  --project-img-height: {{ $cardImgHeight }}px; 
+  --max-card-height: {{ $cardHeight }}px;
+  --max-summary-height: {{ $summaryHeight }}px;">
   {{ if gt (len $projectsList) 0 }}
     <div class="project-cards-grid">
       {{ range $projectsList }}

@@ -205,8 +205,8 @@ params:
 
   # Portfolio
   portfolio:
-    cardHeight: 550 # Card image height in pixels (min: 450, max: 600, default: 550)
-    cardImgHeight: 250 # Card image height in pixels (min: 150, max: 400, default: 200)
+    cardHeight: 500 # Card image height in pixels (min: 450, max: 600, default: 550) - This is always met
+    cardImgHeight: 200 # Card image height in pixels (min: 150, max: 400, default: 200) - Not always guaranteed
     excludeFolders: "" # Comma-separated list of subfolder names to exclude (e.g., "personal,drafts")
     enablePagination: true # Set to true if you want to split projects into pages, false if you want a single page
     pagerSize: 8 # Pagersize must be set here for pagination to work correctly | Default: 8

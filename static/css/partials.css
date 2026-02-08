@@ -155,7 +155,11 @@
 :root {
   --project-max-width: 400px;
   --project-img-height: 250px; /* Default maximum image height */
-  --max-card-height: 550px; /* Default maximum card height */
+  --max-card-height: 552px; /* Default maximum card height */
+
+  /* Calculate available space for description based on card and image heights */
+  /* Formula: total card height - image height - overhead for (padding, title, company, tags, margins) */
+  --max-summary-height: calc(var(--max-card-height) - var(--project-img-height) - 180px);
 }
 
 #portfolio-cards .project-cards-grid {
@@ -193,6 +197,16 @@
 }
 #portfolio-cards html.dark .project-card:hover {
   box-shadow: 0 8px 15px rgba(255,255,255,0.05);
+}
+
+#portfolio-cards .project-card h3 {
+  max-height: 35px;
+  overflow: hidden;
+}
+
+#portfolio-cards .project-card .project-company p {
+  max-height: 18px;
+  overflow: hidden;
 }
 
 #portfolio-cards .project-card h3,
@@ -263,6 +277,9 @@
   font-size: 0.8rem;
   color: var(--text-muted);
   margin-top: 0.5rem;
+  max-height: var(--max-summary-height); /* Dynamically calculated to ensure tags remain visible */
+  overflow: hidden; /* Hide overflow text */
+  line-height: 1.4; /* Consistent line spacing */
 }
 
 #portfolio-cards .project-tags {

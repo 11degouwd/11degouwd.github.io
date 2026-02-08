@@ -259,6 +259,7 @@
     // Read max card height from CSS variable (defined in partials.css :root)
     const maxCardHeightStr = getComputedStyle(document.documentElement)
       .getPropertyValue('--max-card-height').trim();
+    console.log("max height found:",maxCardHeightStr)
     const maxCardHeight = parseInt(maxCardHeightStr) || 550; // Fallback to 550 if not defined
     const rowGap = 28; // 1.75rem gap between rows
 
