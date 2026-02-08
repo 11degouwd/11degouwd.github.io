@@ -423,3 +423,8 @@
 #single #portfolio-cards .project-cards-grid {
   align-items: stretch;  /* Ensure grid items stretch to fill cells */
 }
+
+/* Disable tag hover effects on company pages since tags aren't interactive */
+#single #portfolio-cards .project-tags .tag-btn:hover {
+  background-color: var(--project-tag-bg-color);  /* Keep same color as non-hover */
+}
