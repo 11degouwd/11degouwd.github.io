@@ -1,5 +1,5 @@
 ---
-title: "duvfgvfgh HefwvVAC Controller"
+title: "duvfgvfgh HefwvVAC Controller2"
 companySlug: "company-1"
 summary: "Embedded firmware and cloud integration."
 date: 2024-02-02
@@ -11,7 +11,7 @@ skills:
   - time-management
   - leadership
   - teamwork
-tags: ["Embedded", "test"]
+tags: ["Embedded", "test2"]
 image: "image.jpg"
 weight: 1
 ---
