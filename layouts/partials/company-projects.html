@@ -8,7 +8,8 @@
   - showTitle: show "Projects at {Company}" heading - default: true
   - tagFilter: comma-separated list of tags to filter by (case-insensitive, OR operation) - default: none
   - minWeight: minimum project weight to display (1-5, where 1 is default) - default: 1
-  - cardHeight: height of the card image in pixels (min: 150px, max: 400px) - default: 150
+  - cardHeight: height of the card image in pixels (min: 450px, max: 600px) - default: 500
+  - cardImgHeight: height of the card image in pixels (min: 150px, max: 400px) - default: 200
   - excludeFolders: comma-separated list of subfolder names to exclude (e.g., "personal,drafts") - default: none
 */}}
 
@@ -88,7 +89,8 @@
   {{ partial "project-cards.html" (dict
     "projectsList" $projectsList
     "showCompanyName" $showCompanyName
-    "cardHeight" (.cardHeight | default 150)
+    "cardHeight" (.cardHeight | default 500)
+    "cardImgHeight" (.cardImgHeight | default 200)
     "excludeFolders" (.excludeFolders | default "")
   ) }}
 </section>
