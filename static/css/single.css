@@ -402,3 +402,24 @@
 #single #portfolio {
   padding-bottom: 20px;
 }
+
+/* Portfolio card flexbox layout - ensures tags stick to bottom */
+#single #portfolio-cards .project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#single #portfolio-cards .project-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#single #portfolio-cards .project-tags {
+  margin-top: auto;
+}
+
+#single #portfolio-cards .project-cards-grid {
+  align-items: stretch;  /* Ensure grid items stretch to fill cells */
+}
