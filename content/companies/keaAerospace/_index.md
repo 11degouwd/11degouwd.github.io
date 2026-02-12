@@ -22,6 +22,9 @@ projects: # Enable Projects List at bottom of page
   # excludeFolders: "personal,drafts" # Comma-separated list of subfolders to exclude
 ---
 
-## About Company One
+# About Kea Aerospace
 
-TODO
+yeet
+
+
+
