@@ -27,6 +27,13 @@ Company One specialises in …
 ![Example Image](post.jpg)
 
 
+
+[View Projects](#portfolio)
+
+
+[View roles](#experience)
+
+
 Blank
 {{< gallery >}}
 

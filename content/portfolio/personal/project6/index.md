@@ -1,7 +1,7 @@
 ---
 title: "duvfgvfgh HVAC Controller"
 companySlug: "company-1"
-summary: "Embedded firmware and cloud integration."
+summary: "Embedded firmware and cloud integration.gbf d[okj cerwtoik jteijgooih oo hgpohg igiujhrhnfgkjvncf  ewovhbijosnrvfc ]"
 date: 2024-02-02
 searchTags: "Tags for search results"
 searchDescription: "Displayed description for search results"

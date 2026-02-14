@@ -377,7 +377,7 @@
 }
 
 /* -------------------------- */
-/* Company Image              */
+/* Company Page               */
 /* -------------------------- */
 #single .company-featured-image {
   width: 100vw;
@@ -387,13 +387,74 @@
   margin-top: -1.5rem;
   margin-bottom: 2rem;
 }
-
 #single .company-featured-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   border-radius: 0;
+}
+
+#single.company-page .page-content h1 {
+  font-size: 2.2em;
+  margin-top: 3rem;  /* mt-5 equivalent */
+}
+#single.company-page .page-content h2 {
+  margin-top: 2.5rem;
+}
+#single.company-page .page-content h3 {
+  margin-top: 2rem;
+}
+#single.company-page .page-content h4 {
+  margin-top: 1.5rem;  /* mt-4 equivalent */
+}
+#single.company-page .page-content h5 {
+  margin-top: 1rem;  /* mt-3 equivalent */
+}
+#single.company-page .page-content h6 {
+  margin-top: 0.75rem;
+}
+#single.company-page .page-content > h1:first-child,
+#single.company-page .page-content > h2:first-child,
+#single.company-page .page-content > h3:first-child,
+#single.company-page .page-content > h4:first-child,
+#single.company-page .page-content > h5:first-child,
+#single.company-page .page-content > h6:first-child {
+  margin-top: 0;
+}
+
+/* Match list colors to paragraph colors */
+#single.company-page .page-content ul,
+#single.company-page .page-content ol,
+#single.company-page .page-content li {
+  color: var(--text-content-color) !important;
+}
+
+#single.company-page #experience {
+    scroll-margin-top: 160px;
+}
+#single.company-page #portfolio {
+    scroll-margin-top: 80px;
+}
+
+#single.company-page .center-link {
+  text-align: center;
+  margin: 2rem 0;
+}
+#single.company-page .split-links {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  gap: 1.5rem;                    
+  padding: 0 2rem;         /* Adjust this line for side padding */       
+  margin: 2rem 0;
+  flex-wrap: wrap;                
+}
+#single.company-page .split-links a {
+  /* flex: 1; */
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 /* -------------------------- */
@@ -427,11 +488,4 @@
 /* Disable tag hover effects on company pages since tags aren't interactive */
 #single #portfolio-cards .project-tags .tag-btn:hover {
   background-color: var(--project-tag-bg-color);  /* Keep same color as non-hover */
-}
-
-/* ---------------------------------- */
-/* Company Page Content Heading Sizes */
-/* ---------------------------------- */
-.company-page .page-content h1 {
-  font-size: 2.2em; 
 }
