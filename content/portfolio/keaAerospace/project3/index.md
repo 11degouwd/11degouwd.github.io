@@ -14,6 +14,7 @@ skills:
 tags: ["Embedded", "YEEET"]
 image: "image.jpg"
 weight: 1
+draft: true
 ---
 Detailed description of the project here.
 

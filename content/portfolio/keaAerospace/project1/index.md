@@ -23,6 +23,6 @@ searchTags: "hippo bannana Kea Aerospace"
 searchDescription: "Displayed description for search results"
 enableReadingTime: true
 #author: "Daniel de Gouw"
-draft: false
+draft: true
 ---
 Detailed description of the project here.
