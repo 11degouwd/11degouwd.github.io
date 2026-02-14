@@ -190,6 +190,11 @@
   margin: 0 auto;
   border: 2px solid transparent;
 }
+@media (max-width: 576px) {
+  #portfolio-cards .project-card {
+    width: 100%;
+  }
+}
 #portfolio-cards .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 15px rgba(0,0,0,0.1);
