@@ -16,6 +16,7 @@ image: "image.jpg"
 weight: 1
 enableReadingTime: true
 #author: "Daniel de Gouw"
+draft: true
 ---
 Detailed description of the project here.
 
