@@ -31,11 +31,11 @@ menu:
     - name: "Portfolio"
       url: "/portfolio/"
       weight: 1
-    - identifier: templateStuff
-      title: To delete
-      name: Template
-      url: "/templateFiles/"
-      weight: 2
+    # - identifier: templateStuff
+    #   title: To delete
+    #   name: Template
+    #   url: "/templateFiles/"
+    #   weight: 2
 
 params:
   title: "Daniel de Gouw" # Page title (shows in Navigation Bar)
