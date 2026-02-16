@@ -457,6 +457,14 @@
   font-weight: 500;
 }
 
+/* Disable abbreviation underline on mobile */
+@media (max-width: 576px) {
+  .company-page .page-content abbr[title] {
+    text-decoration: none;
+    -webkit-text-decoration: none;
+  }
+}
+
 /* -------------------------- */
 /* Portfolio                  */
 /* -------------------------- */
