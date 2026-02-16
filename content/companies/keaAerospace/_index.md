@@ -1,6 +1,6 @@
 ---
 title: Kea Aerospace
-logo: logo.png
+logo: kea-logo.png
 image: atmos-1B-runway.jpg
 start: 2021
 # end: 
