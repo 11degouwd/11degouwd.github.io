@@ -88,11 +88,11 @@
   border: 2px solid transparent;
   box-shadow: 0 0 36px rgba(0,0,0,0.1);
 }
-/* #experience .company-dates:hover {
-  border: 2px solid var(--primary-color);
+#experience .company-dates:hover {
+  /* border: 2px solid var(--primary-color); */
   transition: .3s;
-  box-shadow: 0 14px 38px rgba(0,0,0,.12);
-} */
+  box-shadow: 0px 0px 36px rgba(0,0,0,0.2);
+}
 
 /* Roles */
 #experience .roles-list .role-row:last-child::before {
@@ -133,9 +133,9 @@
 }
 
 #experience .role-row:hover {
-  border: 2px solid var(--primary-color);
+  /* border: 2px solid var(--primary-color); */
   transition: .3s;
-  box-shadow: 0 14px 38px rgba(0,0,0,.12);
+  box-shadow: 0px 0px 36px rgba(0,0,0,0.2);
 }
 
 #experience .role-dot {
