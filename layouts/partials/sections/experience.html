@@ -129,4 +129,36 @@
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  function updateTimelineLines() {
+    var companies = document.querySelectorAll('#experience .experience-company');
+    for (var i = 1; i < companies.length; i++) {
+      var prevDots = companies[i - 1].querySelectorAll('.role-dot');
+      var currDots = companies[i].querySelectorAll('.role-dot');
+      if (!prevDots.length || !currDots.length) continue;
+
+      var prevLast = prevDots[prevDots.length - 1];
+      var currFirst = currDots[0];
+      var rolesList = companies[i].querySelector('.roles-list');
+      if (!rolesList) continue;
+
+      var prevCenter = prevLast.getBoundingClientRect().top + prevLast.getBoundingClientRect().height / 2;
+      var currCenter = currFirst.getBoundingClientRect().top + currFirst.getBoundingClientRect().height / 2;
+
+      var rlRect = rolesList.getBoundingClientRect();
+      var anchorFromTop = currCenter - rlRect.top;
+
+      rolesList.style.setProperty('--line-bottom', (rlRect.height - anchorFromTop) + 'px');
+      rolesList.style.setProperty('--line-height', Math.max(0, currCenter - prevCenter) + 'px');
+    }
+  }
+
+  window.addEventListener('load', function () {
+    requestAnimationFrame(updateTimelineLines);
+  });
+  window.addEventListener('resize', updateTimelineLines);
+})();
+</script>
 {{ end }}
