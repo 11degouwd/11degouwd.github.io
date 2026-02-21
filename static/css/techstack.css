@@ -38,9 +38,9 @@
 
 .techstack-card:hover {
   /* transform: translateY(-6px); */
-  border: 2px solid var(--primary-color);
+  /* border: 2px solid var(--primary-color); */
   transition: .3s;
-  box-shadow: 0 14px 38px rgba(0,0,0,.12);
+  box-shadow: 0px 0px 36px rgba(0,0,0,0.2);
 }
 
 .techstack-title {
