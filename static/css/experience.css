@@ -29,8 +29,8 @@
   content: "";
   position: absolute;
   left: calc(1.5rem + 4px);
-  top: calc(-1 * var(--company-gap));
-  height: calc(var(--company-gap) + 6rem);  
+  top: calc(-1 * var(--company-gap) - 36px);
+  height: calc(var(--company-gap) + 6rem + 36px);  
   width: 2px;
   background-color: var(--primary-color);
   opacity: 0.3;
