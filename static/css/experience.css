@@ -18,19 +18,16 @@
   z-index: 0;
 }
 
-#experience .experience-company:first-child::before {
-  display: none;
-}
 #experience .experience-company:last-child {
   margin-bottom: 0;
 }
 
-#experience .experience-company::before {
+#experience .experience-company:not(:first-child) .roles-list::after {
   content: "";
   position: absolute;
   left: calc(1.5rem + 4px);
-  top: calc(-1 * var(--company-gap) - 36px);
-  height: calc(var(--company-gap) + 6rem + 36px);  
+  bottom: var(--line-bottom, 0px); /* set dynamically by JS */
+  height: var(--line-height, 0px); /* set dynamically by JS */
   width: 2px;
   background-color: var(--primary-color);
   opacity: 0.3;
@@ -187,7 +184,6 @@
   font-size: 0.95rem;
 }
 
-/* Read More pill */
 #experience .company-read-more {
   font-size: 0.85rem;
   color: var(--text-link-color);
@@ -204,7 +200,6 @@
   box-shadow: 0px 0px 36px rgba(0,0,0,0.3);
 }
 
-/* Learn more link below roles */
 #experience .company-learn-more {
   text-align: center;
   margin-top: 0.75rem;
@@ -224,8 +219,23 @@
 
 /* Mobile */
 @media (max-width: 576px) {
+  #experience .company-header-text {
+    flex-wrap: wrap;
+  }
+
+  #experience .company-title {
+    width: 100%;
+  }
+
+  #experience .company-header {
+    align-items: flex-start;
+  }
+
+  #experience .company-logo {
+    transform: translateY(-8px);
+  }
+
   #experience .company-dates {
-    display: block;
     margin-left: 0;
     font-size: 0.9rem;
   }
@@ -238,12 +248,4 @@
     width: auto;
     text-align: left;
   }
-
-  #experience .company-learn-more {
-    padding-left: 0;
-  }
-
-  /* #experience .roles-list {
-    padding-left: 3rem;
-  } */
 }
