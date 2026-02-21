@@ -72,6 +72,7 @@
                           ({{ $companyStart.Params.start | time.Format "Jan 2006" }} –
                           {{ with $companyEnd.Params.end }}{{ . | time.Format "Jan 2006" }}{{ else }}Present{{ end }})
                         </span>
+                        <a href="{{ $company.RelPermalink }}" class="company-read-more">Read More →</a>
                       </div>
                     </div>
 
@@ -110,6 +111,12 @@
                       </div>
                     {{ end }}
                   </div>
+
+                  {{ if $company }}
+                    <div class="company-learn-more">
+                      <a href="{{ $company.RelPermalink }}">Learn more about {{ $company.Title }} →</a>
+                    </div>
+                  {{ end }}
 
                 </div>
               {{ end }}
