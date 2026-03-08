@@ -80,7 +80,7 @@
 
         <a href="{{ .RelPermalink }}" 
           class="project-card"
-          data-tags="{{ delimit .Params.tags " " }}">
+          data-tags="{{ delimit .Params.tags "|" }}">
           
           <!-- Project thumbnail -->
           {{ with .Resources.GetMatch .Params.image }}

@@ -21,7 +21,7 @@
     currentPage = 1; // Reset to first page when filter changes
 
     filteredCards = Array.from(cards).filter(card => {
-      const tags = card.dataset.tags.split(' ');
+      const tags = card.dataset.tags.split('|');
       return tag === 'All' || tags.includes(tag);
     });
 
@@ -32,7 +32,7 @@
     } else {
       // Show/hide without pagination (current behavior)
       cards.forEach(card => {
-        const tags = card.dataset.tags.split(' ');
+        const tags = card.dataset.tags.split('|');
         card.style.display = tag === 'All' || tags.includes(tag) ? 'flex' : 'none';
       });
     }
@@ -150,6 +150,15 @@
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       filterProjects(btn.dataset.tag);
+
+      // Sync URL: set ?tag= or remove it if "All"
+      const url = new URL(window.location);
+      if (btn.dataset.tag === 'All') {
+        url.searchParams.delete('tag');
+      } else {
+        url.searchParams.set('tag', btn.dataset.tag);
+      }
+      history.replaceState(null, '', url);
     });
   });
 
@@ -174,14 +183,6 @@
       }
     });
   });
-
-  // Check URL for tag query param (existing functionality)
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialTag = urlParams.get("tag");
-  if (initialTag) {
-    const filterBtn = Array.from(buttons).find(b => b.dataset.tag === initialTag);
-    if (filterBtn) filterBtn.click();
-  }
 
   // Set fixed grid height for consistent pagination position
   function setGridMinHeight() {
@@ -215,5 +216,13 @@
     setGridMinHeight();
     updatePagination();
     showPage(1);
+  }
+
+  // Check URL for tag query param — must run after pagination init so it isn't overwritten
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialTag = urlParams.get("tag");
+  if (initialTag) {
+    const filterBtn = Array.from(buttons).find(b => b.dataset.tag === initialTag);
+    if (filterBtn) filterBtn.click();
   }
 })();
