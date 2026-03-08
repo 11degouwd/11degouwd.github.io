@@ -38,7 +38,7 @@
               {{ if .Params.date}}
                 {{ .Date.Format (.Site.Params.datesFormat.article | default "Jan 2, 2006") }} 
               {{ else }}
-                {{ .Site.Params.singlePages.portfolio.noDatePlaceholder }}
+                {{ .Params.noDatePlaceholder | default (.Site.Params.singlePages.portfolio.noDatePlaceholder | default "Ongoing") }}
               {{ end }}
 
               {{ if and (.Site.Params.singlePages.readTime.enable | default true) (.Params.enableReadingTime) }}&nbsp;•&nbsp;
