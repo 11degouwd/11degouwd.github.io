@@ -1,7 +1,7 @@
 ---
 title: "HAPs Electrical Systems Architecture"
 companySlug: "keaAerospace"
-summary: "Leading and designing the electrical system architecture for High Altitude Platforms (HAPs) and smaller low altitude Unmanned Aerial Vehicles (UAVs)."
+summary: "Leading and designing the electrical system architecture for High Altitude Platform Stations (HAPS) and smaller low altitude Unmanned Aerial Vehicles (UAVs)."
 # date: 2021-08-01
 # image: "image.jpg"
 skills:
