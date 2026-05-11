@@ -194,6 +194,7 @@
     padding-left: 1.5em;
     list-style-position: inside;
     opacity: 0.9;
+    color: var(--text-content-color) !important;
 }
 
 #single .page-content ol li li, #single .page-content ul li li {
