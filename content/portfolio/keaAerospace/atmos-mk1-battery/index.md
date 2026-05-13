@@ -48,9 +48,17 @@ Designing the battery pack for the Atmos Mk1 was my responsibility — from init
 
 # Challenges
 
-- Bus voltages - solution that satisfied all systems
-- Pack construction - cell interconnects and manufacturability
-- 
+## Bus Voltage
+
+The bus voltage decision ended up being more restricted than I expected going in. The solar system (notably the array geometry, cell configuration and <abbr title="Maximum Power Point Tracker">MPPT</abbr> count) was already locked before I started on the battery, which cut down the options for how the pack could be arranged. The solar side ended up driving more of the battery architecture than I'd have liked. My preference was to run a higher bus voltage to keep wire mass down without overcomplicating the design during what was a fast R&D phase, but what the solar system could support put a ceiling on that and so did the availability of common ICs at that time. Fully working through energy system constraints early, especially before the airframe design is set, was an essential lesson for myself and the team. Changing solar cell geometry after the airframe design has been locked in is a very different problem to solving it at the concept stage.
+
+## Cell Interconnects and Manufacturability
+
+Lithium cells have aluminium cathode tabs and nickel anode tabs, and getting a reliable joint between them in a hand-built pack is harder than it sounds. You can't solder aluminium with standard techniques, and spot welding it at the tab thicknesses involved turned out to be very hit and miss. I spent a fair amount of time testing different approaches, including developing a method for soldering aluminium tabs directly — that didn't end up as the final solution, but the time wasn't wasted. Whatever the method, it needed to be electrically reliable, hold up mechanically, and be something I could reproduce by hand consistently. Getting to that point took real iteration on materials, tooling and process.
+
+## Thermal
+
+Testing thermal performance was trickier than I anticipated. Running single cells through a thermal chamber was straightforward but the results were essentially meaningless — the heat rejection from a single cell was so low it barely registered and I could not produce repeatable or accurate results. Testing a full pack gave much more useful data, especially considering any thermal insulation the pack may have had, but validating at stratospheric conditions is a different problem. That requires a <abbr title="Thermal Vacuum">TVAC</abbr> chamber, which isn't easy to get time in. Most of our validation ended up being thermal and vacuum tested separately, supported by simulation. Honestly, flight testing was where the most useful data came from. On top of that, deciding where and how to pull heat out of the pack was its own challenge — there are a few ways to approach it, but the lightweight constraint ruled out most of the obvious options and required careful thought about what was actually feasible. Adding survival heaters in the mix also meant we had to find ways to mitigate unintended heat losses. 
 
 # General Approach
 
