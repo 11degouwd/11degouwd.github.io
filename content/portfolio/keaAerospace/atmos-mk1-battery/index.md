@@ -16,7 +16,6 @@ skills:
 tags: 
   - Battery Design
   - PCB Design
-  - HAPs
   - UAVs
 
 weight: 1
