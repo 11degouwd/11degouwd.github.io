@@ -13,7 +13,6 @@ skills:
   - Integration
 tags: 
   - System Architecture
-  - HAPs
   - UAVs
 
 weight: 1
@@ -39,6 +38,8 @@ I focused on the high level system architecture as well as the following domains
 - High-level spatial allocation of avionics, power, and payload systems within the airframe
 
 I generated several requirements documents for systems and subsystems, defined test standards. Design decisions ranged from simple choices such as cable insulation materials, bus voltages, and communication bus types to more complex decisions involving power distribution unit (PDU) architecture, battery design and RF system choices. I designed the first eight architecture versions, iterating alongside flight testing, before transitioning the design ownership to the team and mentoring them through the next 10+ major versions. 
+
+The architecture itself evolved from an initial high-level block diagram into a comprehensive reference document — covering wire gauges, harness lengths, wire colours, connector pinouts, and images of each device alongside relevant model numbers, all laid out to reflect the physical layout of the actual aircraft. The ground station architecture was developed to a similar level of detail, and dedicated architecture diagrams were produced for every payload integrated into the aircraft.
 
 I also worked on various other smaller airframes where in some cases I led the system architecture, PCB design and integration. I was able to apply many of the same methodologies and learnings from the Mk1 platform, but on a much smaller and more compact scale. These aircraft were restricted to low altitude flights (below 10,000ft) due to airframe limitation which in turn simplified design constraints.
 
