@@ -18,4 +18,43 @@ author: "Firstname Lastname" # Your name (or whoever wrote/executed this project
 noDatePlaceholder: "Ongoing" # Fallback placeholder text if no date is included above
 draft: false # Set to true if you don't want this page to be published on your website
 ---
-Detailed description of the project here.
+Detailed description of the project here....
+
+![Example Image](post.jpg)
+
+
+Blank
+{{< gallery >}}
+
+gallery Defaults
+{{< gallery src="someFolder" >}}
+
+Single
+{{< gallery src="post.jpg" >}}
+
+gallery Grid
+{{< gallery src="someFolder" layout="grid" cols="3" >}}
+
+gallery Row
+{{< gallery src="someFolder2" layout="row" max="8" >}}
+
+gallery Single
+{{< gallery src="someFolder3" layout="single" >}}
+
+<!-- {{< gallery
+  layout="row"
+  max="5"
+  thumbSize="40x"
+  thumbQuality="20"
+  fullSize="1400x"
+  fullQuality="85"
+  showCaption="false"
+>}}
+
+
+{{< gallery
+  layout="grid"
+  cols="3"
+  thumbSize="60x"
+  fullSize="1600x"
+>}} -->
