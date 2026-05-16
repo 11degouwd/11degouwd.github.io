@@ -1,12 +1,13 @@
 ---
 title: "Atmos Mk1 Battery Pack"
 companySlug: "keaAerospace"
-summary: "TBC"
+summary: "Designing and manufacturing the lithium battery pack for the Atmos Mk1 — from cell selection and pack geometry through to a custom BMS, testing procedures and flight validation."
 # date: 2024-06-30
 # image: "image.jpg"
 skills:
   - Systems Thinking
   - Electrical Design
+  - PCB Design
   - Spot Welding
   - Soldering
   - Harnessing
@@ -14,11 +15,12 @@ skills:
   - Integration
 tags: 
   - Battery Design
+  - PCB Design
   - HAPs
   - UAVs
 
 weight: 1
-searchTags: "Kea Aerospace Haps UAV Lithium Battery Pack Atmos Mk1 Drone"
+searchTags: "Kea Aerospace Haps UAV Lithium Battery Pack Atmos Mk1 Drone BMS"
 searchDescription: "Designing, building and integrating the battery packs for Atmos Mk1"
 enableReadingTime: true
 # author: "Daniel de Gouw"
@@ -38,8 +40,9 @@ Designing the battery pack for the Atmos Mk1 was my responsibility — from init
 - Researched, selected and procured lithium cells, including supplier management
 - Designed the current collector interconnect method for the pack
 - Defined the geometric layout of the pack and the placement of cells
-- Designed, tested and integrated a custom Battery Management System (BMS) ad supporting circuitry
+- Designed, tested and integrated a custom Battery Management System (BMS) and supporting circuitry
 - Manufactured the first prototype packs
+- Developed custom procedures for manufacturing, health & safety, charge/discharge, storage, testing and flight operations
 - Led development of data driven models of the pack characteristics
   - Capacity
   - Charge/Discharge efficiencies
@@ -54,7 +57,7 @@ The bus voltage decision ended up being more restricted than I expected going in
 
 ## Cell Interconnects and Manufacturability
 
-Lithium cells have aluminium cathode tabs and nickel anode tabs, and getting a reliable joint between them in a hand-built pack is harder than it sounds. You can't solder aluminium with standard techniques, and spot welding it at the tab thicknesses involved turned out to be very hit and miss. I spent a fair amount of time testing different approaches, including developing a method for soldering aluminium tabs directly — that didn't end up as the final solution, but the time wasn't wasted. Whatever the method, it needed to be electrically reliable, hold up mechanically, and be something I could reproduce by hand consistently. Getting to that point took real iteration on materials, tooling and process.
+Lithium cells have aluminium cathode tabs and nickel anode tabs, and getting a reliable joint between them in a hand-built pack is harder than it sounds. You can't solder aluminium with standard techniques, and spot welding it turned out to be far less reliable than with nickel — aluminium's high thermal conductivity and its tendency to re-oxidise almost instantly makes getting a consistent weld very difficult, and the results reflected that. I spent a fair amount of time testing different approaches, including developing a method for soldering aluminium tabs directly — that didn't end up as the final solution, but the time wasn't wasted either. Whatever the method, it needed to be electrically reliable, hold up mechanically, and be something I could reproduce by hand consistently. Getting to that point took real iteration on materials, tooling and process.
 
 ## Thermal
 
@@ -62,39 +65,36 @@ Testing thermal performance was trickier than I anticipated. Running single cell
 
 # General Approach
 
-- supplier management and cell procurement (experimental batteries can be difficult)
-- cell testing, modelling and validation
-- pack design and configuration
-  - system design considerations
-    - Bus voltages / subsystem operational envelopes (pros and cons, C rating, voltage over long runs, efficiency)
-  - Constraints:
-    - thermal, geometry and integration
-    - BMS and cell interconnect
-    - Compression
-    - Manufacturability
-    - serviceability
-  - High packing factor and efficient cell placement
-  - Minimal Weight
-  - S-P vs P-s vs hybrid? maybe not necessary
-- building and testing
-  - custom procedures
-  - custom charging and testing station
-  - manufacturing
-    - Soldering/Spot Welding ???
-    - Risk management
-    - Custom tooling
-  - BMS testing
-  - regenerating pack curves (discharge, charge, DCIR modelling)
-  - Thermal testing
-- Integration and test flights
-- Single electrical version, 2x prototype designs for electrical from maufacturing perspective, various prototypes for the thermal and mechanical design.
+Given the novel nature of the application, a lot of groundwork had to be laid early. I developed a suite of custom procedures covering health and safety, manufacturing, charge and discharge protocols, storage, testing, integration, logistics and flight operations. Without these, the iterative nature of the work would have been much harder to manage safely and consistently.
 
-## Pack Design
+## BMS and Pack Design
+
+The pack design had to balance a lot of competing constraints simultaneously. Weight was the primary driver — every gram mattered at stratospheric altitude — which put pressure on packing factor, cell arrangement and everything else. The geometric layout had to account for thermal management, compression (cells expand and contract across charge cycles), <abbr title="Battery Management System">BMS</abbr> and interconnect routing, integration with the surrounding structure, and the practical reality of being able to build and service it by hand.
+
+The <abbr title="Battery Management System">BMS</abbr> and cell interconnect design ended up being tightly coupled as a result of the geometric layout — a consequence of optimising hard for space and weight. This worked well for design simplicity and robustness, but it also meant the design wasn't easily scalable to a next-generation aircraft. The Mk2, which is significantly larger, would need a different approach.
+
+The BMS was designed entirely from scratch. Before committing to the full PCB design, I built smaller prototype boards to test specific circuits and layout techniques in isolation. The final architecture was designed to be scalable, with robust communication links and enough flexibility to accommodate changes across revisions and future pack generations. It included integrated heater control, redundant methods for tracking <abbr title="State of Charge">SOC</abbr>, and was designed to be modular — so any pack in the fleet could have its BMS upgraded or replaced independently of the cells. Before testing the <abbr title="Battery Management System">BMS</abbr> on a real battery pack, I built a custom development board — essentially a sandpit that could simulate a battery and mock sensor data — to prove out the circuitry and validate the <abbr title="Battery Management System">BMS</abbr> performance.
 
 ## Pack Manufacturing
 
+I developed custom tooling and assembly processes for building the packs by hand. Risk management was a real part of this — working with high-energy-density lithium cells in a small team requires careful process control, and the procedures I put in place were as much about safety as consistency. Early prototype builds in particular required a methodical approach given the unknowns involved.
+
+The pack also had a fair amount of harnessing integrated directly into the pack, e.g. temperature sensors and heaters for the thermal control system. Several other harnesses were created for the BMS and other circuitry interfacing directly with the pack where reliability needed to be ensured. Getting this right was as much a part of the manufacturing process as the pack assembly itself, since unreliable connections here would have been difficult to diagnose later. A mix of direct soldering to PCB and high-reliability wire-to-board connectors were used.
+
 ## Testing and Validation
+
+I built a custom testing station that also served as a dedicated charge/discharge rig. This let me generate full pack curves and validate the BMS under controlled conditions across a range of states. Before any flight testing, I ran extensive ground tests using solar array simulators and real loads including the propulsion system — the goal was to understand how the whole system behaved together across its full operating range, and to build confidence before the battery went in the air. Once flight testing began, I took an incremental approach — pushing the battery progressively harder across flights, extending to higher altitudes and longer durations as confidence in the system grew. The combination of ground simulation and incremental flight testing gave a much more complete picture of real-world performance than either approach alone would have.
 
 # Key Takeaways
 
-blah
+Working on a genuinely novel application meant there was very little to reference — no established playbook for stratospheric lithium battery packs at this scale. A lot of the work was building knowledge from scratch, which made the early testing and procedure development as valuable as the design itself.
+
+The bus voltage challenge was a good early lesson in how tightly coupled energy systems are. A decision made upstream on the solar side had real consequences for what I could do with the battery, and by the time I encountered that constraint, there wasn't much room to change it. It reinforced how important it is to work through these interactions at the concept stage, before any part of the system gets locked in.
+
+Without any prior reference data, validating models was genuinely difficult early on. Lab testing in isolation told part of the story but not all of it — flight was where the real understanding came from. The upside is that all of that data now exists. Going into a next-generation pack design, there's a real starting point to build from and a clear picture of what to avoid.
+
+Testing incrementally — gradually pushing the battery harder across flights rather than heading straight to the limits — made sense given the circumstances. The battery wasn't the only system being validated in flight; RF and autopilot were also being tested simultaneously, both carrying their own risk. Going straight to the limits with multiple untested systems in the air at once, with only one flying prototype and a tight timeline, wasn't a sensible call. In hindsight, the ground testing gave enough confidence that we could have pushed harder sooner — but the incremental approach also caught that the thermal solution wasn't performing quite as expected, something that might have been missed in a more aggressive programme. The data gathered across those flights was worth it.
+
+Time spent on approaches that didn't make the final design — the aluminium soldering work, the spot welding attempts — wasn't wasted. It built experience the company could draw on across other projects, and it gave a well-reasoned justification for the engineering path we did take. Knowing from first-hand testing why something doesn't work is a much stronger foundation for a decision than assuming it won't.
+
+
