@@ -25,7 +25,7 @@ searchDescription: "Designing, building and integrating the battery packs for At
 enableReadingTime: true
 # author: "Daniel de Gouw"
 noDatePlaceholder: "2021 - 2024"
-draft: true
+draft: false
 ---
 A <abbr title="High Altitude Platform Station">HAPS</abbr> typically flies in the stratosphere above the weather systems and thus will always see the sun during the day. This means a HAPS can fly solely off solar power in daytime due to their wings typically containing large solar arrays providing excess energy. However, when flying during the night, one of the biggest challenges for a HAPS is having sufficient energy storage such that it remains in the stratosphere overnight for days on end. 
 
