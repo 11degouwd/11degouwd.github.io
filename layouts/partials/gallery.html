@@ -11,6 +11,7 @@
   - cols: number of columns for grid layout - (default: "3")
   - max: maximum visible images - (default: 5)
   - showCaption: show image captions - (default: false)
+  - galleryCaption: text shown below the gallery (centered, italic); prefixed with "Image:" for single layout
   - thumbSize: thumbnail size - (default: "480x" - only for source=bundle/assets)
   - thumbQuality: thumbnail quality - (default: "60" - only for source=bundle/assets)
   - fullSize: full image size - (default: "1200x" - only for source=bundle/assets)
@@ -26,6 +27,7 @@
 {{ $cols := .cols | default "3" }}
 {{ $max := .max | default 5 | int }}
 {{ $showCaption := .showCaption | default false }}
+{{ $galleryCaption := .galleryCaption | default "" }}
 
 {{ $thumbSize := .thumbSize | default "480x" }}
 {{ $thumbQuality := .thumbQuality | default "60" }}
@@ -194,4 +196,7 @@
 
     {{ end }}
   </div>
+  {{ with $galleryCaption }}
+  <p class="gallery-caption">{{ if eq $layout "single" }}Image: {{ end }}{{ . }}</p>
+  {{ end }}
 </section>
