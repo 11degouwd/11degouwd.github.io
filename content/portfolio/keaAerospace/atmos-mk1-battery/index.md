@@ -3,7 +3,7 @@ title: "Atmos Mk1 Battery Pack"
 companySlug: "keaAerospace"
 summary: "Designing and manufacturing the lithium battery pack for the Atmos Mk1 — from cell selection and pack geometry through to a custom BMS, testing procedures and flight validation."
 # date: 2024-06-30
-# image: "image.jpg"
+image: "bms_snippet.jpg"
 skills:
   - Systems Thinking
   - Electrical Design
