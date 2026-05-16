@@ -31,6 +31,8 @@ A <abbr title="High Altitude Platform Station">HAPS</abbr> typically flies in th
 
 There are various different ways to store energy for HAPS, but only one practical solution exists for a long-endurance HAPS, specifically Kea Atmos. During my research it became immediately clear that Lithium batteries were the only real solution to this problem despite knowing the technology had some rather large limitations at the time. Lithium batteries can provide high-energy density storage with the ability to replenish this energy (i.e. through the day using solar) where in simple terms they will go through one charge/discharge cycle every day. The issue with high-energy density batteries is that there is a trade-off between high capacity and cycle life, meaning these batteries typically do not last long (in the order of days). As they wear out, their total capacity reduces, meaning there is less energy every single night. This directly adds to the challenges of ensuring sufficient energy storage and also the long-endurance aspect of a HAPS.
 
+{{< gallery src="pouch_cell.jpg" layout="single" galleryCaption="Example of a Lithium pouch cell" >}}
+
 The biggest energy users on a HAPS are the propulsion system, thermal management systems, payloads and <abbr title="Radio Frequency">RF</abbr> systems. Reducing energy usage of these systems can significantly reduce the challenges seen in designing the energy storage system.
 
 Designing the battery pack for the Atmos Mk1 was my responsibility — from initial research and cell selection through to electrical design, pack construction and integration. It was my aim to ensure that the pack had the highest energy density possible without sacrificing endurance. The capacity I could achieve set a hard ceiling on the energy budget for every other system on the aircraft overnight.
@@ -75,11 +77,16 @@ The <abbr title="Battery Management System">BMS</abbr> and cell interconnect des
 
 The BMS was designed entirely from scratch. Before committing to the full PCB design, I built smaller prototype boards to test specific circuits and layout techniques in isolation. The final architecture was designed to be scalable, with robust communication links and enough flexibility to accommodate changes across revisions and future pack generations. It included integrated heater control, redundant methods for tracking <abbr title="State of Charge">SOC</abbr>, and was designed to be modular — so any pack in the fleet could have its BMS upgraded or replaced independently of the cells. Before testing the <abbr title="Battery Management System">BMS</abbr> on a real battery pack, I built a custom development board — essentially a sandpit that could simulate a battery and mock sensor data — to prove out the circuitry and validate the <abbr title="Battery Management System">BMS</abbr> performance.
 
+{{< gallery src="bms_closeup.jpg" layout="single" galleryCaption="Closeup of BMS on early prototype battery pack" >}}
+
 ## Pack Manufacturing
 
 I developed custom tooling and assembly processes for building the packs by hand. Risk management was a real part of this — working with high-energy-density lithium cells in a small team requires careful process control, and the procedures I put in place were as much about safety as consistency. Early prototype builds in particular required a methodical approach given the unknowns involved.
 
 The pack also had a fair amount of harnessing integrated directly into the pack, e.g. temperature sensors and heaters for the thermal control system. Several other harnesses were created for the BMS and other circuitry interfacing directly with the pack where reliability needed to be ensured. Getting this right was as much a part of the manufacturing process as the pack assembly itself, since unreliable connections here would have been difficult to diagnose later. A mix of direct soldering to PCB and high-reliability wire-to-board connectors were used.
+
+{{< gallery src="heater_termination.jpg" layout="single" galleryCaption="Heater wires terminating directly into BMS on early prototype battery pack during manufacturing" >}}
+
 
 ## Testing and Validation
 
