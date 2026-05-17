@@ -1,5 +1,5 @@
 ---
-title: "HAPs Electrical Systems Architecture"
+title: "HAPS Electrical Systems Architecture"
 companySlug: "keaAerospace"
 summary: "Led and designed the electrical system architecture for High Altitude Platform Stations (HAPS) and smaller low altitude Unmanned Aerial Vehicles (UAVs)."
 # date: 2021-08-01
@@ -16,7 +16,7 @@ tags:
   - UAVs
 
 weight: 1
-searchTags: "Kea Aerospace Haps UAV System Architecture Atmos Mk1 MK2 R6 R7 Drone"
+searchTags: "Kea Aerospace HAPS UAV System Architecture Atmos Mk1 MK2 R6 R7 Drone"
 searchDescription: "Leading and designing the electrical system architecture"
 enableReadingTime: true
 #author: "Daniel de Gouw"

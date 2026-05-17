@@ -19,7 +19,7 @@ tags:
   - UAVs
 
 weight: 1
-searchTags: "Kea Aerospace Haps UAV Lithium Battery Pack Atmos Mk1 Drone BMS"
+searchTags: "Kea Aerospace HAPS UAV Lithium Battery Pack Atmos Mk1 Drone BMS"
 searchDescription: "Designing, building and integrating the battery packs for Atmos Mk1"
 enableReadingTime: true
 # author: "Daniel de Gouw"
