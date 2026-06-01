@@ -219,7 +219,7 @@
 }
 
 #single .sticky-sidebar {
-  position: sticky;
+  position: relative;
 }
 
 #single .sticky-sidebar ::-webkit-scrollbar {
@@ -258,8 +258,7 @@
 
 /* Skills */
 #single aside.skills {
-    max-height: 35vh;
-    overflow: scroll;
+    min-height: 35vh;
 }
 
 #single aside.skills h5 {
@@ -296,8 +295,7 @@
 /*TOC*/
 #single aside.toc {
     padding: .7rem 1rem;
-    max-height: 50vh;
-    overflow: scroll;
+    min-height: 50vh;
 }
 
 #single aside.toc h5 {

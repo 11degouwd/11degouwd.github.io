@@ -168,16 +168,65 @@
     document.documentElement.scrollTop = 0;
   }
 
-  // To set height of sticky sidebar dynamically
+  // Sidebar: desktop — scrolls naturally until bottom hits viewport then fixes in place
+  //          mobile  — original sticky behaviour (position: sticky, top offset)
   let stickySideBarElem = document.getElementById("stickySideBar");
   let stickyNavBar = {{ .Site.Params.navbar.stickyNavBar.enable | default false }};
+  let navbarOffset = 0;
   if(stickyNavBar) {
     let headerElem = document.getElementById("profileHeader");
-    let headerHeight = headerElem.offsetHeight + 15;
-    stickySideBarElem.style.top = headerHeight + "px";
-  } else {
-    stickySideBarElem.style.top = "50px";
+    navbarOffset = headerElem.offsetHeight + 15;
   }
+  let mobileTop = navbarOffset > 0 ? navbarOffset + 'px' : '50px';
+
+  let sidebarNaturalTop = 0;
+  let sidebarFixed = false;
+  const LG_BREAKPOINT = 992;
+
+  function updateSidebar() {
+    if (window.innerWidth < LG_BREAKPOINT) return;
+    let triggerScrollY = sidebarNaturalTop + stickySideBarElem.offsetHeight - window.innerHeight;
+    if (triggerScrollY > 0 && window.scrollY >= triggerScrollY) {
+      if (!sidebarFixed) {
+        let sidebarRect = stickySideBarElem.getBoundingClientRect();
+        stickySideBarElem.style.position = 'fixed';
+        stickySideBarElem.style.top = 'auto';
+        stickySideBarElem.style.bottom = '0';
+        stickySideBarElem.style.left = sidebarRect.left + 'px';
+        stickySideBarElem.style.width = sidebarRect.width + 'px';
+        sidebarFixed = true;
+      }
+    } else if (sidebarFixed) {
+      stickySideBarElem.style.position = '';
+      stickySideBarElem.style.top = '';
+      stickySideBarElem.style.bottom = '';
+      stickySideBarElem.style.left = '';
+      stickySideBarElem.style.width = '';
+      sidebarFixed = false;
+    }
+  }
+
+  function recalibrateSidebar() {
+    stickySideBarElem.style.position = '';
+    stickySideBarElem.style.top = '';
+    stickySideBarElem.style.bottom = '';
+    stickySideBarElem.style.left = '';
+    stickySideBarElem.style.width = '';
+    sidebarFixed = false;
+
+    if (window.innerWidth < LG_BREAKPOINT) {
+      stickySideBarElem.style.position = 'sticky';
+      stickySideBarElem.style.top = mobileTop;
+    } else {
+      sidebarNaturalTop = stickySideBarElem.getBoundingClientRect().top + window.scrollY;
+      updateSidebar();
+    }
+  }
+
+  window.addEventListener('scroll', updateSidebar);
+  window.addEventListener('resize', recalibrateSidebar);
+  window.addEventListener('load', recalibrateSidebar);
+  recalibrateSidebar();
   
   /* Tags */
   const tagButtons = document.querySelectorAll(".tag-btn");
