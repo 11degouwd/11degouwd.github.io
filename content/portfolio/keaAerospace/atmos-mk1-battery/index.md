@@ -7,11 +7,13 @@ image: "bms_snippet.jpg"
 skills:
   - Systems Thinking
   - Electrical Design
-  - PCB Design
+  - PCB 
+  # - TODO add python
   - Spot Welding
   - Soldering
   - Harnessing
   - Risk Management
+  - Process Creation
   - Integration
 tags: 
   - Battery Design
@@ -23,7 +25,7 @@ searchTags: "Kea Aerospace HAPS UAV Lithium Battery Pack Atmos Mk1 Drone BMS"
 searchDescription: "Designing, building and integrating the battery packs for Atmos Mk1"
 enableReadingTime: true
 # author: "Daniel de Gouw"
-noDatePlaceholder: "2021 - 2024"
+noDatePlaceholder: "2021 - 2025"
 draft: false
 ---
 A <abbr title="High Altitude Platform Station">HAPS</abbr> typically flies in the stratosphere above the weather systems and thus will always see the sun during the day. This means a HAPS can fly solely off solar power in daytime due to their wings typically containing large solar arrays providing excess energy. However, when flying during the night, one of the biggest challenges for a HAPS is having sufficient energy storage such that it remains in the stratosphere overnight for days on end. 
