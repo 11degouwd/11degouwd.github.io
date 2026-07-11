@@ -6,11 +6,6 @@ on:
   push:
     branches: [main]
 
-# NOTE: uses `npm install` because no tests/package-lock.json exists yet.
-# Once you've run `npm install` locally in tests/ and committed the
-# resulting package-lock.json, switch this back to `npm ci` + `cache: npm`
-# for faster, reproducible CI installs.
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,10 +24,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tests/package-lock.json
 
       - name: Install test deps
         working-directory: tests
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright browsers
         working-directory: tests
