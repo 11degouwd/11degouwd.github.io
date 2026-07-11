@@ -96,7 +96,7 @@ The wing shape was fixed before I started on the solar system. Maximising cell c
 
 That ended up being the better outcome regardless. We could size the conductors for the actual current paths rather than accepting the resistance of a standard part, which reduced losses with a small compromise on mass. Connecting all parallel cells through shared interconnects also improved array reliability — the array is embedded in the wing structure, so replacing it means replacing the wing. A single broken cell in a string was much less likely to take down the full array as a result.
 
-The tradeoff is that parallel branches introduce the possibility of circulating currents and hotspot risk. That was a known risk going in, and we did enough R&D on the array design to validate the approach and understand its limits before committing to it. Some cells in the array also had to be removed to resolve conflicts between the competing constraints — a marginal hit to packing factor, but the right call in the end.
+Any array configuration connecting cells in parallel needs to account for circulating currents and hotspot risk. The R&D work ahead of committing to the design was what gave us confidence that the approach was sound and that we understood its limits. Some cells in the array also had to be removed to resolve conflicts between the competing constraints — a marginal hit to packing factor, but the right call in the end.
 
 ## Weight, Voltage, and Configuration Constraints
 
@@ -104,11 +104,9 @@ Weight and voltage budget cut the feasible solution pool down significantly. The
 
 ## Wing Geometry Effects
 
-Several things only became clear through flight testing. The dihedral sections of the wing see a different incidence angle to the sun compared to the main span, and that affects output more than the initial modelling suggested. In hindsight, treating those regions as a separate zone from the start would have been the right call.
+Wing geometry effects on array output need to be modelled for the full range of incidence angles — not just around solar noon. Different structural regions of the wing can see meaningfully different sun angles, and the airfoil shape creates shadow interactions across the array at low incidence that aren't always obvious from a top-down layout view. These things show up clearly in flight data, but by then the airframe and array geometry are locked in.
 
-The airfoil shape introduced another interaction that wasn't obvious until we had flight data: at low sun angles, parts of the array could be in shadow while adjacent sections still had reasonable direct illumination. This is the kind of geometry and incidence angle interaction that's hard to fully characterise before you have real flight data — but it's also the kind of thing that should be worked through at the concept stage, before the airframe design is locked in.
-
-Bypass diodes came up as a potential mitigation for both of those issues. The mass cost ruled them out — the weight wasn't compatible with the endurance requirements — and the wing chord length made the configuration geometry difficult regardless.
+Bypass diodes are a mitigation worth evaluating early, before the weight budget and array geometry are fixed. Whether they're viable depends on the specific configuration and constraints, but the evaluation needs to happen at the concept stage — not after other decisions have closed off the options.
 
 ## Testing Integrated Arrays
 
@@ -182,7 +180,7 @@ From there the system followed the same ground-test-then-flight-test path as the
 
 Working within a fixed airframe is a different problem from designing the airframe and solar system together. Several constraints I was working against were set before I started, and some of them only revealed their full effect through flight testing. The lesson isn't that the analysis was wrong — it's that certain geometry and incidence angle interactions need to be worked through explicitly at the concept stage, before anything structural gets locked in.
 
-Bypass diodes are the clearest example of a decision that looks like a tradeoff but is probably better treated as a baseline requirement. A lightweight wing flexes under load, cells develop fatigue cracks over time, different sections of the wing see different sun angles throughout the day, and low incidence angles can put part of the array in shadow while the rest still has direct illumination. Bypass diodes address several of those problems at once. On a next-generation design, I'd treat them as a starting point rather than something to evaluate against the weight budget.
+Bypass diodes are worth treating as a baseline requirement rather than a tradeoff to evaluate. A lightweight wing flexes under load, different sections see different sun angles through the day, and low incidence angles can shadow parts of the array while others still have direct illumination. These are real operating conditions on a long-endurance aircraft, and the array architecture needs to account for them from the start — not be evaluated against them after the weight budget and geometry are already constrained.
 
 Building the rotating test rig and developing the characterisation tooling early paid off. Having the ability to generate PV/IV curves quickly, simulate different incidence angles, and test the effect of different skin materials meant design decisions were based on real data from early in the programme. The university team's electroluminescence and irradiance testing extended that capability further and produced tools the company could continue to use long after the engagement ended. Scoping that work — explaining the problem to people who were motivated but new to it — also forced a more deliberate approach to documenting decisions and tradeoffs, which surfaces assumptions you've stopped questioning.
 

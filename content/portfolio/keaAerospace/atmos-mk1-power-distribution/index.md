@@ -1,19 +1,39 @@
 ---
-title: "duh HVAC Controller"
+title: "Atmos Mk1 Power Distribution"
 companySlug: "keaAerospace"
-summary: "Embedded firmware and cloud integration."
-date: 2024-02-02
-searchTags: "Tags for search results"
-searchDescription: "Displayed description for search results"
+summary: "TBC"
+# date: 2024-06-30
+# image: "image.jpg"
 skills:
-  - c++
-  - python
-  - time-management
-  - leadership
-  - teamwork
-tags: ["Embedded", "test"]
-image: "image.jpg"
+  - Systems Thinking
+  - Electrical Design
+  - TBC
+tags: 
+  - TBC
+  - UAVs
+
 weight: 1
+searchTags: "Kea Aerospace HAPS UAV Atmos Mk1 Drone"
+searchDescription: "TBC"
+enableReadingTime: true
+# author: "Daniel de Gouw"
+noDatePlaceholder: "2021 - 2025"
 draft: true
 ---
-Detailed description of the project here.
+
+
+# What I Worked On
+
+
+
+
+# Challenges
+
+
+
+
+# General Approach
+
+
+
+# Key Takeaways
