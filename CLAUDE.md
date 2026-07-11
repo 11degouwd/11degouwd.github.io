@@ -11,11 +11,6 @@ Hugo-based portfolio/personal website (11degouwd.github.io).
 - `assets/images/` — gallery `source: assets` (Hugo-processed); `assets/templates/` — reference frontmatter docs (not served)
 - Content: `content/portfolio/` — project case studies; `content/experience/` — roles; `content/companies/` — company pages
 
-## Development Workflow
-
-- `hugo server` — local server (localhost:1313); `hugo` — build to `public/`
-- Deployed via GitHub Pages from `main` branch
-
 ## CSS Architecture
 
 | File | Scope |
@@ -49,40 +44,10 @@ layouts/
 │   └── single.html          — project pages with tag pills, skills sidebar, company subtitle
 ├── companies/section.html   — company pages (no theme equivalent; derives slug from dir name)
 ├── partials/                — see Partials section
-└── shortcodes/              — see Shortcodes section
+└── shortcodes/              — see content/CLAUDE.md Shortcodes section
 ```
 
 `companies/section.html` wraps content in `<section id="single" class="company-page">`, renders markdown + conditionally calls `company-roles.html`, `gallery.html`, `company-projects.html` based on frontmatter flags.
-
-## Shortcodes
-
-### `{{< company-roles >}}`
-- `companySlug` (required), `companyName` (required), `showTitle` (default `true`)
-- **⚠ Do not use on a company page with `roles.enable: true`** — creates duplicate `#experience` anchor
-```
-{{< company-roles companySlug="companySlug" companyName="Company Name" >}}
-{{< company-roles companySlug="companySlug" companyName="Company Name" showTitle="false" >}}
-```
-
-### `{{< company-projects >}}`
-- `companySlug` (required), `companyName` (auto-detected), `showTitle` (default `true`), `showCompanyName` (default `false`), `tagFilter` (comma-sep OR), `minWeight` (default `1`), `cardHeight` (default `500`), `excludeFolders`
-- **⚠ Do not use on a company page with `projects.enable: true`** — creates duplicate `#portfolio` anchor
-```
-{{< company-projects companySlug="companySlug" >}}
-{{< company-projects companySlug="companySlug" showTitle="false" cardHeight="250" >}}
-{{< company-projects companySlug="companySlug" tagFilter="Tag1,Tag2" minWeight="2" >}}
-```
-
-### `{{< gallery >}}`
-- `src` (pattern/subdir), `source` (`bundle`/`static`/`assets`, default `bundle`), `layout` (`grid`/`row`/`single`), `cols` (default `3`), `max` (default `5`), `showCaption` (default `false`), `thumbSize`/`thumbQuality`, `fullSize`/`fullQuality`
-```
-{{< gallery >}}
-{{< gallery src="subfolder" layout="grid" cols="3" >}}
-{{< gallery src="subfolder" layout="row" max="8" >}}
-{{< gallery src="photo.jpg" layout="single" >}}
-{{< gallery src="subfolder" source="static" >}}
-{{< gallery src="subfolder" source="assets" >}}
-```
 
 ## Partials
 
@@ -98,130 +63,6 @@ layouts/
 | `head.html` | `<head>` overrides (meta, CSS links) |
 | `scripts.html` | Global script includes |
 
-## Content Directory Structure
-
-Dates: `YYYY-MM-DD` for all dates. Education uses display strings (`"2019 - 2021"`). Omit `end` on a role for "Present".
-
-```
-content/
-├── hero/index.md, about/index.md, education/index.md
-├── techstack/index.md, achievements/index.md, contact/index.md
-├── experience/            — one .md per role (build: render: never)
-│   ├── _index.md
-│   └── {Company}-{Role}.md
-├── companies/             — rendered sections
-│   ├── _index.md
-│   └── {companySlug}/_index.md   ← uses _index.md (section, not leaf bundle)
-└── portfolio/             — rendered pages (page bundles)
-    ├── _index.md
-    ├── {companySlug}/{projectName}/index.md + image.jpg
-    └── personal/{projectName}/   ← non-company projects
-```
-
-### `content/experience/{Company}-{Role}.md`
-```yaml
-title: Role Title
-companySlug: companySlug    # must match folder in content/companies/
-start: YYYY-MM-DD
-# end: YYYY-MM-DD           # omit for "Present"
-location: City, Country     # optional
-summary: |-                 # markdown supported
-  Summary text.
-build:
-  render: never
-```
-
-### `content/companies/{companySlug}/_index.md`
-```yaml
-title: "Company Name"
-logo: "logo.png"            # static/images/{companySlug}/logo.png
-image: "featured.jpg"       # static/images/{companySlug}/
-start: YYYY
-# end: YYYY
-searchTags: "tag1 tag2"
-searchDescription: "snippet"
-roles:
-  enable: true
-gallery:
-  enable: false
-  title: "Gallery"          # optional
-  location: "subfolder"
-  source: bundle            # bundle | static | assets
-  layout: row               # grid | row | single
-  cols: 3
-projects:
-  enable: true
-  tagFilter: "Tag1,Tag2"    # optional OR filter
-  minWeight: 1
-  cardHeight: 250           # 150–400px
-  excludeFolders: ""
-```
-Anchor links: `<div class="split-links">` renders side-by-side links. `#experience` and `#portfolio` IDs are set by the partials when enabled via frontmatter. Use `{{< gallery src="subfolder" layout="row" >}}` inline for mid-content galleries; frontmatter gallery renders at bottom only.
-
-### `content/portfolio/{companySlug}/{projectName}/index.md`
-```yaml
-title: "Project Title"
-companySlug: "companySlug"
-summary: "One-line description."
-date: YYYY-MM-DD            # omit → shows noDatePlaceholder ("In Development")
-image: "image.jpg"          # page bundle resource
-skills: ["Skill Name"]      # sidebar pills
-tags: ["Tag1", "Tag2"]      # filter buttons; links to /portfolio/?tag=
-weight: 1                   # used by minWeight filter
-searchTags: "extra terms"   # optional
-draft: true                 # set false to publish
-```
-
-### `content/techstack/index.md` — icon sources (priority order)
-```yaml
-technical_groups:
-  - title: "Group Name"
-    skills:
-      - devicon_name: "python"        # https://devicon.dev/
-        devicon_suffix: "original"
-        name: "Python"
-      - svgporn_name: "icon-name"     # https://svglogos.dev/
-        name: "Tool"
-      - simpleicon_name: "iconname"   # assets/icons/simple/ (local)
-        simpleicon_color: "#ff0000"   # optional colour override
-        name: "Tool"
-      - simpleicon_name: "iconname"
-        simpleicon_cdn: "cdn.jsdelivr.net/npm/simple-icons@latest/icons/"
-        name: "Tool"
-      - custom_icon: "filename"       # assets/icons/custom/ (raw SVG)
-        name: "Tool"
-```
-
-## `hugo.yaml` Key Settings
-
-All section content moved to `content/` files. `hugo.yaml` is site config only.
-
-| Setting | Effect |
-|---|---|
-| `params.siteStatus` | `"coming-soon"` hides site except on `hugo server` |
-| `params.color.primaryColor` | Accent colour across all CSS custom properties |
-| `params.portfolio.enablePagination` / `pagerSize` | JS pagination on `/portfolio/` |
-| `params.portfolio.cardHeight` | Global default card height |
-| `params.navbar.showContactLast` | Pins Contact to end of nav |
-| `params.singlePages.portfolio.noDatePlaceholder` | Placeholder for undated projects |
-| `markup.goldmark.renderer.unsafe` | Required `true` for raw HTML in markdown |
-
-**`params.socialLinks` — email and phone use custom keys** (not `url`) so the contact partial can prepend the correct protocol:
-```yaml
-email:
-  icon: fas fa-envelope
-  mailto: user@example.com     # → href="mailto:..."
-phone:
-  icon: fas fa-phone
-  tel: "+64 21 000 0000"       # → href="tel:..." (spaces stripped)
-location:
-  icon: fas fa-map-marker-alt
-  location: City, Country      # plain text, no link
-linkedin:
-  icon: fab fa-linkedin
-  url: https://linkedin.com/in/username
-```
-
 ## Avoid
 
 - Don't over-engineer — only add what's requested
@@ -230,37 +71,3 @@ linkedin:
 - Don't use destructive git commands without explicit permission
 - No emojis unless requested
 - Test CSS changes on desktop, mobile (< 576px), light + dark modes
-
-## Portfolio Content Writing
-
-When converting rough notes into portfolio page content (`content/portfolio/**/*.md`):
-
-### Voice and tone
-- Write in first person, past tense, direct — as the engineer who did the work
-- Short sentences. Specific details. Honest about tradeoffs
-- No corporate filler: avoid "leverage", "robust", "seamlessly", "significant", "meaningful", "non-trivial", "notoriously"
-- Avoid AI-sounding phrases: "It is worth noting", "This allowed us to", "In order to", "It became clear that"
-- Preferred phrases: "harder than it sounds", "hit and miss", "genuinely", "the right call", "in hindsight", "paid off"
-- Three short paragraphs beats one long one. Break at natural thought boundaries
-
-### IP protection
-- No specific design values, dimensions, or proprietary system names
-- No internal team structures, supplier names, or contractor relationships
-- Frame discoveries as "found through flight testing" not "here's what went wrong with X"
-- Tradeoffs can be described generically — what was ruled out and why — without revealing what was chosen
-- When uncertain whether something is too specific, keep it generic or omit it
-
-### Process for converting notes
-1. Read all notes first to understand full scope before writing anything
-2. Write prose paragraphs — do not just clean up the bullets into bullet form
-3. Keep original notes as HTML comments (`<!-- ORIGINAL NOTES: ... -->`) immediately above the section they belong to
-4. Add suggested additions or TODOs also as HTML comments (`<!-- TODO: ... -->`) so the user can expand later
-5. Where a section is marked TBC, leave a detailed `<!-- TODO: ... -->` comment with suggested topics
-6. Use `<abbr title="Full Name">ABBR</abbr>` for all technical acronyms on first use per section
-
-### Structure conventions
-- Intro: 1–2 paragraphs. Role of the system in the broader aircraft first, then scope of your work
-- What I Worked On: bullet list (can have sub-bullets). Action verbs, specific deliverables
-- Challenges: `##` subsections, one per major challenge. Prose only, no bullets
-- General Approach: `##` subsections. HOW you worked, not WHAT you built (that's Challenges)
-- Key Takeaways: prose paragraphs. Lessons, not summaries. What you'd do differently, what was validated

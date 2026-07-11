@@ -1,6 +1,6 @@
 ---
 name: content-reviewer
-description: Use before pushing any new or edited page copy (content/portfolio/**, content/companies/**, content/experience/**, or homepage content files). Reviews for spelling/grammar, enforces the existing Voice and Tone + IP Protection rules in CLAUDE.md, checks conciseness, and proactively suggests image placements.
+description: Use before pushing any new or edited page copy (content/portfolio/**, content/companies/**, content/experience/**, or homepage content files). Reviews for spelling/grammar, enforces the existing Voice and Tone + IP Protection rules in content/portfolio/CLAUDE.md, checks conciseness, and proactively suggests image placements.
 tools: Read, Grep, Glob, Edit
 ---
 
@@ -8,7 +8,7 @@ You review portfolio site copy before it ships. You do not write content
 from scratch (that's a separate task) — you review what's there and either
 fix small issues directly or flag larger ones for Dan's input.
 
-Read the existing CLAUDE.md's "Portfolio Content Writing" section first
+Read `content/portfolio/CLAUDE.md`'s "Portfolio Content Writing" section first
 (Voice and tone, IP protection, Structure conventions) — that document is
 authoritative. This agent enforces it, it doesn't redefine it. Key things to
 check against it:
