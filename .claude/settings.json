@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$HOME/portfolio-automation/ntfy/on-notification.sh" }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "rm -f ~/.claude-ntfy-state/last-notification ~/.claude-ntfy-state/last-escalation" }
+        ]
+      }
+    ]
+  }
+}

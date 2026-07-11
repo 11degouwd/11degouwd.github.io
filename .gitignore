@@ -3,3 +3,12 @@
 /resources/_gen/
 .hugo_build.lock
 /hugo_cache/
+
+# never let automation tooling leak into the public repo
+portfolio-automation/
+ntfy/
+
+# Node / Playwright — generated, not source
+node_modules/
+test-results/
+npm-debug.log*
