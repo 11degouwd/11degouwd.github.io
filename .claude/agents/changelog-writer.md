@@ -50,10 +50,13 @@ Process:
    ![desktop](tests/e2e/feature-screenshots/<feature>/desktop-chrome.png)
    ![mobile](tests/e2e/feature-screenshots/<feature>/iphone-15.png)
 
-   **Changed files:** <short list>
+   **Changed files:** <short list, only if it adds clarity beyond the description>
 
-5. Keep tone factual and concise — no marketing language, no "excited to
-   announce". This matches how Dan writes.
+5. Keep it short: 1-3 sentences, what changed and why, no more. No
+   marketing language, no narrated process, no padding out the entry with
+   extra sections just to look thorough. If the "why" isn't clear from the
+   diff or task, ask Dan rather than guessing — don't over-invest digging
+   for it either.
 6. Do not merge or push anything. Stage `CHANGELOG.md` with
    `git add CHANGELOG.md` if you wrote a portfolio entry. Never stage or
    `git add` `~/portfolio-automation/CHANGELOG.md` — it isn't part of this
