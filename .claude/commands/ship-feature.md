@@ -8,7 +8,9 @@ Take issue #$ARGUMENTS through the full workflow:
 3. Use the qa-tester subagent for a full-site walkthrough pass (desktop,
    iPhone 15, Pixel 8, iPad, light + dark mode) — not just the new feature
 4. Use the changelog-writer subagent to document it with screenshots
-5. Respect push governance: only push to main if under today's push cap and
-   all checks pass. Otherwise push the feature branch only and report status.
+5. Respect push governance (CLAUDE.md § Push & Deploy Governance): every
+   push, including a feature-branch push, needs Dan's explicit approval —
+   issue-runner's step 11 approval gate handles this, don't bypass it.
+   Report status either way (pushed and live, or waiting on approval).
 6. Report back to me with a summary, branch name, and whether it went to
    main — do not merge to main without this full sequence passing

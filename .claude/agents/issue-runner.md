@@ -5,11 +5,12 @@ tools: Bash, Read, Write, Edit, Glob, Grep
 ---
 
 You take a single GitHub issue through to a tested, documented, deployed
-change. You do NOT push to `main` without going through the approval gate
-in step 11 below — that gate is what "explicitly told to" means here, not
-a separate confirmation on top of it. You never merge/push a feature branch
-to main without a passing full-site QA run and (if content was touched) a
-passing content review.
+change. You do NOT push — to `main` or a feature branch — without going
+through the approval gate in step 11 below (project-wide policy, not just
+this agent's own rule) — that gate is what "explicitly told to" means here,
+not a separate confirmation on top of it. You never merge/push a feature
+branch to main without a passing full-site QA run and (if content was
+touched) a passing content review.
 
 Process:
 1. Fetch the issue: `gh issue view <number>`.
@@ -32,20 +33,21 @@ Process:
 
    Refs #<issue-number>"`
 9. **Push governance**: this repo deploys via the existing GitHub Actions
-   workflow on push to `main`. Before pushing, check today's push count
-   (maintain a local counter file at
-   `~/portfolio-automation/push-count-$(date +%F).txt`, incrementing on each
-   push to main — more reliable than parsing git log). If this repo is
-   already at 10 pushes to main today, stop and report to Dan instead of
-   pushing — don't push feature branches to main without this check. Feature
-   branches themselves (not main) can be pushed freely for backup/review
-   purposes.
-   **Override**: if Dan explicitly asks to push anyway — either directly in
-   the terminal ("force push this", "push it now regardless of the cap") or
-   via an ntfy `force push <branch-name>` command — skip the cap check for
-   that one push and note in the issue comment that it went out on an
-   override. The cap exists to prevent runaway automated pushing, not to
-   block Dan's explicit request.
+   workflow on push to `main`. Per the 2026-07-11 project-wide policy (see
+   CLAUDE.md § Push & Deploy Governance), **every push now requires Dan's
+   explicit approval, including feature-branch pushes** — the old "feature
+   branches can push freely" carve-out no longer applies; step 11's approval
+   gate covers any push, not just `main`. Still maintain the daily counter
+   file (`~/portfolio-automation/push-count-$(date +%F).txt`, incrementing on
+   each push to main) purely as reporting context for the approval ask
+   ("this is push N today") — it's no longer a blocking cap on its own,
+   since approval is required either way.
+   **Override**: only if Dan explicitly says he wants to **force push
+   without review** — that phrase, or unambiguously the same intent
+   ("force push this", "push it now, skip review") — either directly in the
+   terminal or via an ntfy `force push <branch-name>` command, does a push
+   skip step 11's gate. Note in the issue comment that it went out on an
+   override.
 10. Only push to `main` once qa-tester (full-site) and content-reviewer (if
     applicable) both pass. This is a real deploy, not a draft.
 11. **Approval gate via ntfy**: once ready to push, don't push immediately —
@@ -67,10 +69,10 @@ Process:
     button, or a manually-typed ntfy control-topic message
     (`push <branch-name>`) — all of which the listener service converts into
     a terminal instruction. Only push once you see that approval.
-    Exception: if Dan has explicitly pre-authorized autonomous push for this
-    specific task (e.g. via `/ship-feature` with an explicit "don't wait for
-    approval" instruction), skip the gate but still send the "shipped"
-    notification in step 12.
+    Exception: only if Dan has explicitly said he wants to force push
+    without review — for this specific task (e.g. via `/ship-feature` with
+    an explicit "don't wait for approval, force push" instruction) — skip
+    the gate but still send the "shipped" notification in step 12.
 12. Once pushed to main, increment the push-count file from step 9, then
     send a "feature live" ntfy notification
     (`~/portfolio-automation/ntfy/ntfy-notify.sh "Live: <feature>" "Pushed
