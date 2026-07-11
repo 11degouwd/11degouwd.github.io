@@ -1,4 +1,47 @@
 {
+  "permissions": {
+    "defaultMode": "auto",
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Edit(~/.ssh/**)",
+      "Read(//etc/ntfy-portfolio.env)",
+      "Edit(//etc/ntfy-portfolio.env)",
+      "Read(~/.config/gh/hosts.yml)",
+      "Read(**/*.env)",
+      "Edit(**/*.env)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/*)",
+      "Bash(sudo rm*)"
+    ],
+    "ask": [
+      "Bash(sudo*)",
+      "Bash(git push*)",
+      "Bash(git push --force*)",
+      "Bash(npm publish*)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "mode": "auto-allow",
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyRead": ["~/.ssh", "~/.config/gh", "~/.aws", "~/.gnupg", "//etc/ntfy-portfolio.env"]
+    },
+    "network": {
+      "allowLocalBinding": true,
+      "allowedDomains": [
+        "registry.npmjs.org",
+        "github.com",
+        "api.github.com",
+        "objects.githubusercontent.com",
+        "raw.githubusercontent.com",
+        "codeload.github.com",
+        "release-assets.githubusercontent.com"
+      ]
+    }
+  },
   "hooks": {
     "Notification": [
       {
