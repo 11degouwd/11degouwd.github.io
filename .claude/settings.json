@@ -1,7 +1,6 @@
 {
   "permissions": {
     "defaultMode": "auto",
-    "attribution": false,
     "deny": [
       "Read(~/.ssh/**)",
       "Edit(~/.ssh/**)",
