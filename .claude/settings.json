@@ -1,6 +1,7 @@
 {
   "permissions": {
     "defaultMode": "auto",
+    "attribution": false,
     "deny": [
       "Read(~/.ssh/**)",
       "Edit(~/.ssh/**)",
@@ -27,7 +28,7 @@
     "mode": "auto-allow",
     "allowUnsandboxedCommands": false,
     "filesystem": {
-      "denyRead": ["~/.ssh", "~/.config/gh", "~/.aws", "~/.gnupg", "//etc/ntfy-portfolio.env"]
+      "denyRead": ["~/.ssh", "~/.config/gh", "~/.aws", "~/.gnupg"]
     },
     "network": {
       "allowLocalBinding": true,
@@ -43,6 +44,13 @@
     }
   },
   "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$HOME/portfolio-automation/ntfy/on-notification.sh" }
+        ]
+      }
+    ],
     "Notification": [
       {
         "hooks": [
