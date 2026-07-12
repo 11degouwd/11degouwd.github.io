@@ -39,27 +39,29 @@ test.describe('core site health', () => {
 });
 
 test.describe('project filtering', () => {
-  // Adjust selectors to match your actual filter partial markup.
-  test('filtering by weight/tag shows expected results', async ({ page }) => {
+  test('filtering by tag shows expected results', async ({ page }) => {
     await page.goto('/portfolio/');
-    const initialCount = await page.locator('[data-project-card]').count();
+    const initialCount = await page.locator('#portfolio-cards .project-card').count();
     expect(initialCount).toBeGreaterThan(0);
 
-    // Example: click a filter tag and confirm the result set changes
-    const firstFilter = page.locator('[data-filter-tag]').first();
-    if (await firstFilter.count()) {
-      await firstFilter.click();
-      await expect(page.locator('[data-project-card]')).not.toHaveCount(0);
+    // Index 0 is the "All" button (already active); click the first real tag filter.
+    const tagFilter = page.locator('#portfolio .filter-btn').nth(1);
+    if (await tagFilter.count()) {
+      await tagFilter.click();
+      await expect(page.locator('#portfolio-cards .project-card:visible')).not.toHaveCount(0);
     }
   });
 
-  test('filtering to zero results shows an empty state, not a broken layout', async ({ page }) => {
+  test('an unrecognized ?tag= in the URL leaves the grid intact, not broken', async ({ page }) => {
+    await page.goto('/portfolio/');
+    const initialCount = await page.locator('#portfolio-cards .project-card').count();
+
+    // portfolioList.js only looks up a filter button matching the URL's tag param;
+    // there's no button for a made-up tag, so the lookup silently no-ops and the
+    // "All" filter (and every card) stays visible — there's no dedicated empty-state
+    // element in the markup, so that's the actual "doesn't break" behavior to assert.
     await page.goto('/portfolio/?tag=__no_such_tag__');
-    // Adjust to whatever your empty-state element actually is
-    const cards = await page.locator('[data-project-card]').count();
-    if (cards === 0) {
-      await expect(page.locator('[data-empty-state]')).toBeVisible();
-    }
+    await expect(page.locator('#portfolio-cards .project-card:visible')).toHaveCount(initialCount);
   });
 });
 
