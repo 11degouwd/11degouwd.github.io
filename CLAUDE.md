@@ -216,26 +216,49 @@ shells, not this path. **Fix applied**: `on-notification.sh` now sources
 `/etc/ntfy-portfolio.env` directly at the top, independent of both `.bashrc`
 and systemd.
 
-**Bug 3 (unresolved) — this specific session type's own permission asks
-still don't reliably trigger the hook**, even after both fixes, even though
-the identical shared config/script demonstrably works (a differently-worded
-notification arrived from what turned out to be a separate, likely
-non-bridged, Claude session; the message format matched the script's
-`Notification`-passthrough branch exactly). Isolated with a canary written
-into the already-firing `UserPromptSubmit` hook: that one fires reliably
-every turn in this session (proven, not assumed), while two direct,
-consecutive `git push`-denial tests left zero trace in the state file. So
-this session **can** run local hooks in general — the gap is specific to
-how this harness's "auto mode classifier" (the layer producing the
+**Bug 3 (partially re-examined 2026-07-19/20, background/child-job
+hypothesis no longer looks like the explanation) — this specific session
+type's own permission asks still don't reliably trigger the hook**, even
+after both fixes, even though the identical shared config/script
+demonstrably works (a differently-worded notification arrived from what
+turned out to be a separate, likely non-bridged, Claude session; the
+message format matched the script's `Notification`-passthrough branch
+exactly). Isolated with a canary written into the already-firing
+`UserPromptSubmit` hook: that one fires reliably every turn in this
+session (proven, not assumed), while two direct, consecutive
+`git push`-denial tests left zero trace in the state file. So this
+session **can** run local hooks in general — the gap is specific to how
+this harness's "auto mode classifier" (the layer producing the
 `[Self Modification]`/`[Credential Materialization]`-style reasoned
 allow/deny/ask decisions seen throughout this file) resolves its own asks,
 which apparently doesn't route through the standard `PermissionRequest`/
 `PermissionDenied` events the same way a plain Bash-permission-ask would.
 Not something fixable via `.claude/settings.json` or script changes from
 inside a session — would need the harness itself to wire the classifier's
-ask path to those hook events. If revisiting: test from a genuine foreground
-terminal session (not a background/child job) first, to confirm whether
-that's actually the distinguishing factor or a red herring.
+ask path to those hook events.
+
+**Update, 2026-07-19/20**: this note's own suggested next step — "test
+from a genuine foreground terminal session (not a background/child job)
+first, to confirm whether that's actually the distinguishing factor" —
+got indirectly answered during the ntfy activity-delay work in
+`portfolio-automation` (see that repo's `CHANGELOG.md`): a
+background/child-job session (the same type this repo's own sessions run
+as) reliably triggered `PermissionRequest`/`Notification` →
+`on-notification.sh` for statically `ask`-listed `Bash(git push*)`/
+`Bash(sudo*)`/`Bash(npm publish*)` patterns, dozens of times, with real
+phone pushes confirmed live. So "background/child job" does **not** look
+like the distinguishing factor after all. This doesn't fully close Bug 3,
+though: those tests all went through the *static* `permissions.ask` list
+(a deterministic config match), not the dynamic auto-mode classifier
+denying/asking on its own initiative for something not explicitly
+listed — the original repro used a plain `git push` denial, which may
+have exercised the classifier path specifically because `git push*`
+wasn't yet in the static `ask` list at the time (it is now, so a fresh
+`git push` attempt would hit the static path first and might not
+reproduce whatever the classifier-specific gap was). If this needs
+revisiting, isolate a permission scenario the classifier decides on
+dynamically (not already covered by `permissions.deny`/`ask`) to test the
+narrower claim directly, rather than re-testing session type.
 
 ## Push & Deploy Governance
 - **Every push requires Dan's explicit approval and review before it
@@ -262,11 +285,15 @@ that's actually the distinguishing factor or a red herring.
   you have to ask, it doesn't remove the need to ask.
 - Every push to `main` gets a CHANGELOG.md entry with screenshots (see
   changelog-writer agent) — no exceptions, even for small pushes.
-- **Known gap, see Open TODOs**: whether this approval request reliably
-  reaches Dan's phone via ntfy (as opposed to just sitting in a terminal/chat
-  he isn't watching) is unconfirmed outside `issue-runner`'s own flow, which
-  has its own working, hook-independent ntfy call. Don't assume a phone
-  ping happens automatically for a push proposed outside that flow.
+- **Confirmed 2026-07-19/20** (previously an open gap — see `TODO.md`):
+  a push approval request proposed outside `issue-runner`'s own flow (e.g.
+  an ad-hoc `git push` in a session, or via `ship-automation`) does reach
+  Dan's phone — `Bash(git push*)` is in the global `permissions.ask` list,
+  so it triggers the same `PermissionRequest` → `on-notification.sh` path
+  live-tested extensively that day. Still worth actually watching for the
+  push notification rather than assuming, same as any other approval —
+  this just confirms the mechanism fires, not that you should skip
+  checking in a specific instance.
 
 ## Full-Site QA (required before every push to main)
 In addition to feature-specific testing, run a full-site walkthrough:

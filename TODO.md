@@ -8,14 +8,23 @@ the separate list in `~/portfolio-automation/TODO.md`.
 - [ ] `hugo server -D` runs cleanly from `~/11degouwd.github.io`
 - [ ] `cd tests && npx playwright test` runs (even if some assertions fail
       against placeholder selectors — it should at least execute)
-- [ ] `.claude/settings.json`'s Notification hook fires — trigger it by
-      asking Claude Code to do something requiring a permission prompt,
-      confirm a push notification arrives
+- [x] `.claude/settings.json`'s Notification hook fires — confirmed
+      extensively 2026-07-19/20 (see `~/portfolio-automation/CHANGELOG.md`):
+      the hook config moved to the global `~/.claude/settings.json` in
+      commit `a90c07a` and is machine-wide, not project-scoped, so
+      dozens of live-confirmed pushes from `PermissionRequest`/
+      `Notification` firing during that work (including from a
+      background/child-job session, the same session type this repo's
+      own sessions run as) directly cover this item — no need to
+      re-trigger it from inside this specific repo.
 
 ## Pre-content-work blockers (from CLAUDE.md § Open TODOs)
-- [ ] Confirm push-approval requests reach ntfy — `issue-runner`'s approval
-      gate already works; `ship-automation` and any ad-hoc push proposed
-      directly in a session don't yet guarantee a phone notification.
+- [x] Confirm push-approval requests reach ntfy — confirmed 2026-07-19/20:
+      `Bash(git push*)` is in the global `permissions.ask` list, so any
+      ad-hoc push proposed directly in a session (in this repo or any
+      other) triggers the same `PermissionRequest` → `on-notification.sh`
+      path live-tested extensively that day. `issue-runner`'s own gate was
+      already confirmed separately before this.
 - [ ] Scope the ship-* skills correctly — `ship-content` should only touch
       `content/`, `ship-automation` only outside this repo; neither is
       enforced yet. May need a third skill, `ship-site`, for Hugo
