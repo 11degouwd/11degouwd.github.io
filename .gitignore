@@ -12,3 +12,7 @@ ntfy/
 node_modules/
 test-results/
 npm-debug.log*
+
+# Visual-regression baselines — auto-written on first run against draft
+# content; commit deliberately once real baselines are reviewed
+tests/e2e/site.spec.ts-snapshots/
