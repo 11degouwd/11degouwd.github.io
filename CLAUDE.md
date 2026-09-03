@@ -309,6 +309,22 @@ narrower claim directly, rather than re-testing session type.
   the comprehensive check and is free to run as often as you like (this
   repo is public, so Actions minutes are unlimited — confirmed via the
   GitHub API, not assumed).
+- **GitHub Actions failure notifications (2026-09-03)**: a CI/deploy
+  failure pushes an ntfy alert to Dan's phone automatically — no need to
+  check the Actions tab. This is `~/portfolio-automation/ntfy/ntfy-github-actions-check.sh`,
+  a systemd-timer poller (every 5 min) that reads this repo's public
+  Actions API (no auth needed) and fires on any newly-completed run with
+  `conclusion: failure`. It does **not** work by the workflow pushing to
+  ntfy directly — a first attempt at that was reverted the same day
+  because GitHub-hosted runners have no route into the LAN where ntfy
+  actually lives; the poller runs the opposite direction, from inside the
+  LAN. Full detail, install steps, and state file locations:
+  `~/portfolio-automation/setup-instructions.md` Part 6 and that repo's
+  `CHANGELOG.md` (2026-09-03 entry). Lives in `~/portfolio-automation`,
+  not this repo, per the usual VM/ntfy-vs-website split — this repo's own
+  session couldn't commit/install it directly (sandboxed, no write access
+  outside this checkout, no `sudo`); check that repo's git log for whether
+  it's actually been installed and pushed yet before assuming it's live.
 
 ## Full-Site QA (required before every push to main)
 In addition to feature-specific testing, run a full-site walkthrough:
