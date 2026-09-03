@@ -18,6 +18,7 @@ export default defineConfig({
   },
   projects: [
     { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
+    { name: 'desktop-firefox', use: { ...devices['Desktop Firefox'], viewport: { width: 1440, height: 900 } } },
     { name: 'iphone-15', use: { ...devices['iPhone 15'] } },
     { name: 'pixel-8', use: { ...devices['Pixel 8'] } },
     { name: 'ipad', use: { ...devices['iPad (gen 11)'] } },

@@ -294,6 +294,21 @@ narrower claim directly, rather than re-testing session type.
   push notification rather than assuming, same as any other approval —
   this just confirms the mechanism fires, not that you should skip
   checking in a specific instance.
+- **Local pre-push gate (2026-09-02)**: `.githooks/pre-push` runs `hugo
+  --minify` before any push leaves the machine and blocks the push if the
+  build fails — this is the exact class of bug (content files under
+  `content/` breaking the Hugo build) that broke both `ci.yml` and the
+  live `hugo.yml` deploy on 2026-09-02. GitHub Actions can only run
+  *after* a push already reaches GitHub, so it can't be the thing that
+  stops a bad push from leaving in the first place — this hook is.
+  Enable once per checkout/VM with `git config core.hooksPath .githooks`
+  (not committed automatically — git config isn't version-controlled).
+  Bypassable with `git push --no-verify`; this is a fast local sanity
+  check, not a hard security boundary — `ci.yml`'s full cross-browser
+  (Chromium/Firefox/WebKit) + Lighthouse suite on GitHub Actions is still
+  the comprehensive check and is free to run as often as you like (this
+  repo is public, so Actions minutes are unlimited — confirmed via the
+  GitHub API, not assumed).
 
 ## Full-Site QA (required before every push to main)
 In addition to feature-specific testing, run a full-site walkthrough:
