@@ -86,8 +86,6 @@ I developed custom tooling and assembly processes for building the packs by hand
 
 The pack also had a fair amount of harnessing integrated directly into the pack, e.g. temperature sensors and heaters for the thermal control system. Several other harnesses were created for the BMS and other circuitry interfacing directly with the pack where reliability needed to be ensured. Getting this right was as much a part of the manufacturing process as the pack assembly itself, since unreliable connections here would have been difficult to diagnose later. A mix of direct soldering to PCB and high-reliability wire-to-board connectors were used.
 
-{{< gallery src="heater_termination.jpg" layout="single" galleryCaption="Heater wires terminating directly into BMS on early prototype battery pack during manufacturing" >}}
-
 
 ## Testing and Validation
 
