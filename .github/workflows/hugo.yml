@@ -46,6 +46,24 @@ jobs:
         with:
           path: ./public
 
+      - name: Notify on failure (ntfy)
+        if: failure()
+        env:
+          NTFY_URL: ${{ secrets.NTFY_URL }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          if [ -z "$NTFY_URL" ]; then
+            echo "NTFY_URL repo secret not set — skipping notification."
+            exit 0
+          fi
+          curl -sf \
+            -H "Authorization: Bearer $NTFY_TOKEN" \
+            -H "Title: Deploy build failed" \
+            -H "Priority: urgent" \
+            -H "Tags: x,rotating_light" \
+            -d "${{ github.repository }}@${{ github.ref_name }} (${{ github.sha }}) -- ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            "$NTFY_URL" || echo "ntfy notification failed to send"
+
   deploy:
     environment:
       name: github-pages
@@ -56,3 +74,21 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify on failure (ntfy)
+        if: failure()
+        env:
+          NTFY_URL: ${{ secrets.NTFY_URL }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          if [ -z "$NTFY_URL" ]; then
+            echo "NTFY_URL repo secret not set — skipping notification."
+            exit 0
+          fi
+          curl -sf \
+            -H "Authorization: Bearer $NTFY_TOKEN" \
+            -H "Title: Deploy to GitHub Pages failed" \
+            -H "Priority: urgent" \
+            -H "Tags: x,rotating_light" \
+            -d "${{ github.repository }}@${{ github.ref_name }} (${{ github.sha }}) -- ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            "$NTFY_URL" || echo "ntfy notification failed to send"

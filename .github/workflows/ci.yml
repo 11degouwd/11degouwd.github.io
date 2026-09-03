@@ -55,3 +55,21 @@ jobs:
           hugo server -D -p 1313 --disableFastRender &
           sleep 5
           lhci autorun --collect.url=http://localhost:1313 --collect.numberOfRuns=1 || true
+
+      - name: Notify on failure (ntfy)
+        if: failure() && github.event_name == 'push'
+        env:
+          NTFY_URL: ${{ secrets.NTFY_URL }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          if [ -z "$NTFY_URL" ]; then
+            echo "NTFY_URL repo secret not set — skipping notification."
+            exit 0
+          fi
+          curl -sf \
+            -H "Authorization: Bearer $NTFY_TOKEN" \
+            -H "Title: CI failed: ${{ github.workflow }}" \
+            -H "Priority: high" \
+            -H "Tags: x" \
+            -d "${{ github.repository }}@${{ github.ref_name }} (${{ github.sha }}) -- ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            "$NTFY_URL" || echo "ntfy notification failed to send"
