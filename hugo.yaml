@@ -3,6 +3,9 @@ languageCode: "en-us"
 title: "Daniel de Gouw" # Page title (shows in tab name) 
 theme: hugo-profile # Base theme for this Project Portfolio Template
 
+ignoreFiles:
+  - "CLAUDE\\.md$" # doc files living inside content/ for Claude Code context, not real pages
+
 outputs:
   home:
     - "HTML"

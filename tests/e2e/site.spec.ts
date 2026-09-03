@@ -54,14 +54,17 @@ test.describe('project filtering', () => {
 
   test('an unrecognized ?tag= in the URL leaves the grid intact, not broken', async ({ page }) => {
     await page.goto('/portfolio/');
-    const initialCount = await page.locator('#portfolio-cards .project-card').count();
+    // Pagination (portfolioList.js) already hides all but the first page on load,
+    // so compare against the visible count, not the total card count in the DOM.
+    const initialVisibleCount = await page.locator('#portfolio-cards .project-card:visible').count();
 
     // portfolioList.js only looks up a filter button matching the URL's tag param;
     // there's no button for a made-up tag, so the lookup silently no-ops and the
-    // "All" filter (and every card) stays visible — there's no dedicated empty-state
-    // element in the markup, so that's the actual "doesn't break" behavior to assert.
+    // "All" filter (and pagination's first page) stays as-is — there's no dedicated
+    // empty-state element in the markup, so that's the actual "doesn't break" behavior
+    // to assert.
     await page.goto('/portfolio/?tag=__no_such_tag__');
-    await expect(page.locator('#portfolio-cards .project-card:visible')).toHaveCount(initialCount);
+    await expect(page.locator('#portfolio-cards .project-card:visible')).toHaveCount(initialVisibleCount);
   });
 });
 
