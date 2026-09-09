@@ -10,3 +10,9 @@ Fixed two mobile issues found during a full-site QA pass. The dotted underline u
 ![mobile abbr fix](tests/e2e/feature-screenshots/abbr-mobile-underline-fix/iphone-15.png)
 
 **Changed files:** `static/css/single.css`, `layouts/companies/section.html`
+
+## [Unreleased] — CI/CD: align Hugo version across ci.yml and hugo.yml
+
+Found during a `portfolio-automation` provisioning audit: `ci.yml` was floating on `hugo-version: 'latest'` while `hugo.yml` (the actual live deploy) was pinned to `0.125.7` — neither matched the `0.139.3` already installed on the dev VM and used by the local `.githooks/pre-push` build gate. Three different Hugo versions validating "the same build" undercut the point of that gate: something could pass locally and in CI while behaving differently on the older Hugo actually deploying. Pinned both workflows to `0.139.3` so all three agree.
+
+**Changed files:** `.github/workflows/ci.yml`, `.github/workflows/hugo.yml`
