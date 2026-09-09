@@ -325,6 +325,15 @@ narrower claim directly, rather than re-testing session type.
   session couldn't commit/install it directly (sandboxed, no write access
   outside this checkout, no `sudo`); check that repo's git log for whether
   it's actually been installed and pushed yet before assuming it's live.
+- **Hugo version alignment (2026-09-09)**: `ci.yml`, `hugo.yml`, and the
+  local `.githooks/pre-push` gate must all pin the *same* Hugo version —
+  found during a `portfolio-automation` provisioning audit that `ci.yml`
+  had drifted to floating `'latest'` and `hugo.yml` was stuck on a stale
+  `0.125.7`, while the dev VM (and the pre-push gate) had moved on to
+  `0.139.3`. All three now pin `0.139.3`. If you bump the VM's installed
+  Hugo version, update both workflow files' `hugo-version:` in the same
+  change — a pre-push pass with a newer/older Hugo than CI or the live
+  deploy is exactly the false confidence this gate exists to prevent.
 
 ## Full-Site QA (required before every push to main)
 In addition to feature-specific testing, run a full-site walkthrough:
