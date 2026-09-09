@@ -46,20 +46,20 @@ and diagnostic JSON are in the agent's scratchpad (session-local `/tmp`, not
 persisted) — re-run the pass if screenshots are needed again.
 
 **Live bugs (visible on published content today):**
-- [ ] Abbreviation dotted-underline still shows on mobile on portfolio
+- [x] Abbreviation dotted-underline still shows on mobile on portfolio
       project pages (e.g. `/portfolio/keaaerospace/atmos-mk1-battery/`,
       under "HAPS"/"RF"). The mobile fix in `static/css/single.css`
       (`.company-page .page-content abbr[title] { text-decoration: none }`)
-      is scoped to `.company-page` only; `layouts/portfolio/single.html`
+      was scoped to `.company-page` only; `layouts/portfolio/single.html`
       renders `<section id="single">` without that class, so project pages
-      never got the fix. This is the exact class of thing that was
-      previously disabled for not working on mobile — only half-fixed.
-- [ ] "Atmos Mk1 Electrical Systems Architecture" project card thumbnail is
-      an illegible crop — it's a wide technical block diagram, and
-      `#portfolio-cards .project-img { object-fit: cover; height: 200px }`
-      crops off the labels on both edges (worse on mobile than desktop).
-      Re-crop/re-export the source image with margin, or use a different
-      hero crop for the card thumbnail.
+      never got the fix. **Fixed 2026-09-09** (commit `ae81d5b`) — selector
+      broadened to `#single .page-content abbr[title]`, covers both page
+      types now.
+- [x] Non-issue, per Dan (2026-09-09): "Atmos Mk1 Electrical Systems
+      Architecture" project card thumbnail crop — flagged as illegible on
+      the card thumbnail (`#portfolio-cards .project-img { object-fit:
+      cover; height: 200px }` crops a wide technical diagram). Checked on
+      his own phone and it looks fine — not pursuing a re-crop.
 - [ ] `/portfolio/` has a 12px horizontal overflow on every viewport
       (desktop + mobile) — the pagination-controls `<div class="row ...">`
       in `layouts/portfolio/list.html` is a raw Bootstrap `.row` (negative
@@ -92,22 +92,29 @@ persisted) — re-run the pass if screenshots are needed again.
 **Navigation/discoverability — Experience → Company → Projects**
 (the specific friction point flagged as "the only friction part of the
 site" — this section evaluates it directly, not a strict bug list):
-- [ ] No way back from a company page to the Experience section or
+- [x] No way back from a company page to the Experience section or
       Portfolio — no breadcrumb, no "← Back to Experience" link anywhere in
       `layouts/companies/section.html`. Only the main nav or browser
-      back button. This is the most actionable single fix for the
-      friction — a simple breadcrumb/back link on company pages.
-- [ ] The "Read More →" pill (the only strong signal that an Experience
-      entry has a dedicated company page) measures ~32.8px tall on mobile —
-      under the 44px WCAG-recommended touch target size. Surrounding
-      whitespace likely prevents mis-taps in practice, but worth widening.
-- [ ] The company-title heading text is styled identically (same color/
-      weight) whether or not the company has a page — e.g. Kea Aerospace's
-      title is a real link, "Justin Neil Engineering"'s is plain text, but
-      nothing about the heading itself signals which is which. The "Read
-      More →" pill is the only differentiator, and it's small/secondary
-      compared to how obviously clickable portfolio cards are (whole-card
-      link + hover-lift effect).
+      back button. **Fixed 2026-09-09** (commit `ae81d5b`) — added a
+      "← Back to Experience" link (→ `/#experience`) at the top of company
+      pages, ~60px tap target.
+- [x] The "Read More →" pill (the only strong signal that an Experience
+      entry has a dedicated company page) measured ~32.8px tall on mobile —
+      under the 44px WCAG-recommended touch target size. **Fixed 2026-09-09**
+      — mobile-only padding increase in `static/css/experience.css`
+      (`@media (max-width: 576px) { #experience .company-read-more { ... } }`),
+      confirmed 67px tall on iPhone 15, desktop untouched.
+- [x] Non-issue, per Dan (2026-09-09): the company-title heading text is
+      styled identically (same color/weight) whether or not the company has
+      a page, so there's no visual differentiator on the title itself.
+      Considered two fixes — a permanent underline on linked titles, and a
+      small chevron icon next to linked titles (previewed live, screenshots
+      sent, looked clean in both light/dark and both viewports) — but Dan's
+      call: the "Read More"/"Learn more" links already sitting right next to
+      every linked title make it obvious there's more content regardless of
+      whether the title itself looks clickable, so a title-level signal
+      would just be clutter. Not pursuing either fix. Reverted the chevron
+      preview from the working tree.
 - Working correctly: "Projects at {Company}:" heading on company pages is
   clear/unambiguous; the Read More pill + secondary "Learn more" link are
   present for every company with a page and correctly absent for ones

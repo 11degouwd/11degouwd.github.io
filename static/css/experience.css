@@ -248,4 +248,11 @@
     width: auto;
     text-align: left;
   }
+
+  #experience .company-read-more {
+    padding: 0.6rem 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
 }
