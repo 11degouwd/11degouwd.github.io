@@ -21,6 +21,11 @@
           {{ $companySlug := .File.Dir | path.Base }}
           {{ $companyName := .Title }}
 
+          <!-- Back link -->
+          <div class="company-back-link">
+            <a href="{{ "/#experience" | relURL }}">&larr; Back to Experience</a>
+          </div>
+
           <!-- Title block -->
           <div class="title mb-5 text-center">
             <h1 class="mb-1">{{ $companyName }}</h1>

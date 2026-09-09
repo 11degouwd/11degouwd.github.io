@@ -491,9 +491,28 @@
   font-weight: 500;
 }
 
-/* Disable abbreviation underline on mobile */
+/* Back link (to homepage Experience section) */
+#single.company-page .company-back-link {
+  margin-bottom: 1.5rem;
+}
+#single.company-page .company-back-link a {
+  display: inline-block;
+  padding: 0.5rem 0;
+  min-height: 44px;
+  line-height: 1.5;
+  text-decoration: none;
+  color: var(--text-link-color) !important;
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+#single.company-page .company-back-link a:hover {
+  opacity: 1;
+  color: var(--primary-color) !important;
+}
+
+/* Disable abbreviation underline on mobile (all single pages: company + portfolio) */
 @media (max-width: 576px) {
-  .company-page .page-content abbr[title] {
+  #single .page-content abbr[title] {
     text-decoration: none;
     -webkit-text-decoration: none;
   }
