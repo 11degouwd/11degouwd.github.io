@@ -133,6 +133,11 @@
 }
 
 /* Portfolio Pagination */
+#portfolio .portfolio-pagination-wrap {
+  display: flex;
+  justify-content: center;
+}
+
 #portfolio .pagination {
   margin-top: 2rem;
 }

@@ -60,34 +60,44 @@ persisted) — re-run the pass if screenshots are needed again.
       the card thumbnail (`#portfolio-cards .project-img { object-fit:
       cover; height: 200px }` crops a wide technical diagram). Checked on
       his own phone and it looks fine — not pursuing a re-crop.
-- [ ] `/portfolio/` has a 12px horizontal overflow on every viewport
+- [x] `/portfolio/` has a 12px horizontal overflow on every viewport
       (desktop + mobile) — the pagination-controls `<div class="row ...">`
-      in `layouts/portfolio/list.html` is a raw Bootstrap `.row` (negative
-      margins) not wrapped in a `.container`. Minor but present everywhere.
-- [ ] Dark mode: the "content under development" disclaimer banner on
-      `/portfolio/` (`layouts/portfolio/list.html`) uses hardcoded hex
-      colors (`#fff3cd`/`#ffecb5`/`#664d03`) instead of CSS custom
-      properties, so it stays bright light-yellow instead of adapting to
-      dark mode. The active-page pagination pill has the same issue
-      (unstyled Bootstrap default in dark mode).
-- [ ] Duplicate `id="theme-toggle"` in the DOM — `layouts/partials/
-      sections/header.html` renders both a desktop and mobile toggle with
-      the same id. JS uses the shared `.theme-toggle` class so nothing is
-      currently broken, but it's invalid HTML and a latent footgun for any
-      future `getElementById('theme-toggle')` usage.
+      in `layouts/portfolio/list.html` was a raw Bootstrap `.row` (negative
+      margins) not wrapped in a `.container`. **Fixed 2026-09-09** — replaced
+      the `.row`/`.col-auto` grid wrapper with a plain flex-centered
+      `.portfolio-pagination-wrap` div (new rule in `static/css/list.css`).
+      Confirmed 0px overflow on desktop/iPhone 15/Pixel 8/iPad, light+dark,
+      against both a full draft build and the real production build — note
+      a much larger (~28px) overflow briefly appeared on mobile during
+      testing, traced to this sandbox's CDN block preventing Bootstrap's
+      `box-sizing: border-box` reset from loading (not a real site bug);
+      confirmed 0px once Bootstrap was mocked in properly.
+- [x] Non-issue, per Dan (2026-09-09): dark mode "content under
+      development" disclaimer banner on `/portfolio/` (hardcoded hex colors
+      `#fff3cd`/`#ffecb5`/`#664d03`, doesn't adapt to dark mode). Dan likes
+      it staying the same color in both modes — not changing.
+- [ ] Separate from the banner above: the active-page pagination pill on
+      `/portfolio/` (Bootstrap's default `.pagination .active` styling,
+      unstyled for dark mode) renders as a plain white box in dark mode —
+      not intentional, not yet reviewed/decided on.
+- [x] Duplicate `id="theme-toggle"` in the DOM — `layouts/partials/
+      sections/header.html` rendered both a desktop and mobile toggle with
+      the same id (plus duplicate `id="moon"`/`id="sun"` on the inner
+      svgs). **Fixed 2026-09-09** — unique ids now (`theme-toggle-desktop`/
+      `-mobile`, `moon-desktop`/`-mobile`, `sun-desktop`/`-mobile`); styling
+      in `static/css/header.css`/`theme.css` moved from `#theme-toggle`/
+      `#moon`/`#sun` to the `.theme-toggle`/`.icon-moon`/`.icon-sun`
+      classes (JS already used the class, unaffected). Confirmed toggle
+      still works both directions on desktop + mobile, zero console
+      errors, no remaining duplicate ids on the page.
 
 **Latent bug (not visible today, will appear once more content is published):**
-- [ ] Portfolio card grid: when the last row of the card grid is
-      incomplete, the last card renders ~8% narrower than its siblings on
-      desktop/iPad (`#portfolio-cards .project-cards-grid`'s
+- [x] Non-issue, per Dan (2026-09-09): portfolio card grid last-row width
+      inconsistency (last card in an incomplete row would render ~8%
+      narrower than its siblings on desktop/iPad, once more `draft: true`
+      projects are un-drafted — `#portfolio-cards .project-cards-grid`'s
       `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` doesn't
-      split evenly across a partial last row). Not visible now because only
-      2 non-draft projects exist (one full row, no partial-row case
-      triggered) — several more projects are currently `draft: true` and
-      will trigger this once un-drafted. Mobile (≤576px) is unaffected —
-      the `.project-card { width: 100% }` override sidesteps it. Fix before
-      publishing more projects, while it's easy to verify against a known-
-      good 2-card baseline.
+      split evenly across a partial last row). Not fixing for now.
 
 **Navigation/discoverability — Experience → Company → Projects**
 (the specific friction point flagged as "the only friction part of the

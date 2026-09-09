@@ -274,15 +274,15 @@ if (!localStorageValue) {
 
                     {{ if (not .Site.Params.theme.disableThemeToggle | default false) }}
                       <li class="nav-item d-none d-md-flex align-items-center">
-                        <button id="theme-toggle"
+                        <button id="theme-toggle-desktop"
                                 class="btn nav-link theme-toggle p-0"
                                 aria-label="Toggle theme">
-                          <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                          <svg id="moon-desktop" class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                               </svg>
-                              <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                              <svg id="sun-desktop" class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <circle cx="12" cy="12" r="5"></circle>
@@ -299,11 +299,11 @@ if (!localStorageValue) {
                       </li>
                       <li class="nav-item d-md-none navbar-text">
                         <div class="text-center">
-                            <button id="theme-toggle" class="theme-toggle">
-                                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button id="theme-toggle-mobile" class="theme-toggle">
+                                <svg id="moon-mobile" class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                                 </svg>
-                                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg id="sun-mobile" class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="5"></circle>
                                     <line x1="12" y1="1" x2="12" y2="3"></line>
                                     <line x1="12" y1="21" x2="12" y2="23"></line>
