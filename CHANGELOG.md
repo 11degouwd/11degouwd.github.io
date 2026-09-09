@@ -16,3 +16,9 @@ Fixed two mobile issues found during a full-site QA pass. The dotted underline u
 Found during a `portfolio-automation` provisioning audit: `ci.yml` was floating on `hugo-version: 'latest'` while `hugo.yml` (the actual live deploy) was pinned to `0.125.7` — neither matched the `0.139.3` already installed on the dev VM and used by the local `.githooks/pre-push` build gate. Three different Hugo versions validating "the same build" undercut the point of that gate: something could pass locally and in CI while behaving differently on the older Hugo actually deploying. Pinned both workflows to `0.139.3` so all three agree.
 
 **Changed files:** `.github/workflows/ci.yml`, `.github/workflows/hugo.yml`
+
+## [Unreleased] — Widen mobile tap target on Experience "Read More" pill
+
+The "Read More →" pill on the homepage Experience section (e.g. the Kea Aerospace entry) was ~33px tall on mobile, under the 44px accessibility guideline for touch targets. Added mobile-only padding in `static/css/experience.css`, confirmed 67px tall on iPhone 15; desktop is unaffected. Found during the same mobile QA pass as the abbreviation underline and company-page back link fixes above.
+
+**Changed files:** `static/css/experience.css`
