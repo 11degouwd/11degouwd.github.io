@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] — Fix Lighthouse CI silently auditing a dead port instead of the site
+
+The "Run Lighthouse CI" step had `working-directory: tests`, so its `hugo server -D -p 1313` command ran with no `hugo.yaml` present (that file lives at the repo root) and failed immediately with "Unable to locate config file" — no server ever started on port 1313. Lighthouse then hit the dead port and got Chrome's own connection-error interstitial page instead of the real site, so it was always auditing an error page, not the portfolio. This was masked by an intentional `|| true` at the end of the step, so it never showed as a CI failure — found while investigating why the step logs showed `CHROME_INTERSTITIAL_ERROR`. Removed the `working-directory: tests` override (nothing else in the step needs it) so `hugo server` now runs from the repo root where `hugo.yaml` actually is.
+
+**Changed files:** `.github/workflows/ci.yml`
+
 ## [Unreleased] — Fix intermittent CI console-error failure from hCaptcha localhost warning
 
 Fixing the visual-snapshot CI failure (entry below) surfaced a second, previously-hidden failure: the "home page loads with no console errors" test failed intermittently on desktop-firefox/Pixel 8/iPad with `Warning: localhost detected. Please use a valid host.` This comes from hCaptcha's script (loaded sitewide via the homepage's Contact section), which validates its site key against the current hostname and always logs this on `localhost` — expected noise in CI/local dev, not a real site defect. The test now filters out this specific message via an `IGNORED_ERRORS` regex allowlist while still failing on any other console error.
