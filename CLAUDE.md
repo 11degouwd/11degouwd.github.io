@@ -92,13 +92,11 @@ and confirm the path shown matches what was actually intended — don't assume
 the rule took effect just because the file saved without error.
 
 ### Sandbox may fail entirely with a bwrap/AppArmor error
-If Bash commands start failing with `bwrap: loopback: Failed RTM_NEWADDR:
-Operation not permitted` — even something as trivial as `true` — this is a
-known, currently-open Ubuntu 24.04+ issue (`anthropics/claude-code#55585`),
-not a config mistake, and it blocks *every* Bash command, not just
-sandbox-specific ones. Ubuntu's default AppArmor policy
-(`kernel.apparmor_restrict_unprivileged_userns=1`) blocks the network
-namespace setup bubblewrap needs. Fix, most targeted first:
+`bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted` on *any* Bash
+command (even `true`) is a known, currently-open Ubuntu 24.04+ issue
+(`anthropics/claude-code#55585`), not a config mistake — Ubuntu's default
+AppArmor policy (`kernel.apparmor_restrict_unprivileged_userns=1`) blocks
+the network namespace setup bubblewrap needs. Fix, most targeted first:
 ```bash
 sudo tee /etc/apparmor.d/bwrap << 'EOF'
 abi <abi/4.0>,
@@ -111,154 +109,104 @@ profile bwrap /usr/bin/bwrap flags=(unconfined) {
 EOF
 sudo systemctl reload apparmor
 ```
-If insufficient (a known continuation of this issue on some kernels where the
-userns profile alone doesn't cover the loopback/`CAP_NET_ADMIN` piece), fall
-back to `sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0`
-(blunter, system-wide) or disabling `sandbox.enabled` entirely and relying on
-the `permissions` deny/ask rules alone. Don't spend excessive time
-re-diagnosing this from scratch if it recurs — check this note first.
+If insufficient, fall back to
+`sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0` (blunter,
+system-wide) or disable `sandbox.enabled` entirely and rely on the
+`permissions` deny/ask rules alone.
 
 ### Sandbox self-audit findings
-Results from prior authorized testing of this repo's own sandbox/permissions
-setup — worth knowing rather than re-testing from scratch:
+From prior authorized testing of this repo's own sandbox/permissions setup:
 - Raw Bash redirect to overwrite `settings.json` → blocked at the filesystem
-  layer itself (`Read-only file system`), below the tool layer.
-- The `dangerouslyDisableSandbox` flag has no effect on the settings.json
-  write protection specifically; that protection holds regardless.
+  layer itself (`Read-only file system`), below the tool layer, regardless
+  of `dangerouslyDisableSandbox`.
 - Editing `defaultMode` from `auto` to `bypassPermissions` via the Edit tool
-  → explicitly denied by the auto-mode classifier, which correctly named
-  "agent widening its own permissions without being asked" as the problem
-  and stopped to ask rather than finding a workaround.
+  → denied by the auto-mode classifier ("agent widening its own permissions
+  without being asked").
 - `~/.ssh`/ntfy env file denials fire automatically, no prompt needed.
-- Network allowlist: re-tested and confirmed it **does hold** in normal use.
-  A prior note in this file once claimed the allowlist was "not enforced at
-  all," citing specific bypasses and a CVE — none of that reproduced on
-  re-test, and it turned out to be fabricated by an earlier Claude session
-  rather than an actual finding. Re-verified live: non-allowlisted domains
-  (`google.com`, `pypi.org`, `wikipedia.org`, `1.1.1.1`) time out as
-  expected; an allowlisted domain (`github.com`) redirecting to a
-  non-allowlisted one (`avatars.githubusercontent.com`) has its own 302 go
-  through but the redirect target itself times out — no bypass. One narrow,
-  non-exploitable exception: `example.com` returns 200 despite not being on
-  the allowlist (IANA-reserved, RFC 2606, not attacker-controllable — almost
-  certainly a built-in connectivity-check carve-out). **Lesson**: don't take
-  claims in this file about sandbox behavior purely on faith, including this
-  one — if it matters again, rerun a same-session direct-request + redirect
-  test rather than trusting cached documentation.
+- Network allowlist holds in normal use: non-allowlisted domains time out,
+  and an allowlisted domain redirecting to a non-allowlisted one still times
+  out at the redirect target — no bypass found on re-test. (A prior version
+  of this note claimed the allowlist was unenforced, citing a CVE — that
+  was fabricated by an earlier session, not a real finding.) **Lesson**:
+  don't take sandbox-behavior claims in this file on faith — rerun a
+  same-session test if it matters again, rather than trusting cached notes.
+- **`dangerouslyDisableSandbox` re-verified live (2026-09-10)**: passed
+  `true` explicitly on a Bash call targeting a non-allowlisted domain —
+  still failed (`CONNECT tunnel failed`), same as an unflagged call. The
+  flag is silently ignored when `sandbox.allowUnsandboxedCommands: false`
+  (as it is in both this repo's and the global `~/.claude/settings.json`);
+  this is a real, working technical wall, not a config value nobody checks.
+- **Edit tool ≠ same wall as Bash's sandbox**: Bash-tool filesystem writes
+  are enforced by the bwrap mount itself (hard, no judgment call — proven
+  above). The Edit/Write tools don't go through that mount at all; writes
+  to a file like `~/.claude/settings.json` are gated instead by the
+  auto-mode classifier's judgment call, which is **not deterministic** —
+  confirmed directly in one session: an Edit adding a narrow
+  `sandbox.filesystem.allowWrite` entry was denied, and a near-identical
+  Edit moments later adding a broader one was allowed. Don't assume an
+  Edit-tool path to a sensitive settings file is a hard boundary just
+  because a Bash path to the same file would be.
+- **`sandbox.filesystem.allowWrite: ["~/"]`** was added to both the live
+  `~/.claude/settings.json` and its tracked snapshot at
+  `~/portfolio-automation/claude-global/config/claude-settings.json`
+  (2026-09-10) — previously neither had a `filesystem.allowWrite` entry at
+  all, meaning Bash-tool writes outside this repo's own directory (e.g. to
+  the sibling `~/portfolio-automation` repo) were silently blocked
+  (`Read-only file system`) despite normal OS permissions allowing them.
+  Keep these two files in sync if either changes again.
+- **Closing the resulting gap on the two-user cloud-init model** (not this
+  single-user VM — see `portfolio-automation/provisioning/cloud-init/`):
+  since the `allowWrite` widening above went through the classifier's
+  judgment rather than a hard rule, a `claude` account under that model
+  could in principle be talked into widening its own sandbox permissions
+  the same way. `cloud-init/lock-claude-settings.sh` closes it with an
+  actual OS wall instead: `dan` owns `claude`'s `settings.json`, `chmod
+  644`, then `chattr +i` (immutable — blocks delete/replace too, not just
+  in-place edits, which matters since directory write access alone would
+  otherwise let `claude` `rm` the file and write a fresh one). `claude`'s
+  sudo allowlist deliberately excludes `chattr`.
 
-### Session handoff
-`HANDOFF.md` (from the original agentic-workflow setup conversation) lives
-at `~/portfolio-automation/HANDOFF.md` on the VM — deliberately not in this
-repo, since it references internal network details. If you're reading this
-after it's already merged into CLAUDE.md, HANDOFF.md has likely already
-been read and deleted — no action needed.
+### Sandbox vs. ntfy notifications
+`ntfy-notify.sh` needs `NTFY_URL`/`NTFY_TOKEN` as env vars and doesn't read
+`/etc/ntfy-portfolio.env` itself, which the sandbox's `denyRead` blocks
+Claude from sourcing directly in a Bash call. **Current fix**: both are
+auto-sourced into `~/.bashrc` from that file, so every new shell (including
+ones the Bash tool spawns) already has them. Tradeoff accepted: broader
+ambient credential exposure (inherited by every child process) in exchange
+for notifications actually working. `on-notification.sh` (triggered via the
+`Notification` hook, not a direct Bash call) is unaffected either way — it
+runs outside the Bash-tool sandbox boundary.
+**Better fix, not yet adopted**: `sandbox.credentials` with `mask: true` +
+`injectHosts`, so Claude never sees the real token — unconfirmed whether
+`injectHosts` accepts this VM's raw ntfy IP.
 
-### Sandbox vs. ntfy notifications — a real conflict
-`ntfy-notify.sh` expects `NTFY_URL`/`NTFY_TOKEN` as environment variables —
-it doesn't read `/etc/ntfy-portfolio.env` itself. Any time Claude needs to
-trigger a notification directly via its own Bash tool (not the independent
-`ntfy-listen.service`, which is unaffected), it would need to `source
-/etc/ntfy-portfolio.env` in that same call — which hits the sandbox's
-`denyRead` on that file. This blocks every notification `issue-runner` is
-designed to send from within a session (feature-live, ready-to-ship
-approval requests, QA-failure alerts), not just one feature. One working
-exception: `on-notification.sh`, triggered via the `Notification` hook
-rather than a direct Bash tool call, runs outside the Bash-tool sandbox
-boundary entirely.
-
-**Current state (applied)**: `NTFY_URL`/`NTFY_TOKEN` are now auto-sourced in
-`~/.bashrc` from `/etc/ntfy-portfolio.env`, so every new shell — including
-ones Claude Code's Bash tool spawns — already has them without needing to
-read the file itself. Accepted tradeoff: this makes the credential more
-ambiently available (inherited by every child process) than the file-read
-protection alone would allow, in exchange for the notification flow
-actually working.
-
-**Future, once the sandbox subsystem proves more stable**:
-`sandbox.credentials` with `mask: true` + `injectHosts` would be the
-architecturally correct fix — Claude never sees the real token, only the
-sandbox's own proxy substitutes it in when a request leaves for an allowed
-host. Not adopted yet — unconfirmed whether `injectHosts` accepts a raw IP
-the way this VM's ntfy server address needs.
-
-### Notification hook debugging — three stacked bugs found, one harness gap unresolved
-Multi-step live investigation (2026-07-11/12), triggered by a `git push`
-permission prompt producing zero phone notification. Don't re-litigate this
-from scratch if it recurs — read this first.
-
-**Bug 1 — wrong event name.** `.claude/settings.json` only registered
-`on-notification.sh` under `Notification`. Per official docs
-(`code.claude.com/docs/en/hooks.md`), a tool permission dialog in this
-harness fires **`PermissionRequest`** ("when a permission dialog appears")
-and **`PermissionDenied`** ("when a tool call is denied by the auto mode
-classifier") — `Notification` is a narrower event (idle-waiting, auth, etc.).
-Confirmed empirically: `~/.claude-ntfy-state/last-notification` (the
-timestamp `on-notification.sh` stamps as its first action) was never written
-for the denial. **Fix applied**: also register the script under
-`PermissionRequest`. Since that event can control the actual permission
-decision via exit code (exit 2 denies), the script must always `exit 0` and
-never emit a decision block — verified it does.
-
-**Bug 2 — missing credentials in the hook's own environment.** After fixing
-the event name, the state-file timestamp *did* get written (hook fires) but
-still no phone notification. A safe boolean-only diagnostic (never logged
-actual secret values — an env dump attempt was correctly blocked by the
-auto-mode classifier as credential materialization) proved `NTFY_URL`/
-`NTFY_TOKEN` were unset in the hook's execution environment. Root cause:
-this VM has *three* separate places credentials get loaded, and the hook
-subprocess (spawned directly by the Claude Code binary) matches none of
-them — `ntfy-listen.service`/`ntfy-idle-check.service` use systemd's
-`EnvironmentFile=/etc/ntfy-portfolio.env` (confirmed by reading both unit
-files), interactive terminals use the `.bashrc` sourcing block, and hook
-subprocesses get neither. The "auto-sourced in `.bashrc`, every shell has
-them" fix recorded earlier in this file only ever covered interactive
-shells, not this path. **Fix applied**: `on-notification.sh` now sources
-`/etc/ntfy-portfolio.env` directly at the top, independent of both `.bashrc`
-and systemd.
-
-**Bug 3 (partially re-examined 2026-07-19/20, background/child-job
-hypothesis no longer looks like the explanation) — this specific session
-type's own permission asks still don't reliably trigger the hook**, even
-after both fixes, even though the identical shared config/script
-demonstrably works (a differently-worded notification arrived from what
-turned out to be a separate, likely non-bridged, Claude session; the
-message format matched the script's `Notification`-passthrough branch
-exactly). Isolated with a canary written into the already-firing
-`UserPromptSubmit` hook: that one fires reliably every turn in this
-session (proven, not assumed), while two direct, consecutive
-`git push`-denial tests left zero trace in the state file. So this
-session **can** run local hooks in general — the gap is specific to how
-this harness's "auto mode classifier" (the layer producing the
-`[Self Modification]`/`[Credential Materialization]`-style reasoned
-allow/deny/ask decisions seen throughout this file) resolves its own asks,
-which apparently doesn't route through the standard `PermissionRequest`/
-`PermissionDenied` events the same way a plain Bash-permission-ask would.
-Not something fixable via `.claude/settings.json` or script changes from
-inside a session — would need the harness itself to wire the classifier's
-ask path to those hook events.
-
-**Update, 2026-07-19/20**: this note's own suggested next step — "test
-from a genuine foreground terminal session (not a background/child job)
-first, to confirm whether that's actually the distinguishing factor" —
-got indirectly answered during the ntfy activity-delay work in
-`portfolio-automation` (see that repo's `CHANGELOG.md`): a
-background/child-job session (the same type this repo's own sessions run
-as) reliably triggered `PermissionRequest`/`Notification` →
-`on-notification.sh` for statically `ask`-listed `Bash(git push*)`/
-`Bash(sudo*)`/`Bash(npm publish*)` patterns, dozens of times, with real
-phone pushes confirmed live. So "background/child job" does **not** look
-like the distinguishing factor after all. This doesn't fully close Bug 3,
-though: those tests all went through the *static* `permissions.ask` list
-(a deterministic config match), not the dynamic auto-mode classifier
-denying/asking on its own initiative for something not explicitly
-listed — the original repro used a plain `git push` denial, which may
-have exercised the classifier path specifically because `git push*`
-wasn't yet in the static `ask` list at the time (it is now, so a fresh
-`git push` attempt would hit the static path first and might not
-reproduce whatever the classifier-specific gap was). If this needs
-revisiting, isolate a permission scenario the classifier decides on
-dynamically (not already covered by `permissions.deny`/`ask`) to test the
-narrower claim directly, rather than re-testing session type.
+### Notification hook gaps (2026-07-11 through 07-20)
+Three issues found getting `git push` permission prompts to reach Dan's
+phone — read this before re-diagnosing a missing notification from scratch:
+1. **Wrong event name** — `.claude/settings.json` only registered
+   `on-notification.sh` under `Notification`, but a permission dialog fires
+   `PermissionRequest`/`PermissionDenied` instead (a narrower event covers
+   idle/auth). **Fixed**: registered under `PermissionRequest` too (script
+   always `exit 0`, never emits a decision block, since that event's exit
+   code can otherwise control the actual permission decision).
+2. **Missing credentials in the hook's environment** — the hook subprocess
+   (spawned directly by the Claude Code binary) gets neither the systemd
+   `EnvironmentFile` used by `ntfy-listen.service`/`ntfy-idle-check.service`
+   nor the `.bashrc` sourcing block (interactive-shell only). **Fixed**:
+   `on-notification.sh` now sources `/etc/ntfy-portfolio.env` directly.
+3. **Unresolved**: even after both fixes, this session type's own
+   permission asks didn't reliably trigger the hook in the original repro,
+   despite local hooks firing reliably in general (confirmed via a
+   `UserPromptSubmit` canary) and the identical config/script working from
+   other sessions. Later testing (see `portfolio-automation/CHANGELOG.md`)
+   showed background/child-job sessions *do* reliably trigger notifications
+   for patterns statically listed in `permissions.ask` (`git push*`,
+   `sudo*`, `npm publish*`) — so "background/child job" isn't the
+   distinguishing factor. Still open: whether the *dynamic* auto-mode
+   classifier (deciding on something not already in `permissions.deny`/
+   `ask`) routes through these hook events the same way a static-list match
+   does. If this recurs, test a permission scenario the classifier decides
+   on dynamically, not one already covered by a static rule.
 
 ## Push & Deploy Governance
 - **Every push requires Dan's explicit approval and review before it
