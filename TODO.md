@@ -76,10 +76,30 @@ persisted) — re-run the pass if screenshots are needed again.
       development" disclaimer banner on `/portfolio/` (hardcoded hex colors
       `#fff3cd`/`#ffecb5`/`#664d03`, doesn't adapt to dark mode). Dan likes
       it staying the same color in both modes — not changing.
-- [ ] Separate from the banner above: the active-page pagination pill on
-      `/portfolio/` (Bootstrap's default `.pagination .active` styling,
-      unstyled for dark mode) renders as a plain white box in dark mode —
-      not intentional, not yet reviewed/decided on.
+- [x] Separate from the banner above: the active-page pagination pill on
+      `/portfolio/` rendered as a plain white box in dark mode. Turned out
+      not to be an unstyled-Bootstrap-default bug — the pill was already
+      correctly using `var(--primary-color)`/`var(--secondary-color)`, and
+      `hugo.yaml`'s dark-mode `primaryColor`/`secondaryColor` are literally
+      `#ffffff`/`#212529` (that section is marked `# TODO Colors` in the
+      config, i.e. already known-placeholder). **Fixed 2026-09-10**, per
+      Dan's direction to reuse the filter-tabs' active color scheme instead
+      of the primary/secondary vars — `#portfolio .pagination
+      .page-item.active .page-link` in `static/css/list.css` now uses
+      `var(--project-filter-active-color)` (same variable driving the "All"
+      filter tab's active state) + white text, matching the filter tab
+      exactly in both light and dark mode. Confirmed visually and via
+      computed-style comparison against the filter tab; pagination click
+      and 0px overflow (previous fix) both reconfirmed working. Follow-up
+      per Dan (2026-09-10): the non-active pagination buttons (Previous/
+      page numbers/Next) and the disabled state also didn't match the
+      filter tabs (different vars: `--secondary-color`/`--text-color`
+      instead of `--project-filter-bg-color`/`--project-filter-text-color`)
+      — brought those into line too, so the whole pagination row now uses
+      the same color family as the filter tabs (disabled state keeps the
+      existing 50% opacity fade to stay visually distinct as non-clickable).
+      Confirmed exact computed-style match across desktop/iPhone 15, light/
+      dark.
 - [x] Duplicate `id="theme-toggle"` in the DOM — `layouts/partials/
       sections/header.html` rendered both a desktop and mobile toggle with
       the same id (plus duplicate `id="moon"`/`id="sun"` on the inner

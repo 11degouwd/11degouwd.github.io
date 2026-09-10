@@ -144,15 +144,15 @@
 
 #portfolio .pagination .page-link {
   transition: all 0.2s ease;
-  border-color: var(--secondary-color);
-  background-color: var(--secondary-color);
-  color: var(--text-color);
+  border-color: transparent;
+  background-color: var(--project-filter-bg-color);
+  color: var(--project-filter-text-color);
 }
 
 #portfolio .pagination .page-link:hover {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--project-filter-hover-color);
+  border-color: transparent;
+  color: var(--project-filter-text-color);
 }
 
 #portfolio .pagination .page-link:focus {
@@ -160,16 +160,16 @@
 }
 
 #portfolio .pagination .page-item.active .page-link {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--project-filter-active-color);
+  border-color: var(--project-filter-active-color);
+  color: white;
   z-index: 3;
 }
 
 #portfolio .pagination .page-item.disabled .page-link {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
-  color: var(--text-secondary-color);
+  background-color: var(--project-filter-bg-color);
+  border-color: transparent;
+  color: var(--project-filter-text-color);
   opacity: 0.5;
   cursor: not-allowed;
 }
