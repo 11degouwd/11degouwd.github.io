@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] — Fix intermittent CI console-error failure from hCaptcha localhost warning
+
+Fixing the visual-snapshot CI failure (entry below) surfaced a second, previously-hidden failure: the "home page loads with no console errors" test failed intermittently on desktop-firefox/Pixel 8/iPad with `Warning: localhost detected. Please use a valid host.` This comes from hCaptcha's script (loaded sitewide via the homepage's Contact section), which validates its site key against the current hostname and always logs this on `localhost` — expected noise in CI/local dev, not a real site defect. The test now filters out this specific message via an `IGNORED_ERRORS` regex allowlist while still failing on any other console error.
+
+**Changed files:** `tests/e2e/site.spec.ts`
+
 ## [Unreleased] — Fix CI failing on every push
 
 The `CI` GitHub Actions check has failed on every push since this repo's inception. Root cause turned out to be the "visual snapshots" tests in `tests/e2e/site.spec.ts`, not the previously-suspected Hugo-template bug: they compare against baseline screenshots that were never actually committed (`tests/e2e/site.spec.ts-snapshots/` is deliberately gitignored until real baselines are reviewed, and that review never happened). Those two tests now skip in CI via `test.skip(!!process.env.CI, ...)`, while the rest of the suite (console errors, nav links, image checks, tag filtering) still runs normally in CI and the visual-snapshot tests still run locally as before.

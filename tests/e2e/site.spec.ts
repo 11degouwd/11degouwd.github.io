@@ -2,9 +2,16 @@ import { test, expect } from '@playwright/test';
 
 test.describe('core site health', () => {
   test('home page loads with no console errors', async ({ page }) => {
+    // hCaptcha (loaded via the homepage's Contact section) validates its
+    // site key against the current host and logs this warning on any host
+    // it doesn't recognize — always true for localhost in CI/local testing,
+    // not a real site defect.
+    const IGNORED_ERRORS = [/Warning: localhost detected/];
     const errors: string[] = [];
     page.on('console', (msg) => {
-      if (msg.type() === 'error') errors.push(msg.text());
+      if (msg.type() === 'error' && !IGNORED_ERRORS.some((re) => re.test(msg.text()))) {
+        errors.push(msg.text());
+      }
     });
     page.on('pageerror', (err) => errors.push(err.message));
 
