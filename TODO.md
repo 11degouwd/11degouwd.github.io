@@ -81,18 +81,20 @@ the separate list in `~/portfolio-automation/TODO.md`.
       First fully-green CI run this repo has had. Also check the "Missing
       company page: companies/justinNeilEngineering" warning at some point
       (unrelated, low-priority, doesn't fail anything).
-- [ ] New, separate, non-blocking finding while fixing the above: the
-      "Run Lighthouse CI" step in `ci.yml` has been silently broken —
-      `hugo server -D -p 1313` runs with `working-directory: tests`, which
-      has no `hugo.yaml`, so no server ever actually starts; Lighthouse
-      then hits a dead port and gets Chrome's own "can't reach this page"
-      interstitial (`CHROME_INTERSTITIAL_ERROR`). It only shows as
-      "success" because the step ends in `|| true` (intentionally
-      non-blocking). Not urgent — it was already silently broken before
-      this session's fixes and isn't causing any red X — but Lighthouse
-      isn't actually auditing anything real right now. Fix: run the
-      `hugo server` command from the repo root (e.g. `cd .. && hugo
-      server ...`) instead of `tests/`.
+- [x] "Run Lighthouse CI" step in `ci.yml` was silently broken —
+      `hugo server -D -p 1313` ran with `working-directory: tests`, which
+      has no `hugo.yaml`, so no server ever actually started; Lighthouse
+      then hit a dead port and got Chrome's own "can't reach this page"
+      interstitial (`CHROME_INTERSTITIAL_ERROR`), masked by the step's
+      `|| true`. **Fixed 2026-09-10** — removed the `working-directory:
+      tests` override (nothing else in the step needs it; there's no
+      project-specific Lighthouse config file, and `lhci` takes its target
+      via an explicit `--collect.url` flag). Verified locally that `hugo
+      server -D -p 1313` now starts and serves correctly from the repo
+      root; full `lhci` end-to-end verification wasn't possible in this
+      dev sandbox (no system Chrome binary for `lhci`'s own healthcheck —
+      an environment gap, not a flaw in the fix; real CI has Chrome via
+      the earlier Playwright browser-install step).
 
 ## Mobile compatibility QA pass (2026-09-03)
 Full-site qa-tester pass across desktop/iPhone 15/Pixel 8/iPad, light+dark,
