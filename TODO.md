@@ -43,9 +43,13 @@ the separate list in `~/portfolio-automation/TODO.md`.
       every ship-* skill touches those. `ship-site` also runs full-site QA
       before committing, since template/CSS/JS changes carry more
       regression risk than content-only edits.
-- [ ] Trim CLAUDE.md for conciseness — it's grown long with incident
-      writeups (sandbox/notification debugging, etc.); cut down before
-      starting content work.
+- [x] Trim CLAUDE.md for conciseness — it had grown long with incident
+      writeups (sandbox/notification debugging, etc.). **Fixed 2026-09-10**
+      — condensed the notification-hook debugging, sandbox/ntfy-conflict,
+      and sandbox self-audit sections down to their actionable conclusions
+      (keeping every fix/command/file-location), removed the now-stale
+      `HANDOFF.md` note. Survived a later concurrent-session commit that
+      added new, unrelated sandbox-audit findings on top.
 - [x] Fix CI — the previously-recorded root cause (`delimit .Params.tags
       "|"` on nil `tags`) was stale/wrong. Dan pasted the actual 2026-09-10
       CI log: every "visual snapshots" test (`e2e/site.spec.ts:73`) failed
@@ -61,17 +65,34 @@ the separate list in `~/portfolio-automation/TODO.md`.
       still runs normally. To re-enable for real: generate + review + commit
       baselines on Linux (CI runs `ubuntu-latest`, and snapshot filenames
       are platform-suffixed) and remove the skip.
-- [ ] Separate, unresolved: in that same log, `[iphone-15] › ... home page
-      loads with no console errors` failed (and failed again on retry),
-      while desktop-chrome/firefox, Pixel 8, and iPad all passed cleanly in
-      the same run. Could not reproduce locally this session — this
-      sandbox's own CDN-proxy blocking produces false console errors
-      (407s) on every viewport here, unrelated to real CI (which has full
-      internet access), so a local repro attempt isn't reliable evidence
-      either way. Needs the actual error text from the Actions UI (Dan has
-      access, this session doesn't) to diagnose properly — don't guess at
-      a fix without it. Also check the "Missing company page:
-      companies/justinNeilEngineering" warning while in there.
+- [x] The `[iphone-15] › ... home page loads with no console errors`
+      failure turned out to be a second, real (if intermittent) issue, not
+      the sandbox artifact suspected above — Dan pasted the actual error
+      text: `Warning: localhost detected. Please use a valid host.`, from
+      hCaptcha's script (loaded sitewide via the homepage's Contact
+      section), which always logs this on `localhost` regardless of
+      browser — expected noise in CI/local dev, not a real site defect.
+      **Fixed 2026-09-10** — added an `IGNORED_ERRORS` regex allowlist to
+      the console-error test in `tests/e2e/site.spec.ts` so this one
+      specific message is filtered while any other real error still fails
+      the test.
+- [x] **CI is fully green as of commit `205571f` (2026-09-10)** — confirmed
+      via the Actions API (`conclusion: success`), not just log-reading.
+      First fully-green CI run this repo has had. Also check the "Missing
+      company page: companies/justinNeilEngineering" warning at some point
+      (unrelated, low-priority, doesn't fail anything).
+- [ ] New, separate, non-blocking finding while fixing the above: the
+      "Run Lighthouse CI" step in `ci.yml` has been silently broken —
+      `hugo server -D -p 1313` runs with `working-directory: tests`, which
+      has no `hugo.yaml`, so no server ever actually starts; Lighthouse
+      then hits a dead port and gets Chrome's own "can't reach this page"
+      interstitial (`CHROME_INTERSTITIAL_ERROR`). It only shows as
+      "success" because the step ends in `|| true` (intentionally
+      non-blocking). Not urgent — it was already silently broken before
+      this session's fixes and isn't causing any red X — but Lighthouse
+      isn't actually auditing anything real right now. Fix: run the
+      `hugo server` command from the repo root (e.g. `cd .. && hugo
+      server ...`) instead of `tests/`.
 
 ## Mobile compatibility QA pass (2026-09-03)
 Full-site qa-tester pass across desktop/iPhone 15/Pixel 8/iPad, light+dark,
