@@ -16,3 +16,26 @@ npm-debug.log*
 # Visual-regression baselines — auto-written on first run against draft
 # content; commit deliberately once real baselines are reviewed
 tests/e2e/site.spec.ts-snapshots/
+
+# Empty stub files the Claude Code Bash-tool sandbox creates at the repo
+# root at session start (bwrap bind-mount placeholders enforcing its own
+# read/write rules) — always 0 bytes, not real config. See CLAUDE.md
+# "Sandbox self-audit findings". Real project .claude/ config (agents/,
+# commands/, skills/, settings.json) is unaffected and stays tracked.
+/.bash_profile
+/.bashrc
+/.gitconfig
+/.idea
+/.mcp.json
+/.profile
+/.ripgreprc
+/.vscode
+/.zprofile
+/.zshrc
+.claude/hooks
+.claude/launch.json
+.claude/loop.md
+.claude/output-styles
+.claude/routines
+.claude/scheduled_tasks.json
+.claude/workflows
