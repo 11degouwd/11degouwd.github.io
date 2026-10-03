@@ -222,6 +222,45 @@ Firefox binaries available to install — iPhone 15/iPad were tested via
 Chromium emulating those viewports/UA/touch, not real Safari. Safari-
 specific rendering quirks were not verified by this pass.
 
+## Back to Experience link scroll bug (2026-10-03)
+Dan reported the "← Back to Experience" link (added 2026-09-09) dumped him
+on the homepage with the Experience heading near the bottom of the screen
+on mobile, while the main nav's "Experience" link scrolled correctly — and
+recalled fixing the nav's mobile scroll accuracy earlier this year.
+- [x] Root cause found and fixed. `#experience` (and `#about`/`#education`/
+      `#achievements`) have `scroll-margin-top: 500px` on mobile (`<991px`,
+      `static/css/index.css`) — a deliberate hack (introduced in commit
+      `4f4bcf6`, "Tweaks to nav bar on mobile") so an in-page anchor click
+      made while the mobile nav overlay is still expanded doesn't land the
+      target hidden underneath it. That hack is correct for in-page clicks
+      but badly overshoots on any FRESH page load with a `#hash` (nav
+      starts collapsed, no overlay to clear) — confirmed via reproducible
+      Playwright tests: same-document in-page nav click lands correctly
+      (~57px from viewport top), while every cross-page case (the back-link,
+      the main nav "Experience" link clicked from a different page, and a
+      bare bookmarked `/#experience` URL) landed ~500px down, out of a
+      ~660px mobile viewport — mostly below the fold. This is a real,
+      previously-latent bug that predates this session (nothing in the
+      September fixes touched this CSS) — the back-link was just the first
+      thing to actually exercise a cross-page jump into `#experience` on
+      mobile, which is why Dan noticed it now and not with the nav link
+      (which he'd only ever used for in-page jumps, i.e. while already on
+      the homepage). **Fixed 2026-10-03** — added a small script in
+      `layouts/index.html` that runs once on `window.load` if a hash is
+      present, waits two animation frames for late layout (images,
+      webfonts, the experience-timeline's own load-triggered calc) to
+      settle, then explicitly scrolls to the correct position using the
+      actual sticky-header height. Only fires on a fresh page load, so the
+      already-working same-page in-page click path is untouched (confirmed
+      unchanged at ~57px after the fix). Verified all three previously-broken
+      cases now land at ~79px (mobile) / ~95px (desktop) — same position the
+      in-page click lands at, both light and dark mode.
+- [x] Added a second "← Back to Experience" link at the bottom of company
+      pages (after the Projects grid, before the footer), per Dan's request
+      — previously the only way back was the top-of-page link, requiring a
+      scroll back up after reading the whole page. Same styling/behavior as
+      the top link, reuses the same scroll-position fix above.
+
 ## Contact-form Playwright test
 - [ ] Build the actual Playwright test for the contact form (currently
       untested). Captcha blocks raw `curl`/API submissions — don't try to

@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — Fix back-link scroll landing position on mobile, add second back-link at page bottom
+
+Clicking "Back to Experience" on a company page (or the main nav's Experience link from a different page, or a bookmarked `/#experience` URL) landed the Experience heading ~500px down a mobile viewport, mostly below the fold. Cause: `#experience`/`#about`/`#education`/`#achievements` have a large mobile `scroll-margin-top` so an in-page click made while the mobile nav overlay is still open doesn't land behind it — correct for same-page clicks, but it overshoots on any fresh page load, since the nav always starts collapsed then. `layouts/index.html` now corrects the scroll position on fresh loads with a URL hash, leaving same-page in-page clicks untouched. Also added a second "Back to Experience" link at the bottom of company pages (after the Projects grid, before the footer), so visitors who scroll through the whole page don't have to scroll back up to find the only link at the top.
+
+**Screenshots**
+![desktop](tests/e2e/feature-screenshots/experience-scroll-fix/desktop-chrome.png)
+![mobile](tests/e2e/feature-screenshots/experience-scroll-fix/iphone-15.png)
+![desktop bottom link](tests/e2e/feature-screenshots/company-back-link-bottom/desktop-chrome.png)
+![mobile bottom link](tests/e2e/feature-screenshots/company-back-link-bottom/iphone-15.png)
+
+**Changed files:** `layouts/index.html`, `layouts/companies/section.html`, `static/css/single.css`
+
 ## [Unreleased] — Fix Lighthouse CI silently auditing a dead port instead of the site
 
 The "Run Lighthouse CI" step had `working-directory: tests`, so its `hugo server -D -p 1313` command ran with no `hugo.yaml` present (that file lives at the repo root) and failed immediately with "Unable to locate config file" — no server ever started on port 1313. Lighthouse then hit the dead port and got Chrome's own connection-error interstitial page instead of the real site, so it was always auditing an error page, not the portfolio. This was masked by an intentional `|| true` at the end of the step, so it never showed as a CI failure — found while investigating why the step logs showed `CHROME_INTERSTITIAL_ERROR`. Removed the `working-directory: tests` override (nothing else in the step needs it) so `hugo server` now runs from the repo root where `hugo.yaml` actually is.

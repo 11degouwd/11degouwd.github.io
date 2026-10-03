@@ -509,6 +509,10 @@
   opacity: 1;
   color: var(--primary-color) !important;
 }
+#single.company-page .company-back-link-bottom {
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+}
 
 /* Disable abbreviation underline on mobile (all single pages: company + portfolio) */
 @media (max-width: 576px) {

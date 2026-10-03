@@ -28,6 +28,41 @@
     {{- partial "sections/achievements.html" . -}}
     {{- partial "sections/contact.html" . -}}
 
+    <script>
+      // Correct the scroll landing position on a fresh page load with a hash
+      // (e.g. arriving from a different page, like a company page's "Back
+      // to Experience" link, or a bookmarked/shared #section URL). The
+      // large mobile scroll-margin-top on these sections exists only to
+      // clear the mobile nav overlay during an in-page click while it's
+      // still expanded — it overshoots badly on a fresh load, where the
+      // nav always starts collapsed. Same-page anchor clicks are
+      // unaffected, since 'load' only fires once per navigation, not on
+      // hash-only in-page jumps.
+      (function() {
+        if (!window.location.hash) return;
+        var target;
+        try {
+          target = document.querySelector(window.location.hash);
+        } catch (e) {
+          return;
+        }
+        if (!target) return;
+
+        window.addEventListener('load', function() {
+          // Wait a couple of frames for late layout (images, webfonts, the
+          // experience timeline's own load-triggered line-height calc) to settle.
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              var header = document.getElementById('profileHeader');
+              var offset = (header ? header.offsetHeight : 70) + 15;
+              var targetTop = target.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({ top: Math.max(0, targetTop - offset), behavior: 'auto' });
+            });
+          });
+        });
+      })();
+    </script>
+
     <section id="homePage">
       <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
         <i class="fas fa-angle-up"></i>
